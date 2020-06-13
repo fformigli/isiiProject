@@ -9,7 +9,6 @@ const pool = new Pool({
 
 // users
 const get_users = async (req, res) => {
-<<<<<<< HEAD
     try {
         const response = await pool.query('select * from users');
         res.status(200).json(response.rows);
@@ -17,10 +16,6 @@ const get_users = async (req, res) => {
         console.log(e);
         res.status(500).send(e);
     }
-=======
-    const response = await pool.query('select * from users');
-    res.status(200).json(response.rows);
->>>>>>> 61e767ad992699a57d37f6a852c6cc39cc7b548d
 }
 
 const create_user = async (req, res) => {
