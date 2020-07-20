@@ -1,11 +1,5 @@
 // connection
-const { Pool } = require('pg');
-const pool = new Pool({
-    host: 'localhost',
-    user: 'postgres',
-    password: 'postgres',
-    database: 'exclusiv_cars_db'
-});
+const { pool } = require('../database');
 
 // users
 const get_users = async (req, res) => {
