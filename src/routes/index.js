@@ -4,7 +4,7 @@ const { get_users, create_user , get_user_by_id, delete_user, update_user} = req
 
 // web
 router.get('/', (req, res) => {
-    res.send('hello world :)');
+    res.redirect('/links');
 })
 
 //rest users

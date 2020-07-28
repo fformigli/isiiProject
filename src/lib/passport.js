@@ -8,9 +8,18 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, username, password, done) => {
-    console.log(req.body);
-    console.log(username);
-    console.log(password);
+    
+    const users = await pool.query('select * from users where username = $1', [username])
+    if(users.rows.length > 0) {
+        const user = users.rows[0];
+        if( await helpers.matchPassword(password, user.password) )
+            done(null, user,req.flash('success','Wellcome '+user.fullname));
+        else
+            done(null, false, req.flash('message','Contraseña Invalida'));
+
+    } else {
+        return done(null, false, req.flash('message','Usuario no existe'));
+    }
 }));
 
 passport.use('local.signup', new LocalStrategy({
@@ -39,5 +48,5 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     const users = await pool.query('select * from users where id = $1', [id]);
-    done(null, users.rows);
+    done(null, users.rows[0]);
 });
