@@ -2,10 +2,10 @@ create database exclusiv_cars_db;
 
 create table users (
     id serial not null primary key,
-    name varchar(40)
+    fullname varchar(40)
 );
 
-insert into users (name)
+insert into users (fullname)
     values ('Administrador');
 
 alter table users add column username character(15);

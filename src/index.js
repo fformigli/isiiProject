@@ -2,8 +2,13 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const path = require('path');
+const flash = require('connect-flash');
+const session = require('express-session');
+const passport = require('passport')
+
 //init
 const app = express();
+require('./lib/passport');
 
 //settings
 app.set('port', process.env.PORT || 3000)
@@ -19,12 +24,21 @@ app.set('view engine', '.hbs');
 
 
 //middlewares
+app.use(session({
+    secret: 'testsession',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(passport.initialize());
+app.use(passport.session());
 
 //globals
 app.use((req, res, next) => {
+    app.locals.success = req.flash('success');
     next();
 });
 
