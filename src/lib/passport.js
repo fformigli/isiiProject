@@ -13,7 +13,7 @@ passport.use('local.signin', new LocalStrategy({
     if(users.rows.length > 0) {
         const user = users.rows[0];
         if( await helpers.matchPassword(password, user.password) )
-            done(null, user,req.flash('success','Wellcome '+user.fullname));
+            done(null, user,req.flash('success','Bienvenido, '+user.fullname));
         else
             done(null, false, req.flash('message','Contraseña Invalida'));
 
