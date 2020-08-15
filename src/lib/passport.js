@@ -3,6 +3,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const pool = require('../database');
 const helpers = require('../lib/helpers');
 
+async function validarUserExistente(username){
+    const users = await pool.query('select * from users where username = $1', [username])
+    if(users.rows.length > 0)
+        return true;
+    return false;
+}
+
 passport.use('local.signin', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
@@ -28,16 +35,23 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 
 }, async (req, username, password, done) => {
-    const { fullname } = req.body
+    const { fullname, isAdmin } = req.body
     password = await helpers.encryptPassword(password);
-
+    
     newUser = {
         username,
         password,
-        fullname
+        fullname,
+        isAdmin
     };
-    const result = await pool.query('insert into users(fullname, username, password) '
-        + 'values ($1, $2, $3) returning id', [fullname, username, password]);
+
+    //validar si el usuario ya existe
+    if(await validarUserExistente(username)){
+        return done(null, false, req.flash('message', 'El username ya existe'));
+    }
+
+    const result = await pool.query('insert into users(fullname, username, password, isadmin) '
+        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, isAdmin==null?0:isAdmin]);
     newUser.id = result.rows[0].id;
     return done(null, newUser);
 }));

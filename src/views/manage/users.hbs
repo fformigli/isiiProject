@@ -1,0 +1,35 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <button onclick="location.href='/signup'" class="btn btn-success">
+                            Nuevo Usuario
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <th>Nombre Completo</th>
+                            <th>Usuario</th>
+                            <th>Es Administrador</th>
+                            <th>Creado el</th>
+                        </thead>
+                        <tbody>
+                        {{#each users}}
+                            <tr>
+                                <td>{{fullname}}</td>
+                                <td>{{username}}</td>
+                                <td>{{isadmin}}</td>
+                                <td>{{timeago created_at}}</td>
+                            </tr>
+                        {{else}}
+                            
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

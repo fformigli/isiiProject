@@ -1,1 +1,2 @@
-.app-title{font:italic bold 40px serif}
+@font-face{font-family:Georgiaz;src:url('../fonts/georgiaz.ttf')}
+.app-title{font:italic bold 40px Georgiaz}
