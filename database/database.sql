@@ -2,24 +2,39 @@ create database exclusiv_cars_db;
 
 create table users (
     id serial not null primary key,
-    fullname varchar(40)
-);
-
-insert into users (fullname)
-    values ('Administrador');
-
-alter table users add column username character(15);
-update users set username = 'admin' where id = 1;
-alter table users alter column username set not null;
-
-alter table users add column password character varying not null;
-
-create table links (
-    id serial not null primary key,
-    title character varying not null,
-    url character varying not null,
-    description text,
-    userid integer,
+    fullname varchar(40),
+    username character(15) not null,
+    password character varying not null,
     created_at timestamp not null default current_timestamp,
-    constraint fk_user foreign key (userid) references users(id)
+    isadmin integer not null default 0
 );
+ALTER TABLE users
+  OWNER TO postgres;
+GRANT ALL ON TABLE users TO postgres;
+GRANT ALL ON TABLE users TO app_adm;
+
+create table work_orders (
+    id serial not null primary key,
+    clientid integer,
+    estado integer,
+    telefono_contacto character varying,
+    vehiculo character varying,
+    vinnro character varying,
+    color character varying,
+    chapa character varying,
+    recorrido character varying,
+    combustible character varying,
+    description text,
+    costo integer,
+    mecanico_a_cargo character varying,
+    user_recibio integer,
+    entregado timestamp,
+    garantia text,
+    created_at timestamp not null default now(),
+
+    constraint fk_user_wo foreign key (user_recibio) references users(id)
+)
+ALTER TABLE work_orders
+  OWNER TO postgres;
+GRANT ALL ON TABLE work_orders TO postgres;
+GRANT ALL ON TABLE work_orders TO app_adm;

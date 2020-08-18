@@ -46,14 +46,11 @@ app.use((req, res, next) => {
 
 //routes
 app.use(require('./routes/index.js'));
-app.use(require('./routes/authentication.js'));
-app.use('/manage', require('./routes/manage.js'));
-app.use('/links', require('./routes/links.js'));
 
 //public
 app.use(express.static(path.join(__dirname, 'public')));
 
 //start
 app.listen(app.get('port'), () => {
-    console.log('Server running on port '+app.get('port'));
+    console.log('Server running on port ' + app.get('port'));
 });

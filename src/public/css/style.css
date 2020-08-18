@@ -1,2 +1,17 @@
-@font-face{font-family:Georgiaz;src:url('../fonts/georgiaz.ttf')}
-.app-title{font:italic bold 40px Georgiaz}
+@font-face{
+    font-family: Georgiaz;
+    src: url('../fonts/georgiaz.ttf');
+}
+.app-title {
+    font: italic bold 40px Georgiaz;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+ }

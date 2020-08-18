@@ -1,42 +1,42 @@
-const { Router } = require('express');
-const router = Router();
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../lib/auth');
 const passport = require('passport');
 
-router.get('/signup', isLoggedIn, isAdmin, (req, res) => {
-    res.render('auth/signup');
-});
+const controller = {}
 
-router.post('/signup', isLoggedIn, isAdmin, passport.authenticate('local.signup', {
-    successRedirect: '/manage/users',
+controller.signUpGet = (req, res) => {
+    res.render('auth/signup');
+};
+
+controller.signUpPost = passport.authenticate('local.signup', {
+    successRedirect: '/admin/users',
     failureRedirect: '/signup',
     failureFlash: true
-}));
-
-router.get('/signin', isNotLoggedIn, (req, res) => {
-    res.render('auth/signin');
 });
 
-router.post('/signin', isNotLoggedIn, (req, res, next) => {
+controller.signInGet = (req, res) => {
+    res.render('auth/signin');
+};
+
+controller.signInPost = (req, res, next) => {
     passport.authenticate('local.signin', {
         successRedirect: '/profile',
         failureRedirect: '/signin',
         failureFlash: true
     })(req, res, next);
-});
+};
 
-router.get('/profile', isLoggedIn, (req, res) => {
+controller.profile = (req, res) => {
     res.render('auth/profile');
-});
+};
 
-router.get('/forbidden',isLoggedIn, (req, res)=>{
+controller.forbidden = (req, res)=>{
     req.flash('message', 'No posee permisos para ver esta página');
     res.redirect('/profile');
-});
+};
 
-router.get('/logout', isLoggedIn, (req, res) => {
+controller.logout = (req, res) => {
     req.logOut();
     res.redirect('/signin');
-});
+};
 
-module.exports = router;
+module.exports = controller;

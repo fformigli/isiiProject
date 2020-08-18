@@ -25,12 +25,6 @@ router.get('/delete/:id', isLoggedIn, async (req, res) => {
     res.redirect('/links');
 });
 
-router.get('/delete/:id', isLoggedIn, async (req, res) => {
-    const { id } = req.params;
-    await pool.query('delete from links where id = $1', [id]);
-    res.redirect('/links');
-});
-
 
 router.get('/edit/:id', isLoggedIn, async (req, res) => {
     const { id } = req.params;

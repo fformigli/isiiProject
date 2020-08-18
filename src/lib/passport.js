@@ -38,13 +38,6 @@ passport.use('local.signup', new LocalStrategy({
     const { fullname, isAdmin } = req.body
     password = await helpers.encryptPassword(password);
     
-    newUser = {
-        username,
-        password,
-        fullname,
-        isAdmin
-    };
-
     //validar si el usuario ya existe
     if(await validarUserExistente(username)){
         return done(null, false, req.flash('message', 'El username ya existe'));
@@ -52,8 +45,7 @@ passport.use('local.signup', new LocalStrategy({
 
     const result = await pool.query('insert into users(fullname, username, password, isadmin) '
         + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, isAdmin==null?0:isAdmin]);
-    newUser.id = result.rows[0].id;
-    return done(null, newUser);
+    return done(null, req.user);
 }));
 
 passport.serializeUser((user, done) => {

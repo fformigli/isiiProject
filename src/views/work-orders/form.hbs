@@ -1,0 +1,79 @@
+<div class="continter p-4">
+    <div class="mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4>Nueva Orden de Trabajo</h4>
+            </div>
+            <div class="card-body">
+                <form action="/work-orders/add" method="POST">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <dl>
+                                <dt><label for="cliente">Nombre del Conductor:</label></dt>
+                                <dd><input type="text" class="form-control" name="cliente" placeholder="Nombre del Conductor" autofocus></dd>
+
+                                <dt><label for="vehiculo">Datos del Vehículo:</label></dt>
+                                <dd><input type="text" class="form-control" name="vehiculo" placeholder="Marca/Modelo/Color"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <dl class="col-sm-6">
+                                <dt><label for="status">Estado Pedido:</label></dt>
+                                <dd>
+                                    <select name="status">
+                                        <option value="new">Nuevo</option>
+                                        <option value="assigned">Asignado</option>
+                                        <option value="ready">Listo</option>
+                                        <option value="close">Entregado</option>
+                                    </select>
+                                </dd>
+                                <dt>Teléfono:</dt>
+                                <dd><input type="text" class="form-control" name="telefono" placeholder="098X XXX XXX"></dd>
+                                <dt>VIN N°:</dt>
+                                <dd><input type="text" class="form-control" name="vinnro" placeholder=""></dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl class="col-sm-6">
+                                <dt>Chapa N°:</dt>
+                                <dd><input type="text" class="form-control" name="chapa" placeholder="XXXX 999"></dd>
+                                <dt>Millas/km:</dt>
+                                <dd><input type="text" class="form-control" name="recorrido" placeholder="X00.000 km"></dd>
+                                <dt>Estado Combustible:</dt>
+                                <dd>
+                                    <select name="combustible">
+                                        <option value="1">1/4</option>
+                                        <option value="2">1/2</option>
+                                        <option value="3">3/4</option>
+                                        <option value="4">Full</option>
+                                    </select>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <dl>
+                                <dt>
+                                    Descripcion del Trabajo
+                                </dt>
+                                <dd>
+                                    <textarea name="description" class="form-control"></textarea>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mx-auto" >
+                            <button class="btn btn-success">
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
