@@ -19,8 +19,9 @@ router.get('/logout', isLoggedIn, authentication.logout);
 
 //work orders
 router.get('/', isLoggedIn, workOrders.index);
+router.get('/work-orders', isLoggedIn, workOrders.index);
 router.get('/work-orders/add', isLoggedIn, workOrders.add);
-router.post('/work-orders/add', isLoggedIn, workOrders.save);
+router.post('/work-orders/save', isLoggedIn, workOrders.save);
 
 //admin
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);

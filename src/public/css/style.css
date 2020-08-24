@@ -2,6 +2,10 @@
     font-family: Georgiaz;
     src: url('../fonts/georgiaz.ttf');
 }
+body {
+    background-color: grey;
+}
+
 .app-title {
     font: italic bold 40px Georgiaz;
 }

@@ -1,11 +1,11 @@
 <div class="continter p-4">
-    <div class="mx-auto">
+    <div class="col-sm-8 mx-auto">
         <div class="card">
             <div class="card-header">
                 <h4>Nueva Orden de Trabajo</h4>
             </div>
             <div class="card-body">
-                <form action="/work-orders/add" method="POST">
+                <form action="/work-orders/save" method="POST" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-sm-6">
                             <dl>
@@ -14,41 +14,58 @@
 
                                 <dt><label for="vehiculo">Datos del Vehículo:</label></dt>
                                 <dd><input type="text" class="form-control" name="vehiculo" placeholder="Marca/Modelo/Color"></dd>
-                            </dl>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <dl class="col-sm-6">
-                                <dt><label for="status">Estado Pedido:</label></dt>
+                                
+                                <dt><label for="encargado">Encargado:</label></dt>
                                 <dd>
-                                    <select name="status">
-                                        <option value="new">Nuevo</option>
-                                        <option value="assigned">Asignado</option>
-                                        <option value="ready">Listo</option>
-                                        <option value="close">Entregado</option>
+                                    <select name="encargado" class="custom-select">
+                                        {{#each userList}}
+                                            <option value="{{id}}">{{fullname}}</option>
+                                        {{/each}}
                                     </select>
                                 </dd>
-                                <dt>Teléfono:</dt>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl>
+                                <dt><label for="status">Estado Pedido:</label></dt>
+                                <dd>
+                                    <select name="status" class="custom-select">
+                                        {{#each statusList}}
+                                            <option value="{{id}}">{{description}}</option>
+                                        {{/each}}
+                                    </select>
+                                </dd>
+                                <dt><label for="telefono">Teléfono:</label></dt>
                                 <dd><input type="text" class="form-control" name="telefono" placeholder="098X XXX XXX"></dd>
-                                <dt>VIN N°:</dt>
+                                <dt><label for="vinnro">VIN N°:</label></dt>
                                 <dd><input type="text" class="form-control" name="vinnro" placeholder=""></dd>
                             </dl>
                         </div>
                         <div class="col">
-                            <dl class="col-sm-6">
-                                <dt>Chapa N°:</dt>
-                                <dd><input type="text" class="form-control" name="chapa" placeholder="XXXX 999"></dd>
-                                <dt>Millas/km:</dt>
-                                <dd><input type="text" class="form-control" name="recorrido" placeholder="X00.000 km"></dd>
-                                <dt>Estado Combustible:</dt>
+                            <dl>
+                                <dt><label for="combustible">Estado Combustible:</label></dt>
                                 <dd>
-                                    <select name="combustible">
-                                        <option value="1">1/4</option>
-                                        <option value="2">1/2</option>
-                                        <option value="3">3/4</option>
-                                        <option value="4">Full</option>
+                                    <select name="combustible" class="custom-select">
+                                        {{#each fuelList}}
+                                            <option value="{{id}}">{{description}}</option>
+                                        {{/each}}
                                     </select>
+                                </dd>
+                                <dt><label for="chapa">Chapa N°:</label></dt>
+                                <dd><input type="text" class="form-control" name="chapa" placeholder="XXXX 999"></dd>
+                                <dt><label for="recorrido">mi/km</label></dt>
+                                <dd><input type="text" class="form-control" name="recorrido" placeholder="X00.000 km"></dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <dl>
+                                <dt>
+                                    Descripción del Trabajo
+                                </dt>
+                                <dd>
+                                    <textarea name="description" class="form-control"></textarea>
                                 </dd>
                             </dl>
                         </div>
@@ -57,10 +74,10 @@
                         <div class="col-sm-6">
                             <dl>
                                 <dt>
-                                    Descripcion del Trabajo
+                                    Agregar Archivos
                                 </dt>
                                 <dd>
-                                    <textarea name="description" class="form-control"></textarea>
+                                    <input type="file" name="archivos" id="archivos">
                                 </dd>
                             </dl>
                         </div>
