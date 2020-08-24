@@ -3,30 +3,21 @@ const LocalStrategy = require('passport-local').Strategy;
 const pool = require('../database');
 const helpers = require('../lib/helpers');
 
-async function validarUserExistente(username){
-    const users = await pool.query('select * from users where username = $1', [username])
-    if(users.rows.length > 0)
-        return true;
-    return false;
-}
-
 passport.use('local.signin', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
-}, async (req, username, password, done) => {
-    
-    const users = await pool.query('select * from users where username = $1', [username])
-    if(users.rows.length > 0) {
+}, (req, username, password, done) => {
+    pool.query('select * from users where username = $1', [username], (err, users) => {
+        if (err) return done(null, false, req.flash('message', 'No se pudo conectar con la base de datos.'));
+        if (!users) return done(null, false, req.flash('message', 'Usuario no existe'));
+        
         const user = users.rows[0];
-        if( await helpers.matchPassword(password, user.password) )
-            done(null, user,req.flash('success','Bienvenido, '+user.fullname));
-        else
-            done(null, false, req.flash('message','Contraseña Invalida'));
-
-    } else {
-        return done(null, false, req.flash('message','Usuario no existe'));
-    }
+        helpers.matchPassword(password, user.password, (err, success)=>{
+            if(err) return done(null, false, req.flash('message', 'Contraseña Invalida'));
+            done(null, user, req.flash('success', 'Bienvenido, ' + user.fullname));
+        });
+    });
 }));
 
 passport.use('local.signup', new LocalStrategy({
@@ -37,22 +28,28 @@ passport.use('local.signup', new LocalStrategy({
 }, async (req, username, password, done) => {
     const { fullname, isAdmin } = req.body
     password = await helpers.encryptPassword(password);
-    
-    //validar si el usuario ya existe
-    if(await validarUserExistente(username)){
-        return done(null, false, req.flash('message', 'El username ya existe'));
-    }
 
-    const result = await pool.query('insert into users(fullname, username, password, isadmin) '
-        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, isAdmin==null?0:isAdmin]);
-    return done(null, req.user);
+    pool.query('select * from users where username = $1', [username], (err, users) => {
+        if (err) return done(null, false, req.flash('message', 'No se pudo conectar con la base de datos.'));
+        if(users.rows.length > 0) return done(null, false, req.flash('message', 'El username ya existe'));
+
+        pool.query('insert into users(fullname, username, password, isadmin) '
+        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, isAdmin == null ? 0 : isAdmin], (err, data) => {
+            if(err) return done(err);
+            return done(null, req.user);
+        });
+    
+    }); 
 }));
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
-    const users = await pool.query('select * from users where id = $1', [id]);
-    done(null, users.rows[0]);
+passport.deserializeUser((id, done) => {
+    pool.query('select * from users where id = $1', [id], (err, users) =>{
+        if(err) return done(null, false, req.flash('message', 'No se pudo conectar con la base de datos.'));
+        if(!users) return done(null, false, req.flash('message', 'No se encontro el Usuario'));
+        done(null, users.rows[0]);
+    });
 });

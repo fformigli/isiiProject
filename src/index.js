@@ -44,11 +44,15 @@ app.use((req, res, next) => {
     next();
 });
 
-//routes
-app.use(require('./routes/index.js'));
-
 //public
 app.use(express.static(path.join(__dirname, 'public')));
+
+//routes
+app.use(require('./routes/index.js'));
+app.use((req, res)=>{
+    res.status(404).render('others/not_found.hbs')
+});
+
 
 //start
 app.listen(app.get('port'), () => {
