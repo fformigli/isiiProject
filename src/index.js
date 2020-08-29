@@ -5,11 +5,11 @@ const path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
-const multer = require('multer');
 
 
 //init
 const app = express();
+
 require('./lib/passport');
 
 //settings
@@ -31,9 +31,6 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use(multer({
-    dest: path.join(__dirname, '/public/uploads')
-}).single('archivos'));
 app.use(flash());
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));

@@ -57,7 +57,7 @@ CREATE TABLE work_orders
   id serial NOT NULL,
   cliente character varying,
   vehiculo character varying,
-  encargado character varying,
+  encargado integer,
   statusid integer,
   fuelid integer,
   telefono character varying,
@@ -68,7 +68,7 @@ CREATE TABLE work_orders
   created_by integer,
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT work_orders_pkey PRIMARY KEY (id),
-  CONSTRAINT fk_user_wo FOREIGN KEY (created_by)
+  CONSTRAINT fk_user_wo FOREIGN KEY (encargado)
       REFERENCES users (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fk_wo_status FOREIGN KEY (statusid)

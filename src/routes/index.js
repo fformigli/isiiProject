@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
 const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../lib/auth');
+const uploads = require('../lib/multer');
 
 //controllers
 const rest = require('../controllers/rest.controller');
@@ -21,7 +22,7 @@ router.get('/logout', isLoggedIn, authentication.logout);
 router.get('/', isLoggedIn, workOrders.index);
 router.get('/work-orders', isLoggedIn, workOrders.index);
 router.get('/work-orders/add', isLoggedIn, workOrders.add);
-router.post('/work-orders/save', isLoggedIn, workOrders.save);
+router.post('/work-orders/save', isLoggedIn, uploads.single('archivos'),  workOrders.save);
 
 //admin
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);

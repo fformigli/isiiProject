@@ -17,12 +17,26 @@
               <div class="card-body">
                   <table class="table">
                       <thead>
-                          <th>ID</th>
+                          <th>Nro Orden</th>
+                          <th>Cliente:</th>
+                          <th>Vehículo:</th>
+                          <th>Teléfono:</th>
+                          <th>Fecha Ingreso:</th>
+                          <th>Encargado:</th>
+                          <th>Estado</th>
+                          <th>Descripcion</th>
                       </thead>
                       <tbody>
                           {{#each workOrders}}
                           <tr>
                               <td>{{id}}</td>
+                              <td>{{cliente}}</td>
+                              <td>{{vehiculo}}</td>
+                              <td>{{telefono}}</td>
+                              <td>{{created_at}}</td>
+                              <td>{{encargado}}</td>
+                              <td>{{status}}</td>
+                              <td>{{description}}</td>
                           </tr>
                           {{else}}
                           {{/each}}
