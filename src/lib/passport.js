@@ -10,7 +10,7 @@ passport.use('local.signin', new LocalStrategy({
 }, (req, username, password, done) => {
     pool.query('select * from users where username = $1', [username], (err, users) => {
         if (err) return done(null, false, req.flash('message', 'No se pudo conectar con la base de datos.'));
-        if (!users) return done(null, false, req.flash('message', 'Usuario no existe'));
+        if (!users || users.rowCount === 0) return done(null, false, req.flash('message', 'Usuario no existe'));
         
         const user = users.rows[0];
         helpers.matchPassword(password, user.password, (err, success)=>{

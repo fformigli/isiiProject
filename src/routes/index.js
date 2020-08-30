@@ -19,10 +19,13 @@ router.get('/forbidden',isLoggedIn, authentication.forbidden);
 router.get('/logout', isLoggedIn, authentication.logout);
 
 //work orders
-router.get('/', isLoggedIn, workOrders.index);
-router.get('/work-orders', isLoggedIn, workOrders.index);
+router.get('/', isLoggedIn, workOrders.list);
+router.get('/work-orders', isLoggedIn, workOrders.list);
 router.get('/work-orders/add', isLoggedIn, workOrders.add);
-router.post('/work-orders/save', isLoggedIn, uploads.single('archivos'),  workOrders.save);
+router.get('/work-orders/edit/:id', isLoggedIn, workOrders.edit);
+router.post('/work-orders/save', isLoggedIn, uploads.single('archivos'),  workOrders.saveNew);
+router.post('/work-orders/save/:id', isLoggedIn, uploads.single('archivos'),  workOrders.saveUpdate);
+router.get('/work_orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deteleFiles);
 
 //admin
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);

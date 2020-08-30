@@ -2,24 +2,28 @@
     <div class="col-sm-8 mx-auto">
         <div class="card">
             <div class="card-header">
-                <h4>Nueva Orden de Trabajo</h4>
+                {{#unless wo}}
+                    <h4>Nueva Orden de Trabajo</h4>
+                {{else}}
+                    <h4>Editando orden de Trabajo ID: {{wo.id}}</h4>
+                {{/unless}}
             </div>
             <div class="card-body">
-                <form action="/work-orders/save" method="POST" enctype="multipart/form-data">
+                <form action="/work-orders/save/{{wo.id}}" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6">  
                             <dl>
                                 <dt><label for="cliente">Nombre del Conductor:</label></dt>
-                                <dd><input type="text" class="form-control" name="cliente" placeholder="Nombre del Conductor" autofocus></dd>
+                                <dd><input type="text" value="{{wo.cliente}}" class="form-control" name="cliente" placeholder="Nombre del Conductor"  autofocus></dd>
 
                                 <dt><label for="vehiculo">Datos del Vehículo:</label></dt>
-                                <dd><input type="text" class="form-control" name="vehiculo" placeholder="Marca/Modelo/Color"></dd>
+                                <dd><input type="text" value="{{wo.vehiculo}}" class="form-control" name="vehiculo" placeholder="Marca/Modelo/Color"></dd>
                                 
                                 <dt><label for="encargado">Encargado:</label></dt>
                                 <dd>
                                     <select name="encargado" class="custom-select">
                                         {{#each userList}}
-                                            <option value="{{id}}">{{fullname}}</option>
+                                            <option value="{{id}}" {{ selectedOption id ../wo.encargado }}>{{fullname}}</option>
                                         {{/each}}
                                     </select>
                                 </dd>
@@ -31,14 +35,14 @@
                                 <dd>
                                     <select name="status" class="custom-select">
                                         {{#each statusList}}
-                                            <option value="{{id}}">{{description}}</option>
+                                            <option value="{{id}}"  {{ selectedOption id ../wo.statusid }}>{{description}}</option>
                                         {{/each}}
                                     </select>
                                 </dd>
                                 <dt><label for="telefono">Teléfono:</label></dt>
-                                <dd><input type="text" class="form-control" name="telefono" placeholder="098X XXX XXX"></dd>
+                                <dd><input type="text" value="{{wo.telefono}}" class="form-control" name="telefono" placeholder="098X XXX XXX"></dd>
                                 <dt><label for="vinnro">VIN N°:</label></dt>
-                                <dd><input type="text" class="form-control" name="vinnro" placeholder=""></dd>
+                                <dd><input type="text" value="{{wo.vinnro}}" class="form-control" name="vinnro" placeholder=""></dd>
                             </dl>
                         </div>
                         <div class="col">
@@ -47,14 +51,14 @@
                                 <dd>
                                     <select name="combustible" class="custom-select">
                                         {{#each fuelList}}
-                                            <option value="{{id}}">{{description}}</option>
+                                            <option value="{{id}}"  {{ selectedOption id ../wo.fuelid }}>{{description}}</option>
                                         {{/each}}
                                     </select>
                                 </dd>
                                 <dt><label for="chapa">Chapa N°:</label></dt>
-                                <dd><input type="text" class="form-control" name="chapa" placeholder="XXXX 999"></dd>
+                                <dd><input type="text" value="{{wo.chapa}}" class="form-control" name="chapa" placeholder="XXXX 999"></dd>
                                 <dt><label for="recorrido">mi/km</label></dt>
-                                <dd><input type="text" class="form-control" name="recorrido" placeholder="X00.000 km"></dd>
+                                <dd><input type="text" value="{{wo.recorrido}}" class="form-control" name="recorrido" placeholder="X00.000 km"></dd>
                             </dl>
                         </div>
                     </div>
@@ -65,10 +69,38 @@
                                     Descripción del Trabajo
                                 </dt>
                                 <dd>
-                                    <textarea name="description" class="form-control"></textarea>
+                                    <textarea name="description"  class="form-control">{{wo.description}}</textarea>
                                 </dd>
                             </dl>
                         </div>
+                    </div>
+                    <div class="row">
+                        {{#each wof}}
+                            {{#if (filetypeValidator filetype "img")}}
+                                <div class="col-sm-3">
+                                    <img class="rounded float-left img-fluid cursor-zoom" src="/uploads/{{filename}}" onclick="mostrarImagen('/uploads/{{filename}}')"/>
+                                    <button type="button" onclick="eliminarArchivo({{../wo.id}}, {{id}});" class="btn btn-danger btn-block" >
+                                        Borrar
+                                    </button>
+                                </div>
+                            {{/if}}
+                            {{#if (filetypeValidator filetype "video")}}
+                                <div class="col-sm-3">
+                                    <video class="rounded float-left img-fluid" src="/uploads/{{filename}}" onclick="mostrarVideo('/uploads/{{filename}}')"></video>
+                                    <button type="button" onclick="eliminarArchivo({{../wo.id}}, {{id}});" class="btn btn-danger btn-block">
+                                        Borrar
+                                    </button>    
+                                </div>
+                            {{/if}}
+                            {{#if (filetypeValidator filetype "unknown")}}
+                                <div class="col-sm-3">
+                                    <img class="rounded float-left img-fluid cursor-zoom" src="/uploads/{{filename}}" alt="Este formato puede no mostrarse" onclick="mostrarImagen('/uploads/{{filename}}')"/>
+                                    <button type="button" onclick="eliminarArchivo({{../wo.id}}, {{id}});" class="btn btn-danger btn-block">
+                                        Borrar
+                                    </button>    
+                                </div>
+                            {{/if}}
+                        {{/each}}
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -92,5 +124,45 @@
                 </form>
             </div>
         </div>
+        <div id="modal" class="modal" onclick="this.style.display='none'">
+            <span class="w3-button hover-red xlarge display-topright">&times;</span>
+            <div class="modal-content animate-zoom">
+            <img id="image_modal" src="" style="width:100%">
+            </div>
+        </div>
+        <div id="video_modal" class="modal">
+            <span class="w3-button hover-red xlarge display-topright" onclick="cerrarVideo()">&times;</span>
+            <div class="modal-content animate-zoom">
+            <video id="video_modal_i" src="" style="width:100%" controls></video>
+            </div>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+function eliminarArchivo(wo, id){
+    if(confirm('¿Esta seguro de que desea eliminar este archivo?'+ wo +" "+ id))
+        location.href = '/work_orders/delete/file/'+wo+'/'+id;
+    return false;
+}
+
+function mostrarImagen(src){
+    let modal = document.getElementById('modal');
+    modal.style.display = 'block';
+    let img = document.getElementById('image_modal');
+    img.setAttribute('src', src);
+}
+
+function mostrarVideo(src){
+    let modal = document.getElementById('video_modal');
+    modal.style.display = 'block';
+    let v = document.getElementById('video_modal_i');
+    v.setAttribute('src', src);
+}
+
+function cerrarVideo(){
+    document.getElementById('video_modal').style.display='none'
+    document.getElementById('video_modal_i').setAttribute('src', '');
+
+}
+</script>

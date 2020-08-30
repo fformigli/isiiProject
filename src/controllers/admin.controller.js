@@ -13,14 +13,14 @@ controller.users =  (req, res) => {
     });
 };
 
-controller.usersDelete = async (req, res) => {
+controller.usersDelete = (req, res) => {
     const { id } = req.params;
-    await pool.query('delete from users where id = $1', [id], (err) => {
+    pool.query('delete from users where id = $1', [id], (err) => {
         if(err) return done(null, false, req.flash('message','No se pudo conectar con la base de datos.'));
+        req.flash('success','Se elimino el usuario');
+        res.redirect('/admin/users');
     });
 
-    req.flash('success','Se elimino el usuario');
-    res.redirect('/admin/users');
 };
 
 module.exports = controller;

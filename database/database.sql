@@ -94,6 +94,7 @@ CREATE TABLE work_order_files
   id serial NOT NULL,
   work_order integer,
   filename character varying,
+  filetype character varying,
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT work_order_files_pkey PRIMARY KEY (id)
 )
@@ -131,4 +132,5 @@ drop table work_order_status ;
 drop table work_order_fuel ;
 drop table work_orders cascade;
 drop table users;
+"7"	"17"	"1598743213883.jpg"	"2020-08-29 19:20:13.888"	"img"
 */

@@ -15,30 +15,29 @@
       <div class="mx-auto">
           <div class="card">
               <div class="card-body">
-                  <table class="table">
+                  <table class="table table-hover">
                       <thead>
-                          <th>Nro Orden</th>
-                          <th>Cliente:</th>
-                          <th>Vehículo:</th>
-                          <th>Teléfono:</th>
-                          <th>Fecha Ingreso:</th>
-                          <th>Encargado:</th>
-                          <th>Estado</th>
-                          <th>Descripcion</th>
+                          <th scope="col">ID:</th>
+                          <th scope="col">Cliente:</th>
+                          <th scope="col">Vehículo:</th>
+                          <th scope="col">Teléfono:</th>
+                          <th scope="col">Fecha Ingreso:</th>
+                          <th scope="col">Encargado:</th>
+                          <th scope="col">Estado</th>
                       </thead>
                       <tbody>
                           {{#each workOrders}}
-                          <tr>
+                          <tr onclick="location.href='/work-orders/edit/{{id}}'">
                               <td>{{id}}</td>
                               <td>{{cliente}}</td>
                               <td>{{vehiculo}}</td>
                               <td>{{telefono}}</td>
-                              <td>{{created_at}}</td>
-                              <td>{{encargado}}</td>
+                              <td>{{formatter created_at "DD/MM/YYYY HH:mm"}}</td>
+                              <td>{{encargado}}</td>    
                               <td>{{status}}</td>
-                              <td>{{description}}</td>
                           </tr>
                           {{else}}
+                          <tr><td colspan="7">No hay ordenes de trabajo aún.</td></tr>
                           {{/each}}
                       </tbody>
                   </table>
