@@ -1,48 +1,83 @@
 <div class="container p-4">
-    <div class="row">
-      <div class="mx-auto">
-          <div class="card">
-              <div class="card-body">
-                  <form action="/work-orders/filter" method="get">
-                    <div class="form-group">
+    <div class="mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4>Ordenes de Trabajo</h4>
+            </div>
+            <div class="card-body">
+                <form action="/work-orders/" method="get">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <dl>
+                                <dt><label for="search">Busqueda:</label></dt>
+                                <dd><input type="text" value="{{filter.search}}" class="form-control" name="search" placeholder="Cliente/Vehiculo"  autofocus></dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-4">
+                            <dl>
+                                <dt><label for="encargado">Encargado:</label></dt>
+                                <dd>
+                                    <select name="encargado" class="custom-select">
+                                        <option value="all"></option>
+                                        {{#each userList}}
+                                            <option value="{{id}}" {{ selectedOption id ../filter.encargado }}>{{fullname}}</option>
+                                        {{/each}}
+                                    </select>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-sm-4">
+                            <dl>
+                                <dt><label for="status">Estado Pedido:</label></dt>
+                                <dd>
+                                    <select name="status" class="custom-select">
+                                        <option value="all"></option>
+                                        {{#each statusList}}
+                                            <option value="{{id}}"  {{ selectedOption id ../filter.status }}>{{description}}</option>
+                                        {{/each}}
+                                    </select>
+                                </dd>
+                            </dl>
+                        </div>
                     </div>
-                  </form>
-              </div>
-          </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mx-auto">
-          <div class="card">
-              <div class="card-body">
-                  <table class="table table-hover">
-                      <thead>
-                          <th scope="col">ID:</th>
-                          <th scope="col">Cliente:</th>
-                          <th scope="col">Vehículo:</th>
-                          <th scope="col">Teléfono:</th>
-                          <th scope="col">Fecha Ingreso:</th>
-                          <th scope="col">Encargado:</th>
-                          <th scope="col">Estado</th>
-                      </thead>
-                      <tbody>
-                          {{#each workOrders}}
-                          <tr onclick="location.href='/work-orders/edit/{{id}}'">
-                              <td>{{id}}</td>
-                              <td>{{cliente}}</td>
-                              <td>{{vehiculo}}</td>
-                              <td>{{telefono}}</td>
-                              <td>{{formatter created_at "DD/MM/YYYY HH:mm"}}</td>
-                              <td>{{encargado}}</td>    
-                              <td>{{status}}</td>
-                          </tr>
-                          {{else}}
-                          <tr><td colspan="7">No hay ordenes de trabajo aún.</td></tr>
-                          {{/each}}
-                      </tbody>
-                  </table>
-              </div>
-          </div>
-      </div>  
+                    <div class="row">
+                        <div class="mx-auto" >
+                            <button class="btn btn-success">
+                                Filtrar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4"></div>
+                </form>
+                <div class="row">
+                    <table class="table table-hover">
+                        <thead>
+                            <th scope="col">ID</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Vehículo</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Fecha Ingreso</th>
+                            <th scope="col">Encargado</th>
+                            <th scope="col">Estado</th>
+                        </thead>
+                        <tbody>
+                            {{#each workOrders}}
+                            <tr onclick="location.href='/work-orders/edit/{{id}}'">
+                                <td>{{id}}</td>
+                                <td>{{cliente}}</td>
+                                <td>{{vehiculo}}</td>
+                                <td>{{telefono}}</td>
+                                <td>{{formatter created_at "DD/MM/YYYY HH:mm"}}</td>
+                                <td>{{encargado}}</td>    
+                                <td>{{status}}</td>
+                            </tr>
+                            {{else}}
+                            <tr><td colspan="7">No hay ordenes de trabajo aún.</td></tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

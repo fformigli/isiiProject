@@ -6,6 +6,7 @@
                     <h4>Nueva Orden de Trabajo</h4>
                 {{else}}
                     <h4>Editando orden de Trabajo ID: {{wo.id}}</h4>
+                    <div class="comment-by">Agregado el {{formatter created_at "DD/MM/YYYY HH:mm"}}</div>
                 {{/unless}}
             </div>
             <div class="card-body">
@@ -117,12 +118,49 @@
                     <div class="row">
                         <div class="mx-auto" >
                             <button class="btn btn-success">
-                                Guardar
+                                
+                                {{#unless wo}}
+                                    Guardar
+                                {{else}}
+                                    Actualizar Orden de Trabajo
+                                {{/unless}}
                             </button>
                         </div>
                     </div>
                 </form>
+                
             </div>
+        </div>
+        <div class="card">
+            <div class="row">
+                {{#each woc}}
+                    <div class="comment-box mx-auto">
+                        {{comment}}
+                        <div class="comment-by">comentado por {{created_by}} el {{formatter created_at "DD/MM/YYYY HH:mm"}}</div>
+                    </div>
+                {{/each}}
+            </div>
+            {{#if wo.id}}
+                <div class="card-body">
+                    <form action="/work-orders/add/comment/{{wo.id}}" method="POST">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <dl>
+                                    <dt>Comentario:</dt>
+                                    <dd>
+                                        <textarea name="comment" id="comment" class="form-control"></textarea>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col my-auto" >
+                                <button class="btn btn-success float-right">
+                                    Agregar Comentario
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            {{/if}}
         </div>
         <div id="modal" class="modal" onclick="this.style.display='none'">
             <span class="w3-button hover-red xlarge display-topright">&times;</span>
@@ -142,7 +180,7 @@
 <script type="text/javascript">
 function eliminarArchivo(wo, id){
     if(confirm('¿Esta seguro de que desea eliminar este archivo?'+ wo +" "+ id))
-        location.href = '/work_orders/delete/file/'+wo+'/'+id;
+        location.href = '/work-orders/delete/file/'+wo+'/'+id;
     return false;
 }
 

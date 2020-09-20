@@ -58,6 +58,6 @@ app.use((req, res)=>{
 
 
 //start
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), '0.0.0.0', () => {
     console.log('Server running on port ' + app.get('port'));
 });

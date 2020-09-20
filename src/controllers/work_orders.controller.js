@@ -1,6 +1,8 @@
 const pool = require('../database');
 const fs = require('fs');
 const path = require('path');
+const { query } = require('../database');
+const { database } = require('../keys');
 
 
 const controller = {}
@@ -17,32 +19,57 @@ async function chargeCombos() {
 
 }
 
-controller.list = (req, res) => {
-    const where = req.user.isadmin ? '' : `where encargado = ${req.user.id} `;
-    const sql = 'select wo.id, wo.cliente, wo.vehiculo, wo.telefono, wo.created_at,u.fullname as encargado, s.description as status, wo.description '
-        + 'from work_orders wo join users u on u.id = wo.encargado join work_order_status s on s.id = wo.statusid '
-        + where
-        + 'order by created_at desc ';
+controller.list = async (req, res) => {
+    try {
+        let dataForm = await chargeCombos();
+        dataForm.filter = req.query
+        console.log(dataForm.filter)
+        
+        let where = req.user.isadmin ? 'where true ' : `where encargado = ${req.user.id} `;
+        if (dataForm.filter){
+            if(dataForm.filter.status && dataForm.filter.status !== 'all'){
+                where += `and wo.statusid = ${dataForm.filter.status} `
+            }
+            if(dataForm.filter.encargado && dataForm.filter.encargado !== 'all'){
+                where += `and wo.encargado = ${dataForm.filter.encargado} `
+            }
+            if(dataForm.filter.search){
+                where += `and coalesce(wo.cliente,'')||coalesce(wo.vehiculo,'') ilike '%${dataForm.filter.search}%' `
+            }
+        }
+        console.log(where)
 
-    pool.query(sql, (err, workOrders) => {
-        if(err){
-            console.error(err);
-            req.flash('message', 'Error: ' + err.message);
-            return res.redirect('/profile');
-        } 
-        res.render('work-orders/list.hbs',{workOrders : workOrders.rows});
-    });
+        const sql = 'select wo.id, wo.cliente, wo.vehiculo, wo.telefono, wo.created_at,u.fullname as encargado, s.description as status, wo.description '
+            + 'from work_orders wo join users u on u.id = wo.encargado join work_order_status s on s.id = wo.statusid '
+            + where
+            + 'order by created_at desc ';
+
+        console.log(sql)
+
+        const workOrders = await pool.query(sql);
+        dataForm.workOrders = workOrders.rows
+
+        console.log(dataForm)
+        console.log(dataForm.workOrders)
+
+        return res.render('work-orders/list.hbs', dataForm);
+
+    } catch (err){
+        console.error(err);
+        req.flash('message', 'Error: ' + err.message);
+        return res.redirect('/profile');
+    }
 
 };
 
 controller.add = async (req, res) => {
     try {
-        const datosForm = await chargeCombos();
-        res.render('work-orders/form.hbs', datosForm);
+        const dataForm = await chargeCombos();
+        return res.render('work-orders/form.hbs', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        res.redirect('/profile');
+        return res.redirect('/profile');
     }
 };
 
@@ -80,17 +107,20 @@ controller.saveNew = async (req, res) => {
 
 controller.edit = async (req, res) => {
     const { id } = req.params;
-    let datosForm = await chargeCombos();
+    const dataForm = await chargeCombos();
 
     try {
         // obtenemos el wo
         const wo = await pool.query('select * from work_orders where id = $1', [id]);
-        datosForm.wo = wo.rows[0];
+        dataForm.wo = wo.rows[0];
 
         const wof = await pool.query('select * from work_order_files where work_order = $1 order by id', [id]);
-        datosForm.wof = wof.rows;
+        dataForm.wof = wof.rows;
 
-        res.render('work-orders/form.hbs', datosForm);
+        const woc = await pool.query('select c.comment, u.fullname as created_by, c.created_at from work_order_comments c, users u where work_order = $1 and c.created_by = u.id order by c.id', [id]);
+        dataForm.woc = woc.rows;
+
+        res.render('work-orders/form.hbs', dataForm);
 
     } catch (err){
         console.error(err);
@@ -135,8 +165,7 @@ controller.saveUpdate = async (req, res) => {
     res.redirect('/work-orders/edit/'+id);
 };
 
-controller.deteleFiles = async (req, res) => {
-    console.log('ENTROOO deteleFiles');
+controller.deleteFiles = async (req, res) => {
     const { wo, id } = req.params;
 
     try {
@@ -148,14 +177,31 @@ controller.deteleFiles = async (req, res) => {
                 throw "No se pudo eliminar el archivo; " + err.message;
             }
         });
+        req.flash('success', 'se elimino el archivo');
     } catch (err) {
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
     }
-    req.flash('success', 'se elimino el archivo');
 
     res.redirect('/work-orders/edit/'+wo);
 
+};
+
+controller.addComment = async (req, res) => {
+    const { wo } = req.params
+    const { comment } = req.body
+
+    try {
+        await pool.query('insert into work_order_comments (work_order, comment, created_by) ' +
+            'values ($1, $2, $3)', [wo, comment, req.user.id])
+
+        req.flash('success', 'Comentario agregado');
+
+    } catch (err) {
+        console.error(err)
+        req.flash('message', 'Error: ' + err.message)
+    }
+    res.redirect('/work-orders/edit/'+wo);
 };
 
 module.exports = controller;

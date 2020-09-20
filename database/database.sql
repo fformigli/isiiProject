@@ -108,6 +108,25 @@ GRANT ALL ON TABLE work_order_files TO app_adm;
 
 GRANT ALL ON sequence work_order_files_id_seq TO app_adm;
 
+create table work_order_comments
+(
+    id serial NOT NULL,
+    work_order integer,
+    comment character varying,
+    created_at timestamp without time zone not null default now(),
+    created_by integer,
+    constraint work_order_comments_pkey primary key (id),
+    CONSTRAINT fk_user_woc FOREIGN KEY (created_by)
+      REFERENCES users (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+ALTER TABLE work_order_comments
+  OWNER TO postgres;
+GRANT ALL ON TABLE work_order_comments TO postgres;
+GRANT ALL ON TABLE work_order_comments TO app_adm;
+
+GRANT ALL ON sequence work_order_comments_id_seq TO app_adm;
+
 
 /**
 importante

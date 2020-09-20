@@ -25,7 +25,8 @@ router.get('/work-orders/add', isLoggedIn, workOrders.add);
 router.get('/work-orders/edit/:id', isLoggedIn, workOrders.edit);
 router.post('/work-orders/save', isLoggedIn, uploads.single('archivos'),  workOrders.saveNew);
 router.post('/work-orders/save/:id', isLoggedIn, uploads.single('archivos'),  workOrders.saveUpdate);
-router.get('/work_orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deteleFiles);
+router.get('/work-orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deleteFiles);
+router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 
 //admin
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
