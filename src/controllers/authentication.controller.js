@@ -39,4 +39,9 @@ controller.logout = (req, res) => {
     res.redirect('/signin');
 };
 
+controller.apiLogin = (req, res) => {
+    const user = { userId: 1, displayName: "test ok" }
+    res.json(user)
+}
+
 module.exports = controller;

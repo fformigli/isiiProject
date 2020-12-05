@@ -1,15 +1,15 @@
+const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../lib/auth');
 const { Router } = require('express');
 const router = Router();
-const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../lib/auth');
 const uploads = require('../lib/multer');
 
-//controllers
+// controllers
+const admin = require('../controllers/admin.controller');
+const authentication = require('../controllers/authentication.controller');
 const rest = require('../controllers/rest.controller');
 const workOrders = require('../controllers/work_orders.controller');
-const authentication = require('../controllers/authentication.controller');
-const admin = require('../controllers/admin.controller');
 
-//authentication
+// authentication
 router.get('/signup', isLoggedIn, isAdmin, authentication.signUpGet);
 router.post('/signup', isLoggedIn, isAdmin, authentication.signUpPost);
 router.get('/signin', isNotLoggedIn, authentication.signInGet);
@@ -18,7 +18,7 @@ router.get('/profile', isLoggedIn, authentication.profile);
 router.get('/forbidden',isLoggedIn, authentication.forbidden);
 router.get('/logout', isLoggedIn, authentication.logout);
 
-//work orders
+// work orders
 router.get('/', isLoggedIn, workOrders.list);
 router.get('/work-orders', isLoggedIn, workOrders.list);
 router.get('/work-orders/add', isLoggedIn, workOrders.add);
@@ -28,17 +28,20 @@ router.post('/work-orders/save/:id', isLoggedIn, uploads.single('archivos'),  wo
 router.get('/work-orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deleteFiles);
 router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 
-//admin
+// admin
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
 
-//rest users
+// rest users
 router.get('/rest/users', rest.get_users); //listar todo
 router.post('/rest/users', rest.create_user); // crear
 router.get('/rest/users/:id', rest.get_user_by_id); // listar un usuario
 router.delete('/rest/users/:id', rest.delete_user); // eliminar
 router.put('/rest/users/:id', rest.update_user); // actualizar
+
+// api
+router.get('/api/auth/login', authentication.apiLogin);
 
 
 module.exports = router;

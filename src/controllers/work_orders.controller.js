@@ -1,9 +1,6 @@
 const pool = require('../database');
 const fs = require('fs');
 const path = require('path');
-const { query } = require('../database');
-const { database } = require('../keys');
-
 
 const controller = {}
 
@@ -16,7 +13,6 @@ async function chargeCombos() {
     } catch (err){
         throw err;
     }
-
 }
 
 controller.list = async (req, res) => {
