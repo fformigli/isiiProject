@@ -1,3 +1,4 @@
+
 create table users (
     id serial not null primary key,
     fullname varchar(40),
@@ -14,7 +15,6 @@ GRANT ALL ON TABLE users TO postgres;
 GRANT ALL ON TABLE users TO app_adm;
 
 GRANT ALL ON sequence users_id_seq TO app_adm;
-
 
 
 CREATE TABLE work_order_status
@@ -127,6 +127,8 @@ GRANT ALL ON TABLE work_order_comments TO app_adm;
 
 GRANT ALL ON sequence work_order_comments_id_seq TO app_adm;
 
+insert into users(fullname, username, password, isadmin, active, created_by)
+values ('Administrador', 'admin', '$2a$10$Z0.J2AZa44av6sVM20qXu.JNscwf6IYBqwH/nMRL84b1jBtZlzHDu', 1, 1, 1)
 
 /**
 importante

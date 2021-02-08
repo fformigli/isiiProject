@@ -1,21 +1,21 @@
 {
-  "name": "exclusiv-cars-web",
+  "name": "isiiProject",
   "version": "1.0.0",
-  "description": "Server for Exclusiv-Cars App",
+  "description": "Poryecto para Ingenieria del Software II",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fformigli/exclusiv-cars-web.git"
+    "url": "git+https://github.com/fformigli/isiiProject.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/fformigli/exclusiv-cars-web/issues"
+    "url": "https://github.com/fformigli/isiiProject/issues"
   },
-  "homepage": "https://github.com/fformigli/exclusiv-cars-web#readme",
+  "homepage": "https://github.com/fformigli/isiiProject#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
