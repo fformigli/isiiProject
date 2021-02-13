@@ -1,4 +1,3 @@
-
 create table users (
                        id serial not null primary key,
                        fullname varchar(40),
@@ -11,8 +10,8 @@ create table users (
 );
 ALTER TABLE users
     OWNER TO postgres;
-GRANT ALL ON TABLE users TO postgres;
 
+GRANT ALL ON TABLE users TO postgres;
 GRANT ALL ON sequence users_id_seq TO postgres;
 
 
@@ -128,13 +127,11 @@ values ('Administrador', 'admin', '$2a$10$Z0.J2AZa44av6sVM20qXu.JNscwf6IYBqwH/nM
 importante
 users_log
 work_orders_log
-
 «users_id_seq» 
 «work_orders_id_seq» 
 «work_order_files_id_seq» 
 «work_order_status_id_seq» 
 «work_order_fuel_id_seq» 
-
 usuario admin:
 admin - 12345
 $2a$10$Z0.J2AZa44av6sVM20qXu.JNscwf6IYBqwH/nMRL84b1jBtZlzHDu
