@@ -19,7 +19,7 @@ controller.signInGet = (req, res) => {
 
 controller.signInPost = (req, res, next) => {
     passport.authenticate('local.signin', {
-        successRedirect: '/',
+        successRedirect: '/dashboard',
         failureRedirect: '/signin',
         failureFlash: true
     })(req, res, next);
