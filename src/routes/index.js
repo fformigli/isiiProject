@@ -8,6 +8,7 @@ const admin = require('../controllers/admin.controller');
 const authentication = require('../controllers/authentication.controller');
 const rest = require('../controllers/rest.controller');
 const workOrders = require('../controllers/work_orders.controller');
+const dashboard = require('../controllers/dashboard.controller');
 
 // authentication
 router.get('/signup', isLoggedIn, isAdmin, authentication.signUpGet);
@@ -19,7 +20,6 @@ router.get('/forbidden',isLoggedIn, authentication.forbidden);
 router.get('/logout', isLoggedIn, authentication.logout);
 
 // work orders
-router.get('/', isLoggedIn, workOrders.list);
 router.get('/work-orders', isLoggedIn, workOrders.list);
 router.get('/work-orders/add', isLoggedIn, workOrders.add);
 router.get('/work-orders/edit/:id', isLoggedIn, workOrders.edit);
@@ -40,8 +40,9 @@ router.get('/rest/users/:id', rest.get_user_by_id); // listar un usuario
 router.delete('/rest/users/:id', rest.delete_user); // eliminar
 router.put('/rest/users/:id', rest.update_user); // actualizar
 
-// api
-router.get('/api/auth/login', authentication.apiLogin);
+// dashboard
+router.get('/', isLoggedIn, dashboard.view);
+router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 
 
 module.exports = router;
