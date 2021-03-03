@@ -151,9 +151,9 @@ drop table users;
 /*creacion de la tabla de roles*/
 CREATE TABLE public.roles
 (
-    "idRol" serial NOT NULL,
+    id_rol serial NOT NULL,
     name character varying,
-    CONSTRAINT "PK_ROLE" PRIMARY KEY ("idRol")
+    CONSTRAINT "PK_ROLE" PRIMARY KEY (id_rol)
 )
 WITH (
     OIDS = FALSE
