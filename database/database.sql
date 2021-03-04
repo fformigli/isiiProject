@@ -146,3 +146,18 @@ drop table work_orders cascade;
 drop table users;
 "7"	"17"	"1598743213883.jpg"	"2020-08-29 19:20:13.888"	"img"
 */
+
+
+/*creacion de la tabla de roles*/
+CREATE TABLE public.roles
+(
+    id_rol serial NOT NULL,
+    name character varying,
+    CONSTRAINT "PK_ROLE" PRIMARY KEY (id_rol)
+)
+WITH (
+    OIDS = FALSE
+);
+
+ALTER TABLE public.roles
+    OWNER to postgres;
