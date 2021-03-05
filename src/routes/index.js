@@ -32,9 +32,10 @@ router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
+router.get('/admin/roles', isLoggedIn, admin.rolesAdd);
+router.get('/admin/rolesForm', isLoggedIn, admin.createRole);
 router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
-
 
 // rest users
 router.get('/rest/users', rest.get_users); //listar todo
