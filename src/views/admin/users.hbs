@@ -12,26 +12,20 @@
                         <thead>
                             <th>Nombre Completo</th>
                             <th>Usuario</th>
-                            <th>Es Administrador</th>
+                            <th>Rol</th>
                             <th>Creado el</th>
-                            <th></th>
+                            <th>Modificar</th>
                         </thead>
                         <tbody>
                         {{#each users}}
                             <tr>
                                 <td>{{fullname}}</td>
                                 <td>{{username}}</td>
-                                <td>
-                                    {{#if isadmin}}
-                                        Si
-                                    {{else}}
-                                        No
-                                    {{/if}}
-                                </td>
+                                <td>{{rol}}</td>
                                 <td>{{timeago created_at}}</td>
                                 <td>
-                                    <button onclick="eliminarUsuario({{id}});" class="btn btn-danger">
-                                        Borrar
+                                    <button onclick="location.href = '/admin/users/edit/'+{{id}}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -45,11 +39,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-function eliminarUsuario(id){
-    if(confirm('¿Esta seguro de que desea eliminar el usuario?'))
-        location.href = '/admin/users/delete/'+id;
-    return false;
-}
-</script>

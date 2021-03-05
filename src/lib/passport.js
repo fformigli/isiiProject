@@ -26,15 +26,15 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 
 }, async (req, username, password, done) => {
-    const { fullname, isAdmin } = req.body
+    const { fullname, rol } = req.body
     password = await helpers.encryptPassword(password);
 
     pool.query('select * from users where username = $1', [username], (err, users) => {
         if (err) return done(null, false, req.flash('message', 'No se pudo conectar con la base de datos.'));
         if(users.rows.length > 0) return done(null, false, req.flash('message', 'El username ya existe'));
 
-        pool.query('insert into users(fullname, username, password, isadmin) '
-        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, isAdmin == null ? 0 : isAdmin], (err, data) => {
+        pool.query('insert into users(fullname, username, password, id_rol) '
+        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, rol], (err, data) => {
             if(err) return done(err);
             return done(null, req.user);
         });
