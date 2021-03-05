@@ -11,7 +11,7 @@ const workOrders = require('../controllers/work_orders.controller');
 const dashboard = require('../controllers/dashboard.controller');
 
 // authentication
-router.get('/signup', isLoggedIn, isAdmin, authentication.signUpGet);
+router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet);
 router.post('/signup', isLoggedIn, isAdmin, authentication.signUpPost);
 router.get('/signin', isNotLoggedIn, authentication.signInGet);
 router.post('/signin', isNotLoggedIn, authentication.signInPost);
@@ -32,6 +32,7 @@ router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
+router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
 
 
@@ -53,7 +54,5 @@ router.get('/rest/permissions/:id', isLoggedIn, rest.get_permission_by_id); // l
 router.delete('/rest/permissions/:id', isLoggedIn, rest.delete_permission); // eliminar
 router.put('/rest/permissions/:id', isLoggedIn, rest.update_permission); // actualizar
 router.get('/permissions/add', isLoggedIn, admin.permission_add);
-
-
 
 module.exports = router;

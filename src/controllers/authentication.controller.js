@@ -3,10 +3,6 @@ const passport = require('passport');
 
 const controller = {}
 
-controller.signUpGet = (req, res) => {
-    res.render('auth/signup');
-};
-
 controller.signUpPost = passport.authenticate('local.signup', {
     successRedirect: '/admin/users',
     failureRedirect: '/signup',
