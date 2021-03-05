@@ -1,4 +1,4 @@
-create table users (
+﻿create table users (
                        id serial not null primary key,
                        fullname varchar(40),
                        username character(15) not null,
@@ -161,3 +161,23 @@ WITH (
 
 ALTER TABLE public.roles
     OWNER to postgres;
+
+    
+/*creacion de la tabla de permisos*/
+CREATE TABLE permissions
+(
+   id serial, 
+   resources character varying(255),
+   operation character varying(255),
+   name character varying(255), 
+   CONSTRAINT "PK_PERMISSION" PRIMARY KEY (id)
+) 
+WITH (
+  OIDS = FALSE
+)
+;
+ALTER TABLE permissions
+    OWNER TO postgres;
+
+GRANT ALL ON TABLE permissions TO postgres;
+GRANT ALL ON sequence permissions_id_seq TO postgres;
