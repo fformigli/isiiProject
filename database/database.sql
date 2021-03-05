@@ -167,7 +167,9 @@ ALTER TABLE public.roles
 CREATE TABLE permissions
 (
    id serial, 
-   name character varying(50), 
+   resources character varying(255),
+   operation character varying(255),
+   name character varying(255), 
    CONSTRAINT "PK_PERMISSION" PRIMARY KEY (id)
 ) 
 WITH (

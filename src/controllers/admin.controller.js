@@ -61,4 +61,25 @@ controller.editUser = async (req, res) => {
 
 }
 
+
+// Permissions
+
+
+controller.permissions =  (req, res) => {
+    pool.query('select * from permissions order by id asc', (err, permissions) => {
+        if(err) return done(null, false, req.flash('message','No se pudo conectar con la base de datos.'));
+        res.render('admin/permissions.hbs', {permissions: permissions.rows});
+    });
+};
+
+controller.permission_add = async (req, res) => {
+    try {
+        return res.render('admin/permissionForm.hbs');
+    } catch (err){
+        console.error(err);
+        req.flash('message', 'Error: ' + err.message);
+        return res.redirect('/profile');
+    }
+};
+
 module.exports = controller;

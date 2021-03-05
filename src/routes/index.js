@@ -33,6 +33,8 @@ router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
 router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
+router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
+
 
 // rest users
 router.get('/rest/users', rest.get_users); //listar todo
@@ -45,5 +47,12 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 router.get('/', isLoggedIn, dashboard.view);
 router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 
+// rest permissions
+router.get('/rest/permissions', isLoggedIn, rest.get_permissions); //listar todo
+router.post('/rest/permissions', isLoggedIn, rest.create_permission); // crear
+router.get('/rest/permissions/:id', isLoggedIn, rest.get_permission_by_id); // listar un usuario
+router.delete('/rest/permissions/:id', isLoggedIn, rest.delete_permission); // eliminar
+router.put('/rest/permissions/:id', isLoggedIn, rest.update_permission); // actualizar
+router.get('/permissions/add', isLoggedIn, admin.permission_add);
 
 module.exports = router;
