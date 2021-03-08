@@ -1,0 +1,32 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Nuevo Permiso</h3>
+                </div>
+                <div class="card-body">
+                <form action="/rest/permissions{{p.id}}" method="POST" enctype="multipart/form-data">
+                        <div class="col-sm-6">  
+                            <dl>
+                                <dt><label for="resources">Recurso</label></dt>
+                                <dd><input type="text" value="{{p.resources}}" class="form-control" name="resources" placeholder="Recurso"  autofocus></dd>
+
+                                <dt><label for="operations">Operación</label></dt>
+                                <dd><input type="text" value="{{p.operations}}" class="form-control" name="operations" placeholder="Operación"  autofocus></dd>
+
+                                <dt><label for="name">Nombre</label></dt>
+                                <dd><input type="text" value="{{p.name}}" class="form-control" name="name" placeholder="Nombre"  autofocus></dd>
+
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-success btn-block">
+                                Añadir
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
