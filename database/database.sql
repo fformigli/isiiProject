@@ -187,34 +187,20 @@ GRANT ALL ON sequence permissions_id_seq TO postgres;
 /*Creacion de la tabla Rol_permiso*/
 CREATE TABLE public.rol_permiso
 (
-)
-;
+    id_rol integer NOT NULL,
+    id_permiso integer NOT NULL,
+    PRIMARY KEY (id_rol, id_permiso),
+    CONSTRAINT "FK_ROL" FOREIGN KEY (id_rol)
+        REFERENCES public.roles (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "FK_PERMISO" FOREIGN KEY (id_permiso)
+        REFERENCES public.permissions (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
 
 ALTER TABLE public.rol_permiso
     OWNER to postgres;
-	
-ALTER TABLE public.roles
-    RENAME id_rol TO id;
-
-ALTER TABLE public.rol_permiso
-    ADD COLUMN id_permiso serial;
-	
-	
-ALTER TABLE public.rol_permiso
-    ADD CONSTRAINT "FK_ROL" FOREIGN KEY (id_rol)
-    REFERENCES public.roles (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX "fki_FK_ROL"
-    ON public.rol_permiso(id_rol);
-
-
-ALTER TABLE public.rol_permiso
-    ADD CONSTRAINT "FK_PERMISSIONS" FOREIGN KEY (id_permiso)
-    REFERENCES public.permissions (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX "fki_FK_PERMISSIONS"
-    ON public.rol_permiso(id_permiso);
