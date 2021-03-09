@@ -121,7 +121,7 @@ GRANT ALL ON TABLE work_order_comments TO postgres;
 GRANT ALL ON sequence work_order_comments_id_seq TO postgres;
 
 insert into users(fullname, username, password, isadmin, active, created_by)
-values ('Administrador', 'admin', '$2a$10$Z0.J2AZa44av6sVM20qXu.JNscwf6IYBqwH/nMRL84b1jBtZlzHDu', 1, 1, 1); -- la contraseña es 1 al 5
+values ('Administrador', 'admin', '$2a$10$Z0.J2AZa44av6sVM20qXu.JNscwf6IYBqwH/nMRL84b1jBtZlzHDu', 1, 1, 1) -- la contraseña es 1 al 5
 
 /**
 importante
@@ -182,41 +182,25 @@ ALTER TABLE permissions
 GRANT ALL ON TABLE permissions TO postgres;
 GRANT ALL ON sequence permissions_id_seq TO postgres;
 
+
+
 /*Creacion de la tabla Rol_permiso*/
 CREATE TABLE public.rol_permiso
 (
-)
-;
+    id_rol integer NOT NULL,
+    id_permiso integer NOT NULL,
+    PRIMARY KEY (id_rol, id_permiso),
+    CONSTRAINT "FK_ROL" FOREIGN KEY (id_rol)
+        REFERENCES public.roles (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT "FK_PERMISO" FOREIGN KEY (id_permiso)
+        REFERENCES public.permissions (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
 
 ALTER TABLE public.rol_permiso
     OWNER to postgres;
-	
-ALTER TABLE public.roles
-    RENAME id_rol TO id;
-
-ALTER TABLE public.rol_permiso
-    ADD COLUMN id_permiso serial;
-	
-	
-ALTER TABLE public.rol_permiso
-    ADD CONSTRAINT "FK_ROL" FOREIGN KEY (id_rol)
-    REFERENCES public.roles (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX "fki_FK_ROL"
-    ON public.rol_permiso(id_rol);
-
-
-ALTER TABLE public.rol_permiso
-    ADD CONSTRAINT "FK_PERMISSIONS" FOREIGN KEY (id_permiso)
-    REFERENCES public.permissions (id) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION
-    NOT VALID;
-CREATE INDEX "fki_FK_PERMISSIONS"
-    ON public.rol_permiso(id_permiso);
-
-alter table users add id_rol integer;
-alter table users add constraint fk_rol foreign key (id_rol) references roles(id_rol);
-
