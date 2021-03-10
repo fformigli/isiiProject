@@ -4,28 +4,31 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <button onclick="location.href='/signup'" class="btn btn-success">
-                            Nuevo Usuario
+                        <button onclick="location.href='/admin/rolesForm'" class="btn btn-success">
+                            Nuevo Rol
                         </button>
                     </div>
                     <table class="table">
                         <thead>
-                            <th>Nombre Completo</th>
-                            <th>Usuario</th>
                             <th>Rol</th>
                             <th>Creado el</th>
-                            <th>Modificar</th>
+                            <th></th>
                         </thead>
                         <tbody>
-                        {{#each users}}
+                        {{#each listRoles}}
                             <tr>
-                                <td>{{fullname}}</td>
-                                <td>{{username}}</td>
-                                <td>{{rol}}</td>
+                                <td>{{name}}</td>
+                                <td>
+                                    {{#if isadmin}}
+                                        Si
+                                    {{else}}
+                                        No
+                                    {{/if}}
+                                </td>
                                 <td>{{timeago created_at}}</td>
                                 <td>
-                                    <button onclick="location.href = '/admin/users/edit/'+{{id}}" class="btn btn-warning">
-                                        <i class="fas fa-edit"></i>
+                                    <button onclick="eliminarRol({{id}});" class="btn btn-danger">
+                                        Eliminar
                                     </button>
                                 </td>
                             </tr>
@@ -39,3 +42,11 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+function eliminarRol(id){
+    if(confirm('¿Esta seguro de que desea eliminar el rol?'))
+        location.href = '/admin/roles/delete/'+id;
+    return false;
+}
+</script>

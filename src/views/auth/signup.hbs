@@ -3,27 +3,49 @@
         <div class="col-md-4 mx-auto">
             <div class="card text-center">
                 <div class="card-header">
-                    <h3>Nuevo Usuario</h3>
+                    <h3>
+                        {{#unless userData}}
+                            Nuevo Usuario
+                        {{ else }}
+                            Editando Usuario
+                        {{/unless }}
+                    </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/signup" method="POST" autocomplete="nope">
-                        <div class="form-group">
-                            <input type="text" name="fullname" placeholder="Nombre Completo" class="form-control" autofocus>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="username" placeholder="Usuario" class="form-control" autocomplete="false">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Contraseña" autocomplete="new-password">
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="isAdmin" value="1">
-                            <label for="isAdmin">Es Administrador</label>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block">
-                                Añadir
-                            </button>
+                    <form action="/admin/users/{{userData.id}}" method="POST">
+                        <div style="text-align: left">
+                            <dl>
+                                <dt><label for="fullname">Nombre Completo:</label></dt>
+                                <dd><input type="text" name="fullname" placeholder="Nombre Completo" class="form-control" value="{{userData.fullname}}" autofocus></dd>
+                            </dl>
+
+                            <dl>
+                                <dt><label for="username">Usuario:</label></dt>
+                                <dd><input type="text" name="username" placeholder="Usuario" class="form-control" value="{{userData.username}}" autocomplete="false"></dd>
+                            </dl>
+
+                            {{#unless userData}}
+                                <dl>
+                                    <dd><input type="password" name="password" class="form-control" placeholder="Contraseña" autocomplete="new-password"></dd>
+                                </dl>
+                            {{else}}
+                            {{/unless}}
+
+                            <dl>
+                                <dt><label for="rol">Rol:</label></dt>
+                                <dd>
+                                    <select name="rol" class="custom-select">
+                                        {{#each roles}}
+                                            <option value="{{id}}" {{ selectedOption id ../userData.id_rol }}>{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </dd>
+                            </dl>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Añadir
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
