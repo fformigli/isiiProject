@@ -12,8 +12,7 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/signup" method="POST">
-                        
+                    <form action="/admin/users/{{userData.id}}" method="POST">
                         <div style="text-align: left">
                             <dl>
                                 <dt><label for="fullname">Nombre Completo:</label></dt>
@@ -37,7 +36,7 @@
                                 <dd>
                                     <select name="rol" class="custom-select">
                                         {{#each roles}}
-                                            <option value="{{id_rol}}" {{ selectedOption id ../wo.encargado }}>{{name}}</option>
+                                            <option value="{{id}}" {{ selectedOption id ../userData.id_rol }}>{{name}}</option>
                                         {{/each}}
                                     </select>
                                 </dd>

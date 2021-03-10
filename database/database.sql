@@ -1,7 +1,7 @@
 ﻿create table users (
     id serial not null primary key,
-    fullname varchar(40),
-    username character(15) not null,
+    fullname character varying ,
+    username character varying not null,
     password character varying not null,
     isadmin integer not null default 0,
     active integer not null default 1,
