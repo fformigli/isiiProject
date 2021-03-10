@@ -27,6 +27,7 @@ passport.use('local.signup', new LocalStrategy({
 
 }, async (req, username, password, done) => {
     const { fullname, rol } = req.body
+    console.log(rol)
     password = await helpers.encryptPassword(password);
 
     pool.query('select * from users where username = $1', [username], (err, users) => {
@@ -34,7 +35,7 @@ passport.use('local.signup', new LocalStrategy({
         if(users.rows.length > 0) return done(null, false, req.flash('message', 'El username ya existe'));
 
         pool.query('insert into users(fullname, username, password, id_rol) '
-        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, rol], (err, data) => {
+        + 'values ($1, $2, $3, $4) returning id', [fullname, username, password, rol], (err) => {
             if(err) return done(err);
             return done(null, req.user);
         });

@@ -11,8 +11,7 @@ const workOrders = require('../controllers/work_orders.controller');
 const dashboard = require('../controllers/dashboard.controller');
 
 // authentication
-router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet);
-router.post('/signup', isLoggedIn, isAdmin, authentication.signUpPost);
+router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
 router.get('/signin', isNotLoggedIn, authentication.signInGet);
 router.post('/signin', isNotLoggedIn, authentication.signInPost);
 router.get('/profile', isLoggedIn, authentication.profile);
@@ -29,12 +28,14 @@ router.get('/work-orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deleteFil
 router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 
 // admin
+router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet);
+router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
+router.post('/admin/users/:id', isLoggedIn, isAdmin, admin.updateUser)
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
 router.get('/admin/roles', isLoggedIn, admin.rolesAdd);
 router.get('/admin/rolesForm', isLoggedIn, admin.createRole);
-router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
 
 // rest users
@@ -47,13 +48,5 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 // dashboard
 router.get('/', isLoggedIn, dashboard.view);
 router.get('/dashboard', isLoggedIn, dashboard.view); // todo
-
-// rest permissions
-router.get('/rest/permissions', isLoggedIn, rest.get_permissions); //listar todo
-router.post('/rest/permissions', isLoggedIn, rest.create_permission); // crear
-router.get('/rest/permissions/:id', isLoggedIn, rest.get_permission_by_id); // listar un usuario
-router.delete('/rest/permissions/:id', isLoggedIn, rest.delete_permission); // eliminar
-router.put('/rest/permissions/:id', isLoggedIn, rest.update_permission); // actualizar
-router.get('/permissions/add', isLoggedIn, admin.permission_add);
 
 module.exports = router;
