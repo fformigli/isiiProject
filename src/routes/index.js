@@ -9,6 +9,7 @@ const authentication = require('../controllers/authentication.controller');
 const rest = require('../controllers/rest.controller');
 const workOrders = require('../controllers/work_orders.controller');
 const dashboard = require('../controllers/dashboard.controller');
+const task = require('../controllers/task.controller')
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -48,5 +49,10 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 // dashboard
 router.get('/', isLoggedIn, dashboard.view);
 router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+
+// tareas
+router.get('/tasks', isLoggedIn, task.list)
+router.get('/tasks/add', isLoggedIn, task.add)
+router.post('/tasks', isLoggedIn, task.save)
 
 module.exports = router;

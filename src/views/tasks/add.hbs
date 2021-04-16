@@ -1,0 +1,43 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>
+                        {{#unless taskData}}
+                            Nueva Tarea
+                        {{ else }}
+                            Editando Tarea
+                        {{/unless }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="/tasks/{{taskData.id}}" method="POST">
+                        <div style="text-align: left">
+                            <dl>
+                                <dt><label for="fullname">Descripción:</label></dt>
+                                <dd><input type="text" name="description" placeholder="Descripción" class="form-control" value="{{taskData.description}}" autofocus></dd>
+                            </dl>
+
+                            <dl>
+                                <dt><label for="status">Estado:</label></dt>
+                                <dd>
+                                    <select name="status" class="custom-select">
+                                        {{#each statusValues}}
+                                            <option value="{{value}}" {{ selectedOption value ../taskData.status }}>{{value}}</option>
+                                        {{/each}}
+                                    </select>
+                                </dd>
+                            </dl>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Añadir
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

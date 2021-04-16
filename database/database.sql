@@ -74,3 +74,22 @@ ALTER TABLE public.rol_permiso
 
 alter table users add id_rol integer;
 alter table users add constraint fk_rol foreign key (id_rol) references roles(id);
+
+-- Table: public.tasks
+
+-- DROP TABLE public.tasks;
+
+CREATE TABLE public.tasks
+(
+    id serial NOT NULL,
+    status character varying NOT NULL,
+    description character varying,
+    tarea_padre_id integer,
+    created_at timestamp not null default current_timestamp,
+    created_by integer,
+    CONSTRAINT tasks_pkey PRIMARY KEY (id)
+);
+
+ALTER TABLE public.tasks
+    OWNER to postgres;
+GRANT ALL ON sequence tasks_id_seq TO postgres;
