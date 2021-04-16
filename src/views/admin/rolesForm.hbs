@@ -3,24 +3,44 @@
         <div class="col-md-4 mx-auto">
             <div class="card text-center">
                 <div class="card-header">
-                    <h3>Nuevo Rol</h3>
+                    <h3>
+                        {{#unless projectData}}
+                            Nuevo Rol
+                        {{ else }}
+                            Editando Rol
+                        {{/unless }}
+                    </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/signup" method="POST" autocomplete="nope">
-                        <div class="form-group">
-                            <input type="text" name="fullname" placeholder="Nombre del Rol" class="form-control" autofocus>
+                    <form action="/projects/ {{rolData.id}}" method="POST">
+                        <div style="text-align: left">
+                            <dl>
+                                <dt><label for="fullname">Nombre:</label></dt>
+                                <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{rolData.name}}" autofocus></dd>
+                            </dl>
+                    <div class="col-md-6 card-body">
+                        <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Permiso 1</label>
                         </div>
-                        <div class="form-group">
-                            <input type="text" name="username" placeholder="Permisos" class="form-control" autocomplete="false">
+                        <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Permiso 2</label>
                         </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="isAdmin" value="1">
-                            <label for="isAdmin">Es Administrador</label>
+                        <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled">
+                                <label class="form-check-label" for="flexSwitchCheckDisabled">Permiso 3</label>
                         </div>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-block">
-                                Añadir
-                            </button>
+                        <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled">
+                                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Permiso 4</label>
+                        </div>
+                    </div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Añadir
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
