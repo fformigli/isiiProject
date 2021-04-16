@@ -22,7 +22,7 @@ controller.list = async (req, res) => {
     } catch (e) {
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/profile');
+        return res.redirect('/tasks');
     }
 }
 
