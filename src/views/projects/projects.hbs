@@ -4,26 +4,22 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <button onclick="location.href='/tasks/add'" class="btn btn-success">
-                            Nueva Tarea
+                        <button onclick="location.href='/projects/new'" class="btn btn-success">
+                            Nuevo Proyecto
                         </button>
                     </div>
                     <table class="table">
                         <thead>
                             <th>ID</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Creado el</th>
+                            <th>Nombre</th>
                         </thead>
                         <tbody>
-                        {{#each tasks}}
+                        {{#each projects}}
                             <tr>
                                 <td>{{id}}</td>
-                                <td>{{status}}</td>
-                                <td>{{description}}</td>
-                                <td>{{timeago created_at}}</td>
+                                <td>{{name}}</td>
                                 <td>
-                                    <button onclick="location.href = '/tasks/edit/'+{{id}}" class="btn btn-warning">
+                                    <button onclick="location.href = '/projects/edit/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>

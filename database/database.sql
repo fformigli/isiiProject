@@ -93,3 +93,21 @@ CREATE TABLE public.tasks
 ALTER TABLE public.tasks
     OWNER to postgres;
 GRANT ALL ON sequence tasks_id_seq TO postgres;
+
+
+-- Table: public.projects
+
+-- DROP TABLE public.projects;
+
+CREATE TABLE public.projects
+(
+	id serial NOT NULL,
+	name character varying NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
+    created_by INTEGER,
+	CONSTRAINT project_pkey PRIMARY KEY (id)
+);
+
+ALTER TABLE public.projects
+    OWNER to postgres;
+GRANT ALL ON sequence projects_id_seq TO postgres;

@@ -99,32 +99,62 @@ controller.permission_add = async (req, res) => {
     }
 };
 
-controller.roles =  (req, res) => {
-    pool.query('select * from roles order by id asc', (err, roles) => {
-        if(err) return done(null, false, req.flash('message','No se pudo conectar con la base de datos.'));
-        res.render('admin/roles.hbs', {roles: roles.rows});
-    });
-};
+//Roles
+const chargeCombos = async () => {
+    const values = [`iniciado`, `pendiente`, `finalizado`]
+    const statusValues = []
+    values.forEach((value) => {
+        statusValues.push({ value })
+    })
 
-controller.rolesAdd = async (req, res) => {
+    return { statusValues };
+}
+
+controller.roleList = async (req, res) => {
     try {
-        return res.render('admin/roles.hbs');
+        const query = `select * from roles`
+
+        const roles = await pool.query(query)
+        return res.render('admin/roles.hbs', {roles: roles.rows})
+
+    } catch (e) {
+        console.error(err);
+        req.flash('message', 'Error: ' + err.message);
+        return res.redirect('/roles');
+    }
+}
+
+
+controller.roleAdd = async (req, res) => {
+    try {
+        const dataForm = await chargeCombos();
+        return res.render('admin/rolesForm', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/profile');
+        return res.redirect('/roles');
     }
 };
 
-controller.createRole = async (req, res) => {
+controller.roleSave = async (req, res) => {
     try {
-        return res.render('admin/rolesForm.hbs');
+        const { name } = req.body
+
+        const query = 'insert into roles ' +
+            '( name ) ' +
+            'values ( $1 ) ';
+
+        const role = await pool.query(query, [ name ])
+
+        req.flash('success', 'Se agregó el rol');
+        res.redirect('/roles');
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/profile');
+        return res.redirect('/roles');
     }
-};
+}
+
 /*controller.rolesDelete = (req, res) => {
     const { id } = req.params;
     pool.query('delete from roles where id = $1', [id], (err) => {

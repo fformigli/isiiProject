@@ -10,25 +10,17 @@
                     </div>
                     <table class="table">
                         <thead>
-                            <th>Rol</th>
-                            <th>Creado el</th>
-                            <th></th>
+                            <th>ID</th>
+                            <th>Nombre</th>
                         </thead>
                         <tbody>
-                        {{#each listRoles}}
+                        {{#each projects}}
                             <tr>
+                                <td>{{id}}</td>
                                 <td>{{name}}</td>
                                 <td>
-                                    {{#if isadmin}}
-                                        Si
-                                    {{else}}
-                                        No
-                                    {{/if}}
-                                </td>
-                                <td>{{timeago created_at}}</td>
-                                <td>
-                                    <button onclick="eliminarRol({{id}});" class="btn btn-danger">
-                                        Eliminar
+                                    <button onclick="location.href = '/admin/editRole/'+{{id}}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -42,11 +34,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-function eliminarRol(id){
-    if(confirm('¿Esta seguro de que desea eliminar el rol?'))
-        location.href = '/admin/roles/delete/'+id;
-    return false;
-}
-</script>

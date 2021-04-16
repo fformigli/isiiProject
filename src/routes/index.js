@@ -10,6 +10,7 @@ const rest = require('../controllers/rest.controller');
 const workOrders = require('../controllers/work_orders.controller');
 const dashboard = require('../controllers/dashboard.controller');
 const task = require('../controllers/task.controller')
+const project = require('../controllers/project.controller')
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -35,8 +36,9 @@ router.post('/admin/users/:id', isLoggedIn, isAdmin, admin.updateUser)
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
-router.get('/admin/roles', isLoggedIn, admin.rolesAdd);
-router.get('/admin/rolesForm', isLoggedIn, admin.createRole);
+router.get('/admin/roles', isLoggedIn, admin.roleList);
+router.get('/admin/rolesForm', isLoggedIn, admin.roleAdd);
+router.post('/admin', isLoggedIn, admin.roleSave);
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
 
 // rest users
@@ -54,5 +56,12 @@ router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 router.get('/tasks', isLoggedIn, task.list)
 router.get('/tasks/add', isLoggedIn, task.add)
 router.post('/tasks', isLoggedIn, task.save)
+router.get('/tasks/edit/:id', isLoggedIn, task.add)
+router.post('/tasks/:id', isLoggedIn, task.save)
+
+//proyectos
+router.get('/projects', isLoggedIn, project.list)
+router.get('/projects/new', isLoggedIn, project.add)
+router.post('/projects', isLoggedIn, project.save)
 
 module.exports = router;
