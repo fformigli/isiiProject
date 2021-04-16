@@ -29,6 +29,12 @@ controller.list = async (req, res) => {
 controller.add = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
+
+        if(req.params.id){ // si este parametro existe, significa qeu estamos editando
+            const query = 'select * from tasks where id = $1';
+            dataForm.taskData = await pool.query(query, [req.params.id])
+        }
+
         return res.render('tasks/add', dataForm);
     } catch (err){
         console.error(err);
