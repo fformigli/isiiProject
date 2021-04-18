@@ -56,6 +56,8 @@ router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 router.get('/tasks', isLoggedIn, task.list)
 router.get('/tasks/add', isLoggedIn, task.add)
 router.post('/tasks', isLoggedIn, task.save)
+router.get('/tasks/edit/:id', isLoggedIn, task.add)
+router.post('/tasks/:id', isLoggedIn, task.save)
 
 //proyectos
 router.get('/projects', isLoggedIn, project.list)
