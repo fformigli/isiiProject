@@ -98,7 +98,6 @@ controller.permission_add = async (req, res) => {
         return res.redirect('/profile');
     }
 };
-
 //Roles
 const chargeCombos = async () => {
     const values = [`iniciado`, `pendiente`, `finalizado`]
@@ -147,11 +146,11 @@ controller.roleSave = async (req, res) => {
         const role = await pool.query(query, [ name ])
 
         req.flash('success', 'Se agregó el rol');
-        res.redirect('/roles');
+        res.redirect('/admin/roles');
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/roles');
+        return res.redirect('/admin/roles');
     }
 }
 
