@@ -111,3 +111,8 @@ CREATE TABLE public.projects
 ALTER TABLE public.projects
     OWNER to postgres;
 GRANT ALL ON sequence projects_id_seq TO postgres;
+
+-- modificacion para tabla roles 
+
+ALTER TABLE roles ADD created_by INTEGER;
+ALTER TABLE roles ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;

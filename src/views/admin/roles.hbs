@@ -12,14 +12,16 @@
                         <thead>
                             <th>ID</th>
                             <th>Nombre</th>
+                            <th>Creado el</th>
                         </thead>
                         <tbody>
                         {{#each roles}}
                             <tr>
                                 <td>{{id}}</td>
                                 <td>{{name}}</td>
+                                <td>{{timeago created_at}}</td>
                                 <td>
-                                    <button onclick="location.href = '/admin/editRole/'+{{id}}" class="btn btn-warning">
+                                    <button onclick="location.href = '/admin/roles/edit/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>

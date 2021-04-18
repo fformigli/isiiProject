@@ -39,6 +39,8 @@ router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
 router.get('/admin/roles', isLoggedIn, isAdmin, admin.roleList);
 router.get('/admin/rolesForm', isLoggedIn, isAdmin, admin.roleAdd);
 router.post('/admin/roles', isLoggedIn, isAdmin, admin.roleSave);
+router.get('/admin/roles/edit/:id', isLoggedIn, isAdmin, admin.roleAdd);
+router.post('/admin/roles:id', isLoggedIn, isAdmin, admin.roleSave);
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
 
 // rest users
