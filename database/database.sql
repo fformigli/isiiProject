@@ -87,7 +87,12 @@ CREATE TABLE public.tasks
     tarea_padre_id integer,
     created_at timestamp not null default current_timestamp,
     created_by integer,
-    CONSTRAINT tasks_pkey PRIMARY KEY (id)
+    CONSTRAINT tasks_pkey PRIMARY KEY (id),
+    CONSTRAINT "FK_TAREA_PADRE" FOREIGN KEY (tarea_padre_id)
+            REFERENCES public.tasks (id) MATCH SIMPLE
+            ON UPDATE NO ACTION
+            ON DELETE NO ACTION
+            NOT VALID
 );
 
 ALTER TABLE public.tasks
@@ -111,3 +116,6 @@ CREATE TABLE public.projects
 ALTER TABLE public.projects
     OWNER to postgres;
 GRANT ALL ON sequence projects_id_seq TO postgres;
+
+
+alter table tasks add constraint fk_tarea_padre foreign key (tarea_padre_id) references tasks(id);
