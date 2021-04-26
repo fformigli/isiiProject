@@ -119,3 +119,7 @@ GRANT ALL ON sequence projects_id_seq TO postgres;
 
 
 alter table tasks add constraint fk_tarea_padre foreign key (tarea_padre_id) references tasks(id);
+
+alter table tasks add column version character varying;
+alter table tasks add column priority integer NOT NULL DEFAULT 0;
+alter table tasks add column observation character varying;

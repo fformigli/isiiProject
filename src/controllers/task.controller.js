@@ -1,28 +1,38 @@
 const pool = require('../database');
+const { TASK_STATUS_VALUES, TASK_PRIORITY_VALUES } = require('../lib/constants');
 
 const controller = {}
 
 const chargeCombos = async () => {
-    const values = [`iniciado`, `pendiente`, `finalizado`]
-    const statusValues = []
-    values.forEach((value) => {
-        statusValues.push({ value })
-    })
-
-    return { statusValues };
+    return {
+        statusValues: TASK_STATUS_VALUES,
+        priorityValues: TASK_PRIORITY_VALUES
+    };
 }
 
 controller.list = async (req, res) => {
     try {
-        const query = `select * from tasks`
+        const query = `select * from tasks order by created_at desc`
 
         const tasks = await pool.query(query)
+
+        // cambia el value por el label
+        tasks.rows.map((task) => {
+            const priority = TASK_PRIORITY_VALUES.filter(prior => prior.value === task.priority)
+            console.log({priority})
+            if(priority.length)
+                task.priority = priority[0].label
+            else
+                task.priority = `No definida`
+            return task
+        })
+
         return res.render('tasks/tasks.hbs', {tasks: tasks.rows})
 
-    } catch (e) {
+    } catch (err) {
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/tasks');
+        return res.redirect('/');
     }
 }
 
@@ -46,20 +56,21 @@ controller.add = async (req, res) => {
 
 controller.save = async (req, res) => {
     try {
-        const { description, status } = req.body
+        const { description, status, observation, priority, version } = req.body
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
-            const query = 'update tasks set description = $1, status = $2 where id = $3';
+            const query = 'update tasks set description = $1, status = $2, ' +
+                'observation = $3, priority = $4, version = $5 where id = $6 ';
 
-            await pool.query(query, [ description, status, req.params.id])
+            await pool.query(query, [ description, status, observation, priority, version, req.params.id])
             req.flash('success', 'Se actualizó la Tarea');
 
         } else { // sino estamos agregando uno nuevo
             const query = 'insert into tasks ' +
-                '( description, status, created_by ) ' +
-                'values ( $1, $2, $3 ) ';
+                '( description, status, observation, priority, version, created_by ) ' +
+                'values ( $1, $2, $3, $4, $5, $6 ) ';
 
-            await pool.query(query, [ description, status, req.user.id])
+            await pool.query(query, [ description, status, observation, priority, version, req.user.id])
             req.flash('success', 'Se agregó la Tarea');
         }
 
