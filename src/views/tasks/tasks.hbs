@@ -13,14 +13,18 @@
                             <th>ID</th>
                             <th>Descripción</th>
                             <th>Estado</th>
+                            <th>Prioridad</th>
+                            <th>Versión</th>
                             <th>Creado el</th>
                         </thead>
                         <tbody>
                         {{#each tasks}}
                             <tr>
                                 <td>{{id}}</td>
-                                <td>{{status}}</td>
                                 <td>{{description}}</td>
+                                <td>{{status}}</td>
+                                <td>{{priority}}</td>
+                                <td>{{version}}</td>
                                 <td>{{timeago created_at}}</td>
                                 <td>
                                     <button onclick="location.href = '/tasks/edit/'+{{id}}" class="btn btn-warning">
