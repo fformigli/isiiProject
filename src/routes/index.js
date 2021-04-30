@@ -65,5 +65,6 @@ router.post('/tasks/:id', isLoggedIn, task.save)
 router.get('/projects', isLoggedIn, project.list)
 router.get('/projects/new', isLoggedIn, project.add)
 router.post('/projects', isLoggedIn, project.save)
-
+router.get('/projects/edit/:id', isLoggedIn, project.add)
+router.post('/projects/:id', isLoggedIn, project.save)
 module.exports = router;

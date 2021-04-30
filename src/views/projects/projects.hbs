@@ -12,12 +12,14 @@
                         <thead>
                             <th>ID</th>
                             <th>Nombre</th>
+                            <th>Creado el</th>
                         </thead>
                         <tbody>
                         {{#each projects}}
                             <tr>
                                 <td>{{id}}</td>
                                 <td>{{name}}</td>
+                                <td>{{timeago created_at}}</td>
                                 <td>
                                     <button onclick="location.href = '/projects/edit/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
