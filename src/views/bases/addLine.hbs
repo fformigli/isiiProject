@@ -1,0 +1,32 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>
+                        {{#unless lineData}}
+                            Nueva Linea Base
+                        {{ else }}
+                            Editando Linea Base
+                        {{/unless }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="/bases/ {{lineData.id}}" method="POST">
+                        <div style="text-align: left">
+                            <dl>
+                                <dt><label for="fullname">Nombre:</label></dt>
+                                <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{lineData.name}}" autofocus></dd>
+                            </dl>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

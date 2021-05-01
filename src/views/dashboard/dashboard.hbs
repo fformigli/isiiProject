@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar">
+        <nav id="sidebarMenu" class="navbar col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar">
             <div class="position-sticky pt-2">
                 <ul class="navbar-nav flex-column">
                 <li class="nav-item">
@@ -9,11 +9,16 @@
                         Administración
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
+                <li class="nav-item active dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
                         Gestión de configuración
                     </a>
+                    <div class="dropdown-menu" >
+                        <button class="dropdown-item" onclick="location.href='/bases'">Lineas Base</button>
+                        <a class="dropdown-item" href="#">Titulo 2</a>
+                        <a class="dropdown-item" href="#">Titulo 3</a>
+                    </div>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">
@@ -39,7 +44,3 @@
         
     </div>
 </div>
-
-
-
-

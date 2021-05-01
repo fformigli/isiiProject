@@ -117,16 +117,16 @@ ALTER TABLE public.projects
     OWNER to postgres;
 GRANT ALL ON sequence projects_id_seq TO postgres;
 
-<<<<<<< HEAD
 -- modificacion para tabla roles 
 
 ALTER TABLE roles ADD created_by INTEGER;
 ALTER TABLE roles ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
-=======
 
 alter table tasks add constraint fk_tarea_padre foreign key (tarea_padre_id) references tasks(id);
 
 alter table tasks add column version character varying;
 alter table tasks add column priority integer NOT NULL DEFAULT 0;
 alter table tasks add column observation character varying;
->>>>>>> 6ee22f4499d8f5cec5d15b8517b12c7a56026391
+
+--modificacion para tabla de base_lines
+ALTER TABLE base_lines ADD created_by INTEGER;
