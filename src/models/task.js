@@ -36,7 +36,7 @@ controller.list = async (req, res) => {
     }
 }
 
-controller.add = async (req, res) => {
+controller.form = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
 
@@ -46,7 +46,7 @@ controller.add = async (req, res) => {
             dataForm.taskData = data.rows[0]
         }
 
-        return res.render('tasks/add', dataForm);
+        return res.render('tasks/form', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);

@@ -3,14 +3,9 @@ const pool = require('../database');
 const controller = {}
 
 const chargeCombos = async () => {
-    const values = [`iniciado`, `pendiente`, `finalizado`]
-    const statusValues = []
-    values.forEach((value) => {
-        statusValues.push({ value })
-    })
-
-    return { statusValues };
+    return { };
 }
+
 
 controller.list = async (req, res) => {
     try {
@@ -26,7 +21,7 @@ controller.list = async (req, res) => {
     }
 }
 
-controller.add = async (req, res) => {
+controller.form = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
 
@@ -36,7 +31,7 @@ controller.add = async (req, res) => {
             dataForm.lineData = data.rows[0]
         }
 
-        return res.render('bases/addLine', dataForm);
+        return res.render('bases/form', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);

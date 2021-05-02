@@ -4,15 +4,14 @@ const router = Router();
 const uploads = require('../lib/multer');
 
 // controllers
-const admin = require('../controllers/admin.controller');
-const authentication = require('../controllers/authentication.controller');
-const rest = require('../controllers/rest.controller');
-const workOrders = require('../controllers/work_orders.controller');
-const dashboard = require('../controllers/dashboard.controller');
-const task = require('../controllers/task.controller')
-const project = require('../controllers/project.controller')
-const baseLine = require('../controllers/baseLine.controller')
-const base = require('../controllers/base.controller')
+const admin = require('../models/admin');
+const authentication = require('../models/authentication');
+const rest = require('../models/rest');
+const workOrders = require('../models/work_orders');
+const dashboard = require('../models/dashboard');
+const task = require('../models/task')
+const project = require('../models/project')
+const base = require('../models/base')
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -58,26 +57,23 @@ router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 
 // tareas
 router.get('/tasks', isLoggedIn, task.list)
-router.get('/tasks/add', isLoggedIn, task.add)
+router.get('/tasks/add', isLoggedIn, task.form)
 router.post('/tasks', isLoggedIn, task.save)
-router.get('/tasks/edit/:id', isLoggedIn, task.add)
+router.get('/tasks/edit/:id', isLoggedIn, task.form)
 router.post('/tasks/:id', isLoggedIn, task.save)
 
 // proyectos
 router.get('/projects', isLoggedIn, project.list)
-router.get('/projects/new', isLoggedIn, project.add)
+router.get('/projects/new', isLoggedIn, project.form)
 router.post('/projects', isLoggedIn, project.save)
-router.get('/projects/edit/:id', isLoggedIn, project.add)
+router.get('/projects/edit/:id', isLoggedIn, project.form)
 router.post('/projects/:id', isLoggedIn, project.save)
 
-//lineas base
-router.get('/bases', isLoggedIn, base.list)
-router.get('/bases/addLine', isLoggedIn, base.add)
-router.post('/bases', isLoggedIn, base.save)
-router.get('/bases/edit/:id', isLoggedIn, base.add)
-router.post('/bases/:id', isLoggedIn, base.save)
-
 // lineas base
-router.get('/base-lines/add', isLoggedIn, baseLine.form)
+router.get('/base-lines', isLoggedIn, base.list)
+router.get('/base-lines/add', isLoggedIn, base.form)
+router.post('/base-lines', isLoggedIn, base.save)
+router.get('/base-lines/edit/:id', isLoggedIn, base.form)
+router.post('/base-lines/:id', isLoggedIn, base.save)
 
 module.exports = router;
