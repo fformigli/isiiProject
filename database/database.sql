@@ -117,7 +117,7 @@ ALTER TABLE public.projects
     OWNER to postgres;
 GRANT ALL ON sequence projects_id_seq TO postgres;
 
--- modificacion para tabla roles 
+-- modificacion para tabla roles
 
 ALTER TABLE roles ADD created_by INTEGER;
 ALTER TABLE roles ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
@@ -128,5 +128,39 @@ alter table tasks add column version character varying;
 alter table tasks add column priority integer NOT NULL DEFAULT 0;
 alter table tasks add column observation character varying;
 
---modificacion para tabla de base_lines
+CREATE TABLE public.base_lines
+(
+    id serial not null,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    CONSTRAINT base_lines_pkey PRIMARY KEY (id)
+);
+
+ALTER TABLE public.base_lines
+    OWNER to postgres;
+
+GRANT ALL ON sequence base_lines_id_seq TO postgres;
+
+CREATE TABLE public.base_line_tasks
+(
+    base_line_id integer NOT NULL,
+    task_id integer NOT NULL,
+    CONSTRAINT base_line_tasks_id PRIMARY KEY (base_line_id, task_id),
+    CONSTRAINT base_line_fk FOREIGN KEY (base_line_id)
+        REFERENCES public.base_lines (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT task_fk FOREIGN KEY (base_line_id)
+        REFERENCES public.tasks (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE public.base_line_tasks
+    OWNER to postgres;
+
+-- modificacion para tabla de base_lines
 ALTER TABLE base_lines ADD created_by INTEGER;
+ALTER TABLE base_lines ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;

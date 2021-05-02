@@ -26,7 +26,7 @@ controller.list = async (req, res) => {
     }
 }
 
-controller.add = async (req, res) => {
+controller.form = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
 
