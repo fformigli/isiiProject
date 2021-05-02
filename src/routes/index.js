@@ -11,6 +11,7 @@ const workOrders = require('../controllers/work_orders.controller');
 const dashboard = require('../controllers/dashboard.controller');
 const task = require('../controllers/task.controller')
 const project = require('../controllers/project.controller')
+const baseLine = require('../controllers/baseLine.controller')
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -59,9 +60,12 @@ router.post('/tasks', isLoggedIn, task.save)
 router.get('/tasks/edit/:id', isLoggedIn, task.add)
 router.post('/tasks/:id', isLoggedIn, task.save)
 
-//proyectos
+// proyectos
 router.get('/projects', isLoggedIn, project.list)
 router.get('/projects/new', isLoggedIn, project.add)
 router.post('/projects', isLoggedIn, project.save)
+
+// lineas base
+router.get('/base-lines/add', isLoggedIn, baseLine.form)
 
 module.exports = router;

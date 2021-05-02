@@ -123,3 +123,34 @@ alter table tasks add constraint fk_tarea_padre foreign key (tarea_padre_id) ref
 alter table tasks add column version character varying;
 alter table tasks add column priority integer NOT NULL DEFAULT 0;
 alter table tasks add column observation character varying;
+
+CREATE TABLE public.base_lines
+(
+    id serial not null,
+    name character varying COLLATE pg_catalog."default" NOT NULL,
+    description character varying COLLATE pg_catalog."default",
+    CONSTRAINT base_lines_pkey PRIMARY KEY (id)
+);
+
+ALTER TABLE public.base_lines
+    OWNER to postgres;
+
+CREATE TABLE public.base_line_tasks
+(
+    base_line_id integer NOT NULL,
+    task_id integer NOT NULL,
+    CONSTRAINT base_line_tasks_id PRIMARY KEY (base_line_id, task_id),
+    CONSTRAINT base_line_fk FOREIGN KEY (base_line_id)
+        REFERENCES public.base_lines (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT task_fk FOREIGN KEY (base_line_id)
+        REFERENCES public.tasks (id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
+
+ALTER TABLE public.base_line_tasks
+    OWNER to postgres;

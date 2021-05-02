@@ -1,0 +1,70 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>
+                        {{#unless baseLineData}}
+                            Nueva Linea Base
+                        {{ else }}
+                            Editando Linea Base
+                        {{/unless }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="/tasks/{{baseLineData.id}}" method="POST">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: left">
+                                <dl>
+                                    <dt><label for="fullname">Descripción:</label></dt>
+                                    <dd><input type="text" name="description" placeholder="Descripción" class="form-control" value="{{baseLineData.description}}" autofocus></dd>
+                                </dl>
+
+                                <dl>
+                                    <dt><label for="status">Estado:</label></dt>
+                                    <dd>
+                                        <select name="status" class="custom-select">
+                                            {{#each statusValues}}
+                                                <option value="{{value}}" {{ selectedOption value ../baseLineData.status }}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><label for="status">Prioridad:</label></dt>
+                                    <dd>
+                                        <select name="priority" class="custom-select">
+                                            {{#each priorityValues}}
+                                                <option value="{{value}}" {{ selectedOption value ../baseLineData.priority }}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col" style="text-align: left">
+                                <dl>
+                                    <dt><label for="fullname">Versión:</label></dt>
+                                    <dd><input type="text" name="version" placeholder="x.x.x" class="form-control" value="{{baseLineData.version}}" autofocus></dd>
+                                </dl>
+
+                                <dl>
+                                    <dt>Observación:</dt>
+                                    <dd>
+                                        <textarea name="observation"  class="form-control">{{baseLineData.observation}}</textarea>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
