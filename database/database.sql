@@ -117,6 +117,10 @@ ALTER TABLE public.projects
     OWNER to postgres;
 GRANT ALL ON sequence projects_id_seq TO postgres;
 
+-- modificacion para tabla roles
+
+ALTER TABLE roles ADD created_by INTEGER;
+ALTER TABLE roles ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 alter table tasks add constraint fk_tarea_padre foreign key (tarea_padre_id) references tasks(id);
 
@@ -134,6 +138,8 @@ CREATE TABLE public.base_lines
 
 ALTER TABLE public.base_lines
     OWNER to postgres;
+
+GRANT ALL ON sequence base_lines_id_seq TO postgres;
 
 CREATE TABLE public.base_line_tasks
 (
@@ -154,3 +160,7 @@ CREATE TABLE public.base_line_tasks
 
 ALTER TABLE public.base_line_tasks
     OWNER to postgres;
+
+-- modificacion para tabla de base_lines
+ALTER TABLE base_lines ADD created_by INTEGER;
+ALTER TABLE base_lines ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;

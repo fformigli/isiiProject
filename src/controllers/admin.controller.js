@@ -100,6 +100,7 @@ controller.permission_add = async (req, res) => {
 };
 
 //Roles
+
 const chargeCombos = async () => {
     const values = [`iniciado`, `pendiente`, `finalizado`]
     const statusValues = []
@@ -128,6 +129,13 @@ controller.roleList = async (req, res) => {
 controller.roleAdd = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
+
+        if(req.params.id){ // si este parametro existe, significa qeu estamos editando
+            const query = 'select * from roles where id = $1';
+            const data = await pool.query(query, [req.params.id])
+            dataForm.rolData = data.rows[0]
+        }
+
         return res.render('admin/rolesForm', dataForm);
     } catch (err){
         console.error(err);
@@ -140,21 +148,28 @@ controller.roleSave = async (req, res) => {
     try {
         const { name } = req.body
 
-        const query = 'insert into roles ' +
-            '( name ) ' +
-            'values ( $1 ) ';
+        if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
+            const query = 'update roles set name = $1 where id = $2';
 
-        const role = await pool.query(query, [ name ])
+            await pool.query(query, [ name, req.params.id ])
+            req.flash('success', 'Se actualizó el rol');
 
-        req.flash('success', 'Se agregó el rol');
-        res.redirect('/roles');
+        } else { // sino estamos agregando uno nuevo
+            const query = 'insert into roles ' +
+                '( name, created_by ) ' +
+                'values ( $1, $2 ) ';
+
+            await pool.query(query, [ name, req.user.id])
+            req.flash('success', 'Se agregó el rol');
+        }
+
+        res.redirect('/admin/roles');
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/roles');
+        return res.redirect('/admin/roles');
     }
 }
-
 /*controller.rolesDelete = (req, res) => {
     const { id } = req.params;
     pool.query('delete from roles where id = $1', [id], (err) => {

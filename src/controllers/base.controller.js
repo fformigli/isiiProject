@@ -14,15 +14,15 @@ const chargeCombos = async () => {
 
 controller.list = async (req, res) => {
     try {
-        const query = `select * from projects`
+        const query = `select * from base_lines`
 
-        const projects = await pool.query(query)
-        return res.render('projects/projects.hbs', {projects: projects.rows})
+        const bases = await pool.query(query)
+        return res.render('bases/bases.hbs', {bases: bases.rows})
 
     } catch (e) {
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/projects');
+        return res.redirect('/bases');
     }
 }
 
@@ -31,16 +31,16 @@ controller.add = async (req, res) => {
         const dataForm = await chargeCombos();
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
-            const query = 'select * from projects where id = $1 order by created_by desc';
+            const query = 'select * from base_lines where id = $1 order by created_by desc';
             const data = await pool.query(query, [req.params.id])
-            dataForm.projectData = data.rows[0]
+            dataForm.lineData = data.rows[0]
         }
 
-        return res.render('projects/new', dataForm);
+        return res.render('bases/addLine', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/projects');
+        return res.redirect('/bases');
     }
 };
 
@@ -49,26 +49,25 @@ controller.save = async (req, res) => {
         const { name } = req.body
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
-            const query = 'update projects set name = $1 where id = $2 ';
+            const query = 'update base_lines set name = $1 where id = $2 ';
 
             await pool.query(query, [ name, req.params.id ])
-            req.flash('success', 'Se actualizó el proyecto');
+            req.flash('success', 'Se actualizó la linea base');
 
         } else { // sino estamos agregando uno nuevo
-            const query = 'insert into projects ' +
+            const query = 'insert into base_lines ' +
             '( name, created_by ) ' +
             'values ( $1, $2 ) ';
 
             await pool.query(query, [ name, req.params.id ])
-            req.flash('success', 'Se agregó el proyecto');
+            req.flash('success', 'Se agregó la linea base');
         }
 
-        res.redirect('/projects');
+        res.redirect('/bases');
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect('/projects');
+        return res.redirect('/bases');
     }
 }
 module.exports = controller
-
