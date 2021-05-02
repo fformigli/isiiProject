@@ -4,21 +4,20 @@
             <div class="card text-center">
                 <div class="card-header">
                     <h3>
-                        {{#unless projectData}}
-                            Nuevo Proyecto
+                        {{#unless lineData}}
+                            Nueva Linea Base
                         {{ else }}
-                            Editando Proyecto
+                            Editando Linea Base
                         {{/unless }}
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/projects/ {{projectData.id}}" method="POST">
+                    <form action="/bases/ {{lineData.id}}" method="POST">
                         <div style="text-align: left">
                             <dl>
                                 <dt><label for="fullname">Nombre:</label></dt>
-                                <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{projectData.name}}" autofocus></dd>
+                                <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{lineData.name}}" autofocus></dd>
                             </dl>
-
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">
                                     Guardar
