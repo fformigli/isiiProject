@@ -12,11 +12,17 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/bases/ {{lineData.id}}" method="POST">
+                    <form action="/base-lines/{{lineData.id}}" method="POST">
                         <div style="text-align: left">
                             <dl>
                                 <dt><label for="fullname">Nombre:</label></dt>
                                 <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{lineData.name}}" autofocus></dd>
+                            </dl>
+                            <dl>
+                                <dt>Descripción:</dt>
+                                <dd>
+                                    <textarea name="description"  class="form-control">{{lineData.description}}</textarea>
+                                </dd>
                             </dl>
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">

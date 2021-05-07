@@ -164,3 +164,4 @@ ALTER TABLE public.base_line_tasks
 -- modificacion para tabla de base_lines
 ALTER TABLE base_lines ADD created_by INTEGER;
 ALTER TABLE base_lines ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE base_lines ADD COLUMN project_id integer;
