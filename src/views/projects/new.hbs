@@ -1,6 +1,6 @@
 <div class="container p-4">
     <div class="row">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-10 mx-auto">
             <div class="card text-center">
                 <div class="card-header">
                     <h3>
@@ -12,13 +12,53 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/projects/ {{projectData.id}}" method="POST">
-                        <div style="text-align: left">
-                            <dl>
-                                <dt><label for="fullname">Nombre:</label></dt>
-                                <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{projectData.name}}" autofocus></dd>
-                            </dl>
+                    <form action="/projects/{{projectData.id}}" method="POST">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: left">
+                                <dl>
+                                    <dt><label for="name">Nombre:</label></dt>
+                                    <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{projectData.name}}" autofocus></dd>
+                                </dl>
+                            </div>
+                            {{#if projectData.id}}
+                                <div class="col" style="text-align: left">
+                                    <h4>Tareas</h4>
+                                    <table class="table">
+                                        <th>Descripción</th>
+                                        <th>Estado</th>
+                                        {{#each tasks}}
+                                            <tr><td>{{description}}</td><td>{{status}}</td></tr>
+                                        {{else}}
+                                            <tr><td colspan="2"> No hay tareas asignadas</td></tr>
+                                        {{/each}}
+                                    </table>
 
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-block" onclick="location.href='/tasks/add/{{projectData.id}}'">
+                                            Añadir Tareas
+                                        </button>
+                                    </div>
+
+                                    <h4>Líneas Base</h4>
+                                    <table class="table">
+                                        <th>Nombre</th>
+                                        {{#each baseLines}}
+                                            <tr><td>{{name}}</td></tr>
+                                        {{else}}
+                                            <tr><td> No hay tareas asignadas</td></tr>
+                                        {{/each}}
+                                    </table>
+
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-block" onclick="location.href='/base-lines/add/{{projectData.id}}'">
+                                            Añadir Líneas Base
+                                        </button>
+                                    </div>
+
+                                </div>
+                            {{/if}}
+                        </div>
+                        <div>
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">
                                     Guardar
