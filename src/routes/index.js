@@ -57,10 +57,10 @@ router.get('/dashboard', isLoggedIn, dashboard.view); // todo
 
 // tareas
 router.get('/tasks', isLoggedIn, task.list)
-router.get('/tasks/add', isLoggedIn, task.form)
-router.post('/tasks', isLoggedIn, task.save)
+router.get('/tasks/add/:project', isLoggedIn, task.form)
+router.post('/tasks/:project', isLoggedIn, task.save)
 router.get('/tasks/edit/:id', isLoggedIn, task.form)
-router.post('/tasks/:id', isLoggedIn, task.save)
+router.post('/tasks/:project/:id', isLoggedIn, task.save)
 
 // proyectos
 router.get('/projects', isLoggedIn, project.list)
@@ -71,9 +71,9 @@ router.post('/projects/:id', isLoggedIn, project.save)
 
 // lineas base
 router.get('/base-lines', isLoggedIn, base.list)
-router.get('/base-lines/add', isLoggedIn, base.form)
-router.post('/base-lines', isLoggedIn, base.save)
+router.get('/base-lines/add/:project', isLoggedIn, base.form)
+router.post('/base-lines/:project', isLoggedIn, base.save)
 router.get('/base-lines/edit/:id', isLoggedIn, base.form)
-router.post('/base-lines/:id', isLoggedIn, base.save)
+router.post('/base-lines/:project/:id', isLoggedIn, base.save)
 
 module.exports = router;

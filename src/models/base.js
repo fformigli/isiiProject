@@ -24,6 +24,7 @@ controller.list = async (req, res) => {
 controller.form = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
+        dataForm.project = req.params.project
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
             const query = 'select * from base_lines where id = $1';
@@ -42,6 +43,7 @@ controller.form = async (req, res) => {
 controller.save = async (req, res) => {
     try {
         const { name, description } = req.body
+        const {project} = req.params
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
             const query = 'update base_lines set name = $1, description = $2 where id = $3 ';
@@ -51,10 +53,10 @@ controller.save = async (req, res) => {
 
         } else { // sino estamos agregando uno nuevo
             const query = 'insert into base_lines ' +
-            '( name, description, created_by ) ' +
-            'values ( $1, $2, $3 ) ';
+            '( name, description, created_by, project_id ) ' +
+            'values ( $1, $2, $3, $4 ) ';
 
-            await pool.query(query, [ name, description, req.params.id ])
+            await pool.query(query, [ name, description, req.params.id, project ])
             req.flash('success', 'Se agregó la linea base');
         }
 

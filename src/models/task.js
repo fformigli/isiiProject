@@ -39,6 +39,7 @@ controller.list = async (req, res) => {
 controller.form = async (req, res) => {
     try {
         const dataForm = await chargeCombos();
+        dataForm.project = req.params.project
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
             const query = 'select * from tasks where id = $1 order by created_by desc';
@@ -57,6 +58,7 @@ controller.form = async (req, res) => {
 controller.save = async (req, res) => {
     try {
         const { description, status, observation, priority, version } = req.body
+        const { project } = req.params
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
             const query = 'update tasks set description = $1, status = $2, ' +
@@ -65,12 +67,12 @@ controller.save = async (req, res) => {
             await pool.query(query, [ description, status, observation, priority, version, req.params.id])
             req.flash('success', 'Se actualizó la Tarea');
 
-        } else { // sino estamos agregando uno nuevo
+        } else { // sino, estamos agregando uno nuevo
             const query = 'insert into tasks ' +
-                '( description, status, observation, priority, version, created_by ) ' +
-                'values ( $1, $2, $3, $4, $5, $6 ) ';
+                '( description, status, observation, priority, version, created_by, project_id ) ' +
+                'values ( $1, $2, $3, $4, $5, $6, $7 ) ';
 
-            await pool.query(query, [ description, status, observation, priority, version, req.user.id])
+            await pool.query(query, [ description, status, observation, priority, version, req.user.id, project])
             req.flash('success', 'Se agregó la Tarea');
         }
 

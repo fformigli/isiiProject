@@ -14,14 +14,14 @@ const chargeCombos = async () => {
 
 controller.list = async (req, res) => {
     try {
-        const query = `select * from projects`
+        const query = `select * from projects order by created_at desc`
 
         const projects = await pool.query(query)
         return res.render('projects/projects.hbs', {projects: projects.rows})
 
     } catch (e) {
-        console.error(err);
-        req.flash('message', 'Error: ' + err.message);
+        console.error(e);
+        req.flash('message', 'Error: ' + e.message);
         return res.redirect('/projects');
     }
 }
@@ -31,9 +31,19 @@ controller.form = async (req, res) => {
         const dataForm = await chargeCombos();
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
-            const query = 'select * from projects where id = $1 order by created_by desc';
-            const data = await pool.query(query, [req.params.id])
+            let query = 'select * from projects where id = $1 order by created_by desc';
+            let data = await pool.query(query, [req.params.id])
             dataForm.projectData = data.rows[0]
+
+            // vemos si tiene tareas asignadas
+            query = 'select * from tasks where project_id = $1 order by created_at desc limit 3'
+            data = await pool.query(query, [req.params.id])
+            dataForm.tasks = data.rows
+
+            // vemos si tiene lineas base definidas
+            query = 'select * from base_lines where project_id = $1 order by created_at desc limit 3'
+            data = await pool.query(query, [req.params.id])
+            dataForm.baseLines = data.rows
         }
 
         return res.render('projects/new', dataForm);

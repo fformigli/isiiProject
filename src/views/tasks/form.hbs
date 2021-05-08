@@ -12,11 +12,11 @@
                     </h3>
                 </div>
                 <div class="card-body">
-                    <form action="/tasks/{{taskData.id}}" method="POST">
+                    <form action="/tasks/{{project}}/{{taskData.id}}" method="POST">
                         <div class="row">
                             <div class="col-md-4" style="text-align: left">
                                 <dl>
-                                    <dt><label for="fullname">Descripción:</label></dt>
+                                    <dt><label for="description">Descripción:</label></dt>
                                     <dd><input type="text" name="description" placeholder="Descripción" class="form-control" value="{{taskData.description}}" autofocus></dd>
                                 </dl>
 
