@@ -9,7 +9,7 @@ const chargeCombos = async () => {
 
 controller.list = async (req, res) => {
     try {
-        const query = `select * from base_lines`
+        const query = `select * from base_lines order by created_by desc`
 
         const bases = await pool.query(query)
         return res.render('bases/bases.hbs', {bases: bases.rows})
@@ -26,7 +26,7 @@ controller.form = async (req, res) => {
         const dataForm = await chargeCombos();
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
-            const query = 'select * from base_lines where id = $1 order by created_by desc';
+            const query = 'select * from base_lines where id = $1';
             const data = await pool.query(query, [req.params.id])
             dataForm.lineData = data.rows[0]
         }
@@ -41,24 +41,24 @@ controller.form = async (req, res) => {
 
 controller.save = async (req, res) => {
     try {
-        const { name } = req.body
+        const { name, description } = req.body
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
-            const query = 'update base_lines set name = $1 where id = $2 ';
+            const query = 'update base_lines set name = $1, description = $2 where id = $3 ';
 
-            await pool.query(query, [ name, req.params.id ])
+            await pool.query(query, [ name, description, req.params.id ])
             req.flash('success', 'Se actualizó la linea base');
 
         } else { // sino estamos agregando uno nuevo
             const query = 'insert into base_lines ' +
-            '( name, created_by ) ' +
-            'values ( $1, $2 ) ';
+            '( name, description, created_by ) ' +
+            'values ( $1, $2, $3 ) ';
 
-            await pool.query(query, [ name, req.params.id ])
+            await pool.query(query, [ name, description, req.params.id ])
             req.flash('success', 'Se agregó la linea base');
         }
 
-        res.redirect('/bases');
+        res.redirect('/base-lines');
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
