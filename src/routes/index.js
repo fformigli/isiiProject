@@ -53,8 +53,8 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 
 // dashboard
 router.get('/', isLoggedIn, dashboard.view);
-router.get('/dashboard', isLoggedIn, dashboard.view); // todo
-router.get('/dashboard', isLoggedIn, dashboard.listUser); // listar usuarios en el dashboard
+//router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+router.get('/dashboard', isLoggedIn, dashboard.list); // listar usuarios en el dashboard
 
 
 // tareas

@@ -9,7 +9,7 @@ controller.view = async (req, res) => {
     res.render('dashboard/dashboard', dataForm);
 };
 
-controller.listUser = async (req, res) => {
+controller.list = async (req, res) => {
     try {
         const query = 'select u.id, u.fullname, u.username, u.active, u.created_at, coalesce(r.name, \'-\') rol '
         query += 'from users u left join roles r on r.id = u.id_rol '
@@ -24,19 +24,4 @@ controller.listUser = async (req, res) => {
         return res.redirect('/');
     }
 }
-
-/*
-controller.list = async (req, res) => {
-    try {
-        const query = `select * from projects order by created_at desc`
-
-        const projects = await pool.query(query)
-        return res.render('dashboard/dashboard.hbs', {projects: projects.rows})
-
-    } catch (e) {
-        console.error(e);
-        req.flash('message', 'Error: ' + e.message);
-        return res.redirect('/');
-    }
-}*/
 module.exports = controller;
