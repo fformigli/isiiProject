@@ -1,4 +1,3 @@
-const { isLoggedIn, isNotLoggedIn, isAdmin } = require('../lib/auth');
 const passport = require('passport');
 
 const controller = {}
@@ -39,5 +38,4 @@ controller.apiLogin = (req, res) => {
     const user = { userId: 1, displayName: "test ok" }
     res.json(user)
 }
-
 module.exports = controller;
