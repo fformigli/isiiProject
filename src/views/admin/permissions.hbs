@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <button onclick="location.href='/permissions/add/'" class="btn btn-success">
+                        <button onclick="location.href='/admin/permissionForm'" class="btn btn-success">
                             Nuevo Permiso
                         </button>
                     </div>
@@ -23,8 +23,11 @@
                                 <td>{{name}}</td>
                                
                                 <td>
-                                    <button onclick="editarPermiso({{id}}); " class="btn btn-info">
+                                    {{!-- <button onclick="editarPermiso({{id}}); " class="btn btn-info">
                                         Editar
+                                    </button> --}}
+                                    <button onclick="location.href = '/admin/permissions/edit/'+{{id}}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>

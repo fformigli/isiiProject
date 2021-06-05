@@ -4,7 +4,7 @@ const chargeUserCombos = async () => {
     const roleList = await pool.query('select * from roles order by name');
     return { roles: roleList.rows };
 }
-const controller = {}
+const controller = {} 
 
 controller.admin = (req, res) => {
     res.render('admin/admin.hbs');
@@ -179,4 +179,52 @@ controller.roleSave = async (req, res) => {
     });
 
 };*/
+
+/* CHESS SECTION */
+controller.permissionsAdd = async (req, res) => {
+    try {
+        const dataForm = await chargeCombos();
+
+        if(req.params.id){ // si este parametro existe, significa qeu estamos editando
+            const query = 'select * from permissions where id = $1';
+            const data = await pool.query(query, [req.params.id])
+            dataForm.rolData = data.rows[0]
+           
+        }
+
+        return res.render('admin/permissionForm', dataForm);
+    } catch (err){
+        console.error(err);
+        req.flash('message', 'Error: ' + err.message);
+        return res.redirect('/roles');
+    }
+};
+
+controller.permissionsSave = async (req, res) => {
+    try {
+        const { resources, operation, name } = req.body
+
+        if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
+            const query = 'update permissions set resources = $1, operation= $2, name = $3 where id = $4';
+
+            await pool.query(query, [ resources, operation, name, req.params.id ])
+            req.flash('success', 'Se actualizó el permiso');
+
+        } else { // sino estamos agregando uno nuevo
+            const query = 'insert into permissions ' +
+                '( resources, operation, name ) ' +
+                'values ( $1, $2, $3 ) ';
+
+            await pool.query(query, [ resources, operation,name])
+            req.flash('success', 'Se agregó el permiso');
+        }
+
+        res.redirect('/admin/permissions');
+    } catch (err){
+        console.error(err);
+        req.flash('message', 'Error: ' + err.message);
+        return res.redirect('/admin/permissions');
+    }
+}
+/******/
 module.exports = controller;
