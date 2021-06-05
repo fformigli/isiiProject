@@ -3,25 +3,32 @@
         <div class="w-100 mx-auto">
             <div class="card text-center">
                 <div class="card-header">
-                    <h3>Nuevo Permiso</h3>
+                    <h3> {{#unless rolData}}
+                        Nuevo Permiso
+                        {{ else }}
+                        Editando Permiso
+                        {{/unless }}</h3>
                 </div>
                 <div class="card-body">
-                <form action="/rest/permissions{{p.id}}" method="POST" enctype="multipart/form-data">
-                        <div class="col-sm-6">  
+                    <form action="/admin/permissions {{rolData.id}}" method="POST" >
+                        <div class="col-sm-6">
                             <dl>
                                 <dt><label for="resources">Recurso</label></dt>
-                                <dd><input type="text" value="{{p.resources}}" class="form-control" name="resources" placeholder="Recurso"  autofocus></dd>
+                                <dd><input type="text" value="{{rolData.resources}}" class="form-control"
+                                        name="resources" placeholder="Recurso" autofocus></dd>
 
-                                <dt><label for="operations">Operación</label></dt>
-                                <dd><input type="text" value="{{p.operations}}" class="form-control" name="operations" placeholder="Operación"  autofocus></dd>
+                                <dt><label for="operation">Operación</label></dt>
+                                <dd><input type="text" value="{{rolData.operation}}" class="form-control"
+                                        name="operation" placeholder="Operación" autofocus></dd>
 
                                 <dt><label for="name">Nombre</label></dt>
-                                <dd><input type="text" value="{{p.name}}" class="form-control" name="name" placeholder="Nombre"  autofocus></dd>
+                                <dd><input type="text" value="{{rolData.name}}" class="form-control" name="name"
+                                        placeholder="Nombre" autofocus></dd>
 
                         </div>
                         <div class="form-group">
                             <button class="btn btn-success btn-block">
-                                Añadir
+                                Guardar
                             </button>
                         </div>
                     </form>
