@@ -31,7 +31,7 @@ router.get('/work-orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deleteFil
 router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 
 // admin
-router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet);
+router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet); 
 router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
 router.post('/admin/users/:id', isLoggedIn, isAdmin, admin.updateUser)
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
@@ -43,6 +43,10 @@ router.post('/admin/roles', isLoggedIn, isAdmin, admin.roleSave);
 router.get('/admin/roles/edit/:id', isLoggedIn, isAdmin, admin.roleAdd);
 router.post('/admin/roles:id', isLoggedIn, isAdmin, admin.roleSave);
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
+router.get('/admin/permissionForm', isLoggedIn, isAdmin, admin.permissionsAdd);
+router.get('/admin/permissions/edit/:id', isLoggedIn, isAdmin, admin.permissionsAdd);
+router.post('/admin/permissions:id', isLoggedIn, isAdmin, admin.permissionsSave);
+router.post('/admin/permissions', isLoggedIn, isAdmin, admin.permissionsSave);
 
 // rest users
 router.get('/rest/users', rest.get_users); //listar todo
