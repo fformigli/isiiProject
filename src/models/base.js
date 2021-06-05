@@ -60,7 +60,9 @@ controller.save = async (req, res) => {
             req.flash('success', 'Se agregó la linea base');
         }
 
-        res.redirect('/base-lines');
+        req.flash('success', 'Se agrego la linea base')
+
+        res.redirect(`/projects/edit/${project}`);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);

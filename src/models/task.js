@@ -75,8 +75,9 @@ controller.save = async (req, res) => {
             await pool.query(query, [ description, status, observation, priority, version, req.user.id, project])
             req.flash('success', 'Se agregó la Tarea');
         }
+        req.flash('success', 'Se agrego la tarea')
 
-        res.redirect('/tasks');
+        res.redirect(`/projects/edit/${project}`);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
