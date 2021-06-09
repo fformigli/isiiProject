@@ -1,69 +1,10 @@
-<div class="container-fluid">
-    <div class="row">
-        <nav id="sidebarMenu" class="navbar col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar">
-            <div class="position-sticky pt-2">
-                <ul class="navbar-nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>
-                        Administración
-                    </a>
-                </li>
-                <li class="nav-item active dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                        Gestión de configuración
-                    </a>
-                    <div class="dropdown-menu" >
-                        <button class="dropdown-item" onclick="location.href='/base-lines'">Lineas Base</button>
-<!--                        <a class="dropdown-item" href="#">Titulo 2</a>-->
-<!--                        <a class="dropdown-item" href="#">Titulo 3</a>-->
-                    </div>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                           
-                        Desarrollo
-                    </a>
-                </li>
-            </ul>
+<div class="row flex-fill flex-column flex-sm-row">
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Bienvenido {{user.fullname}}</h5>
             </div>
-        </nav>
-        <div class="card col-10">
-            <div class="h-100">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5>Bienvenido {{user.fullname}}</h5>
-<!--                        <h6>{{user.username}}</h6>-->
-                    </div>
-                </div>
-                
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!--STYLESHEET-->
-    <!--=================================================-->
-
-    <!--Open Sans Font [ OPTIONAL ]-->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
-
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link href="css\bootstrap.min.css" rel="stylesheet">
-
-
-    <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link href="css\nifty.min.css" rel="stylesheet">
-
-
-    <!--Nifty Premium Icon [ DEMONSTRATION ]-->
-    <link href="css\demo\nifty-demo-icons.min.css" rel="stylesheet">
-
-
-    <!--=================================================-->
-
+		</div>
 
 
     <!--Pace - Page Load Progress Par [OPTIONAL]-->
@@ -71,7 +12,7 @@
     <script src="plugins\pace\pace.min.js"></script>
 
 
-    <!--Demo [ DEMONSTRATION ]-->
+ 
     
 <!--TIPS-->
 <!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
@@ -90,85 +31,42 @@
                 <!--===================================================-->
                 <div id="page-content">
                     
-					    <div class="row">
-					        <div class="col-lg-7">
-					
-					            <!--Network Line Chart-->
-					            <!--===================================================-->
-					            <div id="demo-panel-network" class="panel">
-					                <div class="panel-heading">
-					                    <div class="panel-control">
-					                        <button id="demo-panel-network-refresh" class="btn btn-default btn-active-primary" data-toggle="panel-overlay" data-target="#demo-panel-network"><i class="demo-psi-repeat-2"></i></button>
-					                        <div class="dropdown">
-					                            <button class="dropdown-toggle btn btn-default btn-active-primary" data-toggle="dropdown" aria-expanded="false"><i class="demo-psi-dot-vertical"></i></button>
-					                            <ul class="dropdown-menu dropdown-menu-right">
-					                                <li><a href="#">Action</a></li>
-					                                <li><a href="#">Another action</a></li>
-					                                <li><a href="#">Something else here</a></li>
-					                                <li class="divider"></li>
-					                                <li><a href="#">Separated link</a></li>
-					                            </ul>
-					                        </div>
-					                    </div>
-					                    <h3 class="panel-title">Network</h3>
-					                </div>
-					
-					
-					                <!--chart placeholder-->
-					                <div class="pad-all">
-					                    <div id="demo-chart-network" style="height: 255px"></div>
-					                </div>
-					
-					
-					                <!--Chart information-->
-
-					
-					
-					            </div>
-					            <!--===================================================-->
-					            <!--End network line chart-->
-					
-					        </div>
-					        <div class="col-lg-5">
-					         
-					            <div class="row">
-					      
-					                <div class="col-lg-6">
+					    		<div class="row">
+					                <div class="col">
 					
 					                    <!--Sparkline pie chart -->
 					                    <div class="panel panel-warning panel-colorful">
 					                        <div class="pad-all">
-					                            <p class="text-lg text-semibold">Task Progress</p>
+					                            <p class="text-lg text-semibold">Progreso de Tareas</p>
 					                            <p class="mar-no">
-					                                <span class="pull-right text-bold">34</span> Completed
+					                                <span class="pull-right text-bold">{{tasksComplete.length}}</span> Completadas
 					                            </p>
 					                            <p class="mar-no">
-					                                <span class="pull-right text-bold">79</span> Total
+					                                <span class="pull-right text-bold">{{tasksIncomplete.length}}</span> Incompletas
+					                            </p>
+												<p class="mar-no">
+					                                <span class="pull-right text-bold">{{tasks.length}}</span> Total
 					                            </p>
 					                        </div>
 					                        <div class="pad-all">
 					                            <div class="pad-btm">
-					                                <div class="progress progress-sm">
-					                                    <div style="width: 45%;" class="progress-bar progress-bar-light">
-					                                        <span class="sr-only">45%</span>
+					                                <div class="progress progress-sm bg" style="height:5px">
+					                                    <div style='width: {{porcentaje}}%;' class="progress-bar bg-white">
+					                                        <span class="sr-only">100%</span>
 					                                    </div>
 					                                </div>
 					                            </div>
 					                            <div class="pad-btm">
-					                                <div class="progress progress-sm">
-					                                    <div style="width: 89%;" class="progress-bar progress-bar-light">
+					                                <div class="progress progress-sm bg" style="height:5px">
+					                                    <div style="width: {{porcentajeIncompleto}}%;" class="progress-bar bg-white">
 					                                        <span class="sr-only">89%</span>
 					                                    </div>
 					                                </div>
 					                            </div>
 					                        </div>
 					                    </div>
-					                </div>
-					            </div>
-				
-					        </div>
-							
-					    </div>
+					                </div>	
+					    		</div>
 						
 						<div class="col-lg-34">
 					        <div class="panel">
@@ -193,111 +91,21 @@
 					                                <td><img src="img\profile-photos\1.png" alt="Profile Picture" class="img-circle img-sm"></td>
 					                                <td><a class="btn-link" href="#">{{fullname}}</a></td>
 					                                <td>{{username}}</td>
-					                                <td><span class="label label-table label-info">
-															<select name="rol" class="custom-select">
-																{{#each roles}}
-																	<option value="{{id}}" {{ selectedOption id ../userData.id_rol }}>{{name}}</option>
-																{{/each}}
-															</select>
-														</span></td>
+					                                <td>{{rol}}</td>
 													<td>{{timeago created_at}}</td>
 					                                <td class="text-center">
 					                                    <div class="btn-group">
-					                                        <button class="btn btn-warning" href="#" data-original-title="Edit" data-container="body"><i class="fas fa-edit"></i></button>
+					                                        <button onclick="location.href = '/admin/users/edit/'+{{id}}" class="btn btn-warning"><i class="fas fa-edit"></i></button>
 					                                    </div>
 					                                </td>
 					                            </tr>
 												{{else}}
 												
 												{{/each}}
-
-<!--
-					                            <tr>
-					                                <td class="min-w-td">2</td>
-					                                <td><img src="img\profile-photos\2.png" alt="Profile Picture" class="img-circle img-sm"></td>
-					                                <td><a class="btn-link" href="#">Charles S Boyle</a></td>
-					                                <td>char_boy90@example.com</td>
-					                                <td><span class="label label-table label-success">Free</span></td>
-					                                <td class="text-center">
-					                                    <div class="btn-group">
-					                                        <a class="btn btn-sm btn-default btn-hover-success demo-psi-pen-5 add-tooltip" href="#" data-original-title="Edit" data-container="body"></a>
-					       
-					                                    </div>
-					                                </td>
-					                            </tr>
-					                            <tr>
-					                                <td class="min-w-td">3</td>
-					                                <td><img src="img\profile-photos\3.png" alt="Profile Picture" class="img-circle img-sm"></td>
-					                                <td><a class="btn-link" href="#">Scott S. Calabrese</a></td>
-					                                <td>scot.em23@example.com</td>
-					                                <td><span class="label label-table label-purple">Bussiness</span></td>
-					                                <td class="text-center">
-					                                    <div class="btn-group">
-					                                        <a class="btn btn-sm btn-default btn-hover-success demo-psi-pen-5 add-tooltip" href="#" data-original-title="Edit" data-container="body"></a>
-					                           
-					                                    </div>
-					                                </td>
-					                            </tr>
-					                            <tr>
-					                                <td class="min-w-td">4</td>
-					                                <td><img src="img\profile-photos\4.png" alt="Profile Picture" class="img-circle img-sm"></td>
-					                                <td><a class="btn-link" href="#">Lucy Moon</a></td>
-					                                <td>just_lucy.doe@example.com</td>
-					                                <td><span class="label label-table label-mint">Personal</span></td>
-					                                <td class="text-center">
-					                                    <div class="btn-group">
-					                                        <a class="btn btn-sm btn-default btn-hover-success demo-psi-pen-5 add-tooltip" href="#" data-original-title="Edit" data-container="body"></a>
-					      
-					                                    </div>
-					                                </td>
-					                            </tr>
-					                            <tr>
-					                                <td class="min-w-td">5</td>
-					                                <td><img src="img\profile-photos\5.png" alt="Profile Picture" class="img-circle img-sm"></td>
-					                                <td><a class="btn-link" href="#">Teresa L. Doe</a></td>
-					                                <td>ter.l.doe@example.com</td>
-					                                <td><span class="label label-table label-success">Free</span></td>
-					                                <td class="text-center">
-					                                    <div class="btn-group">
-					                                        <a class="btn btn-sm btn-default btn-hover-success demo-psi-pen-5 add-tooltip" href="#" data-original-title="Edit" data-container="body"></a>
-					                      
-					                                    </div>
-					                                </td>
-					                            </tr>
-					                            <tr>
-					                                <td class="min-w-td">6</td>
-					                                <td><img src="img\profile-photos\6.png" alt="Profile Picture" class="img-circle img-sm"></td>
-					                                <td><a class="btn-link" href="#">Maria Marz</a></td>
-					                                <td>maria_545@example.com</td>
-					                                <td><span class="label label-table label-info">Trial</span></td>
-					                                <td class="text-center">
-					                                    <div class="btn-group">
-					                                        <a class="btn btn-sm btn-default btn-hover-success demo-psi-pen-5 add-tooltip" href="#" data-original-title="Edit" data-container="body"></a>
-					               
-					                                    </div>
-					                                </td>
-					                            </tr>-->
 					                        </tbody>
 					                    </table>
 					                
-					
-					                    <!--Pagination-->
-					                    <div class="text-right">
-					                        <ul class="pagination mar-no">
-					                            <li class="disabled"><a class="demo-pli-arrow-left-2" href="#"></a></li>
-					                            <li class="active"><a href="#">1</a></li>
-					                            <li><a href="#">2</a></li>
-					                            <li><a href="#">3</a></li>
-					                            <li><a href="#">4</a></li>
-					                            <li><span>...</span></li>
-					                            <li><a href="#">20</a></li>
-					                            <li><a class="demo-pli-arrow-right-2" href="#"></a></li>
-					                        </ul>
-					                    </div>
-					                </div>
-					            </div>
-					        </div>
-					    </div>
+				
 					
 					    <div class="row">
 					        <div class="col-md-3">
@@ -308,8 +116,13 @@
 					                    </div>
 					                </div>
 					                <div class="media-body">
-					                    <p class="text-2x mar-no text-semibold">241</p>
-					                    <p class="mar-no">Usuarios</p>
+					                    <p class="text-2x mar-no text-semibold">
+					                            <tr>
+					                                <td class="min-w-td">{{projectData.length}}</td>
+												</tr>
+												
+											</p>
+					                    <p class="mar-no">Proyectos</p>
 					                </div>
 					            </div>
 					        </div>
@@ -321,7 +134,7 @@
 					                    </div>
 					                </div>
 					                <div class="media-body">
-					                    <p class="text-2x mar-no text-semibold">241</p>
+					                    <p class="text-2x mar-no text-semibold">{{roles.length}}</p>
 					                    <p class="mar-no">Roles</p>
 					                </div>
 					            </div>
@@ -334,7 +147,7 @@
 					                    </div>
 					                </div>
 					                <div class="media-body">
-					                    <p class="text-2x mar-no text-semibold">241</p>
+					                    <p class="text-2x mar-no text-semibold">{{permissions.length}}</p>
 					                    <p class="mar-no">Permisos</p>
 					                </div>
 					            </div>
@@ -347,7 +160,7 @@
 					                    </div>
 					                </div>
 					                <div class="media-body">
-					                    <p class="text-2x mar-no text-semibold">241</p>
+					                    <p class="text-2x mar-no text-semibold">{{baseLines.length}}</p>
 					                    <p class="mar-no">Lineas Base</p>
 					                </div>
 					            </div>
@@ -355,51 +168,7 @@
 					
 					    </div>
 					
-					    <div class="row">
-					        <div class="col-sm-6 col-lg-4">
-					            <!--List Todo-->
-					            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-					            <div class="panel panel-trans">
-					                <div class="panel-heading">
-					                    <h3 class="panel-title">Lista de Tareas</h3>
-					                </div>
-					                <div class="pad-ver">
-					                    <ul class="list-group bg-trans list-todo mar-no">
-					                        <li class="list-group-item">
-					                            <input id="demo-todolist-1" class="magic-checkbox" type="checkbox">
-					                            <label for="demo-todolist-1"><span>Find an idea. <span class="label label-danger">Important</span></span></label>
-					                        </li>
-					                        <li class="list-group-item">
-					                            <input id="demo-todolist-2" class="magic-checkbox" type="checkbox" checked="">
-					                            <label for="demo-todolist-2"><span>Do some work</span></label>
-					                        </li>
-					                        <li class="list-group-item">
-					                            <input id="demo-todolist-3" class="magic-checkbox" type="checkbox">
-					                            <label for="demo-todolist-3"><span>Read the book</span></label>
-					                        </li>
-					                        <li class="list-group-item">
-					                            <input id="demo-todolist-4" class="magic-checkbox" type="checkbox">
-					                            <label for="demo-todolist-4"><span>Upgrade server <span class="label label-warning">Warning</span></span></label>
-					                        </li>
-					                        <li class="list-group-item">
-					                            <input id="demo-todolist-5" class="magic-checkbox" type="checkbox" checked="">
-					                            <label for="demo-todolist-5"><span>Redesign my logo <span class="label label-info">2 Mins</span></span></label>
-					                        </li>
-					                    </ul>
-					                </div>
-					                <div class="input-group pad-all">
-					                    <input type="text" class="form-control" placeholder="New task" autocomplete="off">
-					                    <span class="input-group-btn">
-					                    <button type="button" class="btn btn-success"><i class="demo-pli-add"></i></button>
-					                </span>
-					                </div>
-					            </div>
-					            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-					            <!--End todo list-->
-					        </div>
-					     
-					       
-					    </div>
+					    
 					
 					    <div class="row">
 					        <div class="col-xs-12">
@@ -408,41 +177,6 @@
 					                    <h3 class="panel-title">Lineas Base</h3>
 					                </div>
 					
-					                <!--Data Table-->
-					                <!--===================================================-->
-					                <div class="panel-body">
-					                    <div class="pad-btm form-inline">
-					                        <div class="row">
-					                            <div class="col-sm-6 table-toolbar-left">
-					                                <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
-					                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
-					                                <div class="btn-group">
-					                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-					                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
-					                                </div>
-					                            </div>
-					                            <div class="col-sm-6 table-toolbar-right">
-					                                <div class="form-group">
-					                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search" id="demo-input-search2">
-					                                </div>
-					                                <div class="btn-group">
-					                                    <button class="btn btn-default"><i class="demo-pli-download-from-cloud icon-lg"></i></button>
-					                                    <div class="btn-group dropdown">
-					                                        <button class="btn btn-default btn-active-primary dropdown-toggle" data-toggle="dropdown">
-					                                        <i class="demo-pli-dot-vertical icon-lg"></i>
-					                                    </button>
-					                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-					                                            <li><a href="#">Action</a></li>
-					                                            <li><a href="#">Another action</a></li>
-					                                            <li><a href="#">Something else here</a></li>
-					                                            <li class="divider"></li>
-					                                            <li><a href="#">Separated link</a></li>
-					                                        </ul>
-					                                    </div>
-					                                </div>
-					                            </div>
-					                        </div>
-					                    </div>
 					                    <div class="table-responsive">
 					                        <table class="table table-striped">
 					                            <thead>
@@ -529,32 +263,7 @@
 					                            </tbody>
 					                        </table>
 					                    </div>
-					                    <hr class="new-section-xs">
-					                    <div class="pull-right">
-					                        <ul class="pagination text-nowrap mar-no">
-					                            <li class="page-pre disabled">
-					                                <a href="#">&lt;</a>
-					                            </li>
-					                            <li class="page-number active">
-					                                <span>1</span>
-					                            </li>
-					                            <li class="page-number">
-					                                <a href="#">2</a>
-					                            </li>
-					                            <li class="page-number">
-					                                <a href="#">3</a>
-					                            </li>
-					                            <li>
-					                                <span>...</span>
-					                            </li>
-					                            <li class="page-number">
-					                                <a href="#">9</a>
-					                            </li>
-					                            <li class="page-next">
-					                                <a href="#">&gt;</a>
-					                            </li>
-					                        </ul>
-					                    </div>
+					                   
 					                </div>
 					                <!--===================================================-->
 					                <!--End Data Table-->
@@ -646,7 +355,10 @@
 
             </div>
 
+
         </div>
         
     </div>
+	</div>
+</div>
 </div>
