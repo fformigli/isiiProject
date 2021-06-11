@@ -16,17 +16,6 @@ controller.list = async (req, res) => {
 
         const tasks = await pool.query(query)
 
-        // cambia el value por el label
-        tasks.rows.map((task) => {
-            const priority = TASK_PRIORITY_VALUES.filter(prior => prior.value === task.priority)
-            console.log({priority})
-            if(priority.length)
-                task.priority = priority[0].label
-            else
-                task.priority = `No definida`
-            return task
-        })
-
         return res.render('tasks/tasks.hbs', {tasks: tasks.rows})
 
     } catch (err) {
