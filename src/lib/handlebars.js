@@ -1,5 +1,6 @@
 const { format } = require('timeago.js');
 const dateFormat = require('handlebars-dateformat');
+const constants = require('./constants')
 
 const helpers = {};
 
@@ -12,11 +13,24 @@ helpers.formatter = (timestamp, format) => {
 }
 
 helpers.selectedOption = (a, b) => {
+    console.log({a, b})
     return a == b? "selected":"";
 }
 
 helpers.filetypeValidator = (a, b) => {
     return a == b;
+}
+
+helpers.constantLabel = (name, value) => {
+    console.log({ name, value })
+    const values = constants[name].filter((item) => {
+        return item.value === value
+    })
+    console.log({values})
+    if(values && values.length > 0)
+        return values[0].label
+    else
+        return ''
 }
 
 module.exports = helpers;

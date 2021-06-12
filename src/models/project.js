@@ -46,6 +46,7 @@ controller.form = async (req, res) => {
             dataForm.baseLines = data.rows
         }
 
+
         return res.render('projects/new', dataForm);
     } catch (err){
         console.error(err);
@@ -73,6 +74,7 @@ controller.save = async (req, res) => {
             req.flash('success', 'Se agregó el proyecto');
         }
 
+        req.flash('success', 'Se agrego el proyecto')
         res.redirect('/projects');
     } catch (err){
         console.error(err);

@@ -1,3 +1,11 @@
+PERMISSION_OPERATIONS = [
+    { value: `ANY`, label: `Cualquiera` },
+    { value: `CREATE`, label: `Crear` },
+    { value: `DELETE`, label: `Eliminar` },
+    { value: `READ`, label: `Ver` },
+    { value: `UPDATE`, label: `Actualizar` },
+]
+
 TASK_STATUS_VALUES = [
     { value: `iniciado`, label: `Iniciado` },
     { value: `pendiente`, label: `Pendiente` },
@@ -11,4 +19,4 @@ TASK_PRIORITY_VALUES = [
     { value: 4, label: 'Baja' },
 ]
 
-module.exports = { TASK_STATUS_VALUES, TASK_PRIORITY_VALUES }
+module.exports = { PERMISSION_OPERATIONS, TASK_STATUS_VALUES, TASK_PRIORITY_VALUES }

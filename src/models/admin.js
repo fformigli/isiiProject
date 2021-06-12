@@ -1,4 +1,5 @@
 const pool = require('../database');
+const { PERMISSION_OPERATIONS } = require('../lib/constants')
 
 const chargeUserCombos = async () => {
     const roleList = await pool.query('select * from roles order by name');
@@ -101,14 +102,8 @@ controller.permission_add = async (req, res) => {
 
 //Roles
 
-const chargeCombos = async () => {
-    const values = [`iniciado`, `pendiente`, `finalizado`]
-    const statusValues = []
-    values.forEach((value) => {
-        statusValues.push({ value })
-    })
-
-    return { statusValues };
+const chargePermissionCombos = async () => {
+    return { operations: PERMISSION_OPERATIONS };
 }
 
 controller.roleList = async (req, res) => {
@@ -128,13 +123,16 @@ controller.roleList = async (req, res) => {
 
 controller.roleAdd = async (req, res) => {
     try {
-        const dataForm = await chargeCombos();
+
+        const dataForm = {}
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
             const query = 'select * from roles where id = $1';
             const data = await pool.query(query, [req.params.id])
             dataForm.rolData = data.rows[0]
         }
+
+        dataForm.permissions = await pool.query('select * from permissions order by name')
 
         return res.render('admin/rolesForm', dataForm);
     } catch (err){
@@ -170,26 +168,16 @@ controller.roleSave = async (req, res) => {
         return res.redirect('/admin/roles');
     }
 }
-/*controller.rolesDelete = (req, res) => {
-    const { id } = req.params;
-    pool.query('delete from roles where id = $1', [id], (err) => {
-        if(err) return done(null, false, req.flash('message','No se pudo conectar con la base de datos.'));
-        req.flash('success','Se elimino el rol');
-        res.redirect('/admin/roles');
-    });
-
-};*/
 
 /* CHESS SECTION */
 controller.permissionsAdd = async (req, res) => {
     try {
-        const dataForm = await chargeCombos();
+        const dataForm = await chargePermissionCombos();
 
         if(req.params.id){ // si este parametro existe, significa qeu estamos editando
             const query = 'select * from permissions where id = $1';
             const data = await pool.query(query, [req.params.id])
             dataForm.rolData = data.rows[0]
-           
         }
 
         return res.render('admin/permissionForm', dataForm);

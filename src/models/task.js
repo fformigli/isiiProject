@@ -16,17 +16,6 @@ controller.list = async (req, res) => {
 
         const tasks = await pool.query(query)
 
-        // cambia el value por el label
-        tasks.rows.map((task) => {
-            const priority = TASK_PRIORITY_VALUES.filter(prior => prior.value === task.priority)
-            console.log({priority})
-            if(priority.length)
-                task.priority = priority[0].label
-            else
-                task.priority = `No definida`
-            return task
-        })
-
         return res.render('tasks/tasks.hbs', {tasks: tasks.rows})
 
     } catch (err) {
@@ -75,8 +64,9 @@ controller.save = async (req, res) => {
             await pool.query(query, [ description, status, observation, priority, version, req.user.id, project])
             req.flash('success', 'Se agregó la Tarea');
         }
+        req.flash('success', 'Se agrego la tarea')
 
-        res.redirect('/tasks');
+        res.redirect(`/projects/edit/${project}`);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
