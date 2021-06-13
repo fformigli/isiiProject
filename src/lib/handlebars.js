@@ -13,8 +13,11 @@ helpers.formatter = (timestamp, format) => {
 }
 
 helpers.selectedOption = (a, b) => {
-    console.log({a, b})
     return a == b? "selected":"";
+}
+
+helpers.checkedOption = (a, b) => {
+    return a == b? "checked":"";
 }
 
 helpers.filetypeValidator = (a, b) => {
@@ -22,7 +25,6 @@ helpers.filetypeValidator = (a, b) => {
 }
 
 helpers.constantLabel = (name, value) => {
-    console.log({ name, value })
     const values = constants[name].filter((item) => {
         return item.value === value
     })
@@ -32,5 +34,8 @@ helpers.constantLabel = (name, value) => {
     else
         return ''
 }
+
+
+
 
 module.exports = helpers;
