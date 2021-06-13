@@ -1,25 +1,28 @@
 const pool = require('../database');
 const { PERMISSION_OPERATIONS } = require('../lib/constants')
 
-const chargeUserCombos = async () => {
-    const roleList = await pool.query('select * from roles order by name');
-    return { roles: roleList.rows };
+const rolesCombo = () => {
+    return pool.query(`select id, name from roles where context = 'sistema'`)
+        .then(res => res.rows)
 }
-const controller = {} 
+
+const controller = {}
 
 controller.admin = (req, res) => {
     res.render('admin/admin.hbs');
 };
 
 controller.signUpGet = async (req, res) => {
-    const dataForm = await chargeUserCombos()
+    const dataForm = {}
+    dataForm.rolesCombo = await rolesCombo()
+
     return res.render('auth/signup', dataForm);
 };
 
 controller.users = async (req, res) => {
     try {
-        let query = 'select u.id, u.fullname, u.username, u.active, u.created_at, coalesce(r.name, \'-\') rol '
-        query += 'from users u left join roles r on r.id = u.id_rol '
+        let query = 'select u.id, u.fullname, u.username, u.active, u.created_at '
+        query += 'from users u '
         query += 'order by u.id asc '
 
         const users = await pool.query(query)
@@ -48,16 +51,20 @@ controller.editUser = async (req, res) => {
     try {
         const { id } = req.params
         const user = await pool.query('select * from users where id = $1',[id])
+        const user_role_sistema = await pool.query('select rolid from user_roles where userid = $1' +
+            ' and contextid = 0', [id])
 
-        const dataForm = await chargeUserCombos()
-        console.log(user.rows)
+        const dataForm = {}
+        dataForm.rolesCombo = await rolesCombo();
+        if(user_role_sistema.rows.length > 0)
+            dataForm.rolid = user_role_sistema.rows[0].rolid
+
         if(user && user.rows.length > 0) {
             dataForm.userData = user.rows[0]
             res.render('auth/signup', dataForm)
         } else {
             throw Error('No se encontró el usuario')
         }
-
     } catch (err) {
         console.error(err)
         req.flash('message', 'Error: ' + err.message);
@@ -67,11 +74,28 @@ controller.editUser = async (req, res) => {
 
 controller.updateUser = async (req, res) => {
     try {
-        const { fullname, username, rol } = req.body
+        const { fullname, username, role } = req.body
+
+        console.log(fullname, username, role)
         const { id } = req.params
 
-        await pool.query('update users set fullname = $1, username = $2, id_rol = $3 where id = $4',
-            [fullname, username, rol, id])
+        // control de rol
+        const rolActual = await pool.query('select rolid from user_roles where contextid = 0 and userid = $1', [id])
+        const rolActualid = rolActual.rows[0]? rolActual.rows[0].rolid : undefined
+
+        console.log(rolActualid, role)
+
+        if(rolActualid != role){
+            console.log(`dice que son diferentes`)
+            if(role) {
+                await pool.query('insert into user_roles values($1, $2, 0)', [id, role])
+            } else {
+                await pool.query('delete from user_roles where userid = $1 and contextid = 0', [id])
+            }
+        }
+
+        await pool.query('update users set fullname = $1, username = $2 where id = $3',
+            [fullname, username, id])
 
         req.flash('success','Se actualizó el usuario');
         res.redirect('/admin/users')

@@ -34,12 +34,14 @@
                             <dl>
                                 <dt><label for="rol">Rol:</label></dt>
                                 <dd>
-                                    <select name="rol" class="custom-select">
-                                        {{#each roles}}
-                                            <option value="{{id}}" {{ selectedOption id ../userData.id_rol }}>{{name}}</option>
-                                        {{/each}}
-                                    </select>
+                                    {{#each rolesCombo}}
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" name="role" id="flexSwitchCheckDefault" value="{{id}}" {{checkedOption id ../rolid}}>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">{{name}}</label>
+                                        </div>
+                                    {{/each}}
                                 </dd>
+
                             </dl>
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">
