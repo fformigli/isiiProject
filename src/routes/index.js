@@ -9,9 +9,10 @@ const authentication = require('../models/authentication');
 const rest = require('../models/rest');
 const workOrders = require('../models/work_orders');
 const dashboard = require('../models/dashboard');
-const task = require('../models/task')
-const project = require('../models/project')
-const base = require('../models/base')
+const task = require('../models/task');
+const project = require('../models/project');
+const base = require('../models/base');
+
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -57,7 +58,9 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 
 // dashboard
 router.get('/', isLoggedIn, dashboard.view);
-router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+//router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+router.get('/dashboard', isLoggedIn, dashboard.form); // listar usuarios en el dashboard
+
 
 // tareas
 router.get('/tasks', isLoggedIn, task.list)
