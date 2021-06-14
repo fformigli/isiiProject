@@ -21,6 +21,7 @@ controller.signUpGet = async (req, res) => {
 
 controller.users = async (req, res) => {
     try {
+
         let query = 'select u.id, u.fullname, u.username, u.active, u.created_at '
         query += 'from users u '
         query += 'order by u.id asc '
@@ -154,7 +155,16 @@ controller.roleAdd = async (req, res) => {
             const query = 'select * from roles where id = $1';
             const data = await pool.query(query, [req.params.id])
             dataForm.rolData = data.rows[0]
+            //permisos aplicados
+            const query3 = 'select * from rol_permiso where id_rol = $1';
+            const data3 = await pool.query(query3,[req.params.id])            
+            dataForm.permisosSelected = data3.rows
+            
         }
+        const query2 = 'select distinct p.*, case when rp.id_rol is not null then true else false end as check from permissions p left join rol_permiso rp on rp.id_permiso = p.id and rp.id_rol = $1 order by p.id';
+        const data2 = await pool.query(query2,[req.params.id])
+        dataForm.permisos = data2.rows
+            
 
         dataForm.permissions = await pool.query('select * from permissions order by name')
 
@@ -169,19 +179,42 @@ controller.roleAdd = async (req, res) => {
 controller.roleSave = async (req, res) => {
     try {
         const { name } = req.body
-
+        const { context } = req.body
+        var { permiso } = req.body
+ 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
-            const query = 'update roles set name = $1 where id = $2';
+            const query = 'update roles set name = $1, context = $3 where id = $2';
+            await pool.query(query, [ name, req.params.id, context ])
+           
+            console.log(permiso);
+            var deleteAll = 'delete from rol_permiso where id_rol= $1 ';
+            await pool.query(deleteAll, [ req.params.id ])
 
-            await pool.query(query, [ name, req.params.id ])
+            if(typeof permiso === 'string')
+                permiso = [...permiso];
+
+            permiso.forEach(async function  (item) {  
+                var insertar = 'insert into rol_permiso  (id_rol,id_permiso) values( $1,$2)';
+                await pool.query(insertar, [ req.params.id, item ])
+            });
+          
             req.flash('success', 'Se actualizó el rol');
 
         } else { // sino estamos agregando uno nuevo
             const query = 'insert into roles ' +
-                '( name, created_by ) ' +
-                'values ( $1, $2 ) ';
+                '( name, created_by, context ) ' +
+                'values ( $1, $2, $3 ) returning id ';
 
-            await pool.query(query, [ name, req.user.id])
+            const idRol =  await pool.query(query, [ name, req.user.id, context])
+            
+            if(typeof permiso === 'string')
+                permiso = [...permiso];
+                
+            permiso.forEach(async function  (item) {
+                var insertar = 'insert into rol_permiso  (id_rol,id_permiso) values($1,$2)';
+                  await pool.query(insertar, [ idRol.rows[0].id, item ])
+            });
+           
             req.flash('success', 'Se agregó el rol');
         }
 
