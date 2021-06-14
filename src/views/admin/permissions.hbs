@@ -10,22 +10,19 @@
                     </div>
                     <table class="table">
                         <thead>
+                            <th>Nombre</th>
                             <th>Recurso</th>
                             <th>Operación</th>
-                            <th>Nombre</th>
                             <th></th>
                         </thead>
                         <tbody>
                         {{#each permissions}}
                             <tr>
-                                <td>{{resources}}</td>
-                                <td>{{operation}}</td>
-                                <td>{{name}}</td>
-                               
+                                <td>{{ name }}</td>
+                                <td>{{ resources }}</td>
+                                <td>{{ constantLabel 'PERMISSION_OPERATIONS' operation }}</td>
+
                                 <td>
-                                    {{!-- <button onclick="editarPermiso({{id}}); " class="btn btn-info">
-                                        Editar
-                                    </button> --}}
                                     <button onclick="location.href = '/admin/permissions/edit/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </button>
