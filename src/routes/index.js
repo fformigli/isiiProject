@@ -75,6 +75,8 @@ router.get('/projects/new', isLoggedIn, project.form)
 router.post('/projects', isLoggedIn, project.save)
 router.get('/projects/edit/:id', isLoggedIn, project.form)
 router.post('/projects/:id', isLoggedIn, project.save)
+router.get('/projects/participants/:id', isLoggedIn, project.participants)
+router.get('/projects/participants/add/:projectid/:userid/:rolid', isLoggedIn, project.addParticipant)
 
 // lineas base
 router.get('/base-lines', isLoggedIn, base.list)

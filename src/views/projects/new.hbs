@@ -14,27 +14,54 @@
                 <div class="card-body">
                     <form action="/projects/{{projectData.id}}" method="POST">
                         <div class="row">
-                            <div class="col-md-4" style="text-align: left">
+                            <div class="col-md-5" style="text-align: left">
                                 <dl>
                                     <dt><label for="name">Nombre:</label></dt>
-                                    <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{projectData.name}}" autofocus></dd>
+                                    <dd><input type="text" name="name" placeholder="Nombre" class="form-control"
+                                               value="{{projectData.name}}" autofocus></dd>
                                 </dl>
+                                {{#if projectData.id}}
+                                    <br><br>
+                                    <h4>Participantes</h4>
+                                    <table class="table table-hover">
+                                        <th>Nombre</th>
+                                        <th>Rol</th>
+                                        {{#each participants}}
+                                            <tr><td>{{fullname}}</td><td>{{name}}</td></tr>
+                                        {{else}}
+                                            <tr><td colspan="2"> No hay participantes</td></tr>
+                                        {{/each}}
+                                    </table>
+
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-block btn-warning"
+                                                onclick="location.href='/projects/participants/{{projectData.id}}'">
+                                            Gestionar Participantes
+                                        </button>
+                                    </div>
+                                {{/if}}
                             </div>
                             {{#if projectData.id}}
                                 <div class="col" style="text-align: left">
                                     <h4>Tareas</h4>
-                                    <table class="table">
+                                    <table class="table table-hover">
                                         <th>Descripción</th>
                                         <th>Estado</th>
+                                        <th>Prioridad</th>
                                         {{#each tasks}}
-                                            <tr><td>{{description}}</td><td>{{status}}</td></tr>
+                                            <tr>
+                                                <td>{{description}}</td>
+                                                <td>{{status}}</td>
+                                                <td>{{constantLabel 'TASK_PRIORITY_VALUES' priority}}</td>
+                                            </tr>
                                         {{else}}
                                             <tr><td colspan="2"> No hay tareas asignadas</td></tr>
                                         {{/each}}
                                     </table>
 
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-block" onclick="location.href='/tasks/add/{{projectData.id}}'">
+                                        <button type="button" class="btn btn-block btn-warning"
+                                                onclick="location.href='/tasks/add/{{projectData.id}}'">
                                             Añadir Tareas
                                         </button>
                                     </div>
@@ -50,7 +77,8 @@
                                     </table>
 
                                     <div class="form-group">
-                                        <button type="button" class="btn btn-block" onclick="location.href='/base-lines/add/{{projectData.id}}'">
+                                        <button type="button" class="btn btn-block btn-warning"
+                                                onclick="location.href='/base-lines/add/{{projectData.id}}'">
                                             Añadir Líneas Base
                                         </button>
                                     </div>
