@@ -193,3 +193,15 @@ CREATE TABLE IF NOT EXISTS public.user_roles
 
 ALTER TABLE public.user_roles
     OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.project_participants
+(
+    projectid integer,
+    userid integer,
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    crated_by integer NOT NULL,
+    PRIMARY KEY (projectid, userid)
+);
+
+ALTER TABLE public.project_participants
+    OWNER to postgres;
