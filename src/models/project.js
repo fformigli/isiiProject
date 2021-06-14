@@ -154,13 +154,16 @@ controller.addParticipant = async (req, res) => {
     }
 }
 
-controller.detachPaticipant = async (req, res) => {
-    const {projectid, userid } = req.params
+controller.removeParticipant = async (req, res) => {
+    const { projectid, userid } = req.params
     try {
         await pool.query('delete from user_roles' +
             ' where contextid = $1 and userid = $2', [projectid, userid])
         await pool.query('delete from project_participants' +
             ' where projectid = $1 and userid = $2', [projectid, userid])
+
+        req.flash('success', 'Se quitó el participante')
+        res.redirect(`/projects/participants/${projectid}`)
     } catch (e) {
         req.flash('message', 'Error: ' + e.message);
         return res.redirect(`/projects/participants/${projectid}`);
