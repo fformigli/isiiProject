@@ -47,7 +47,6 @@ ALTER TABLE permissions
 GRANT ALL ON TABLE permissions TO postgres;
 GRANT ALL ON sequence permissions_id_seq TO postgres;
 
--- desde aqui  se debe ejecutar para los ultimos cambios de rol, rol_permiso y users
 ALTER TABLE public.roles
     RENAME id_rol TO id;
 
@@ -166,3 +165,48 @@ ALTER TABLE base_lines ADD created_by INTEGER;
 ALTER TABLE base_lines ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 ALTER TABLE base_lines ADD COLUMN project_id integer;
 ALTER TABLE tasks ADD COLUMN project_id integer;
+
+-- modificaciones para permisos
+ALTER TABLE public.roles
+    ADD COLUMN context character varying;
+
+alter table users drop column id_rol;
+delete from roles;
+insert into roles (name, context)
+values ( 'Administrador', 'sistema'),
+       ( 'Project Manager', 'proyecto'),
+       ( 'Desarrollador', 'proyecto');
+
+-- Table: public.user_roles
+
+-- DROP TABLE public.user_roles;
+
+CREATE TABLE IF NOT EXISTS public.user_roles
+(
+    userid integer NOT NULL,
+    rolid integer NOT NULL,
+    contextid integer NOT NULL DEFAULT 0, -- 0 es para sistema, si es otro numero, referencia al id proyecto
+    CONSTRAINT user_roles_pkey PRIMARY KEY (userid, rolid, contextid)
+)
+
+    TABLESPACE pg_default;
+
+ALTER TABLE public.user_roles
+    OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.project_participants
+(
+    projectid integer,
+    userid integer,
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    crated_by integer NOT NULL,
+    PRIMARY KEY (projectid, userid)
+);
+
+ALTER TABLE public.project_participants
+    OWNER to postgres;
+
+
+--Modificacion para la tabla base_lines
+alter table base_lines add column status character varying default 'abierto';
+alter table base_lines add constraint ck_status check (status in ('abierto', 'cerrado'));

@@ -17,24 +17,29 @@
                             <dl>
                                 <dt><label for="fullname">Nombre:</label></dt>
                                 <dd><input type="text" name="name" placeholder="Nombre" class="form-control" value="{{rolData.name}}" autofocus></dd>
+                                <dt><label for="context">Contexto:</label></dt>
+                                <dd><input type="text" name="context" placeholder="Contexto" class="form-control" value="{{rolData.context}}"></dd>
+
                             </dl>
                     <div class="col-md-6 card-body">
-                        <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Permiso 1</label>
-                        </div>
-                        <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Permiso 2</label>
-                        </div>
-                        <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled">
-                                <label class="form-check-label" for="flexSwitchCheckDisabled">Permiso 3</label>
-                        </div>
-                        <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled">
-                                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Permiso 4</label>
-                        </div>
+                        
+                        {{!-- aqui --}}
+                      <dt><label for="permisosField">Permisos:</label> </dt> 
+                       
+                        {{#each permisos}}
+                            {{#unless check}}
+                            <div class="form-check form-switch"> 
+                                <input class="form-check-input" type="checkbox" name="permiso" value="{{id}}" id={{id}}>
+                                <label class="form-check-label" for={{id}}>{{name}}</label>
+                             </div>
+                            {{ else }}
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" checked="false" type="checkbox" name="permiso" value="{{id}}" id={{id}}>
+                                <label class="form-check-label" for={{id}}>{{name}}</label>
+                             </div> 
+                            {{/unless }}                       
+                        {{/each}}
+                        
                     </div>
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">

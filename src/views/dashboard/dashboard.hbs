@@ -52,16 +52,12 @@
 														</div>
 													</div>
 													
-	
-  		
-
 													</div>
 												</div>
 											</div>
-										</div>	
-									</div>
-								<!--{/if}}-->
-					</div>
+										
+									
+					
 
 						<!-- {#if users }} validador para grafica de progreso de tareas-->
 							<div class="col-lg-34">
@@ -85,7 +81,7 @@
 													<tr>
 														<td class="min-w-td">{{id}}</td>
 														<td><img src="img\profile-photos\1.png" alt="Profile Picture" class="img-circle img-sm"></td>
-														<td><a class="btn-link" href="#">{{fullname}}</a></td>
+														<td>{{fullname}}</td>
 														<td>{{username}}</td>
 														<td>{{rol}}</td>
 														<td>{{timeago created_at}}</td>
@@ -157,8 +153,8 @@
 
 							</div>
 
-				
-				
+					</div>
+				</div>
 	
 	
 
@@ -188,7 +184,7 @@
 <!-- Project Manager--> 
 {{!-- <div id="container"> --}}
 			
-			{{!-- <div class="boxed"> --}}
+			<!--{!-- <div class="boxed"> --}}
 
 				<!--CONTENT CONTAINER-->
 				<!--===================================================-->
@@ -218,15 +214,14 @@
 												</div>
 												<div class="pad-all">
 													<div class="pad-btm">
-														<div class="progress progress-sm bg" style="height:5px">
-															<div style='width: {{porcFinalizado}}%;' class="progress-bar bg-white">
-																
+
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" style="width: {{porcFinalizado}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{porcFinalizado}}%</div>
+						
 															</div>
-														</div>
-													</div>
-													<div class="pad-btm">
-														<div class="progress progress-sm bg" style="height:5px">
-															<div style="width: {{porcentajeIncompleto}}%;" class="progress-bar bg-white">
+
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" style="width: {{porcentajeIncompleto}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{porcentajeIncompleto}}%</div>
 																
 															</div>
 														</div>
@@ -234,42 +229,52 @@
 												</div>
 											</div>
 										</div>	
+									
+							<div class="col-lg-34">
+								<div class="panel">
+									<h3>Lineas Bases</h3>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table table-vcenter mar-top">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Nombre</th>
+														<th>Descripcion</th>
+														<th>Estado</th>
+														<th class="text-center">Actions</th>
+													</tr>
+												</thead>
+												<tbody>
+													{{#each baseLines}}
+													<tr>
+											
+														<th>{{id}}</th>
+														<td><a class="btn-link" href="#">{{name}}</a></td>
+														<td>{{description}}</td>
+														<td>{{status}}</td>
+														<td class="text-center">
+															<div class="btn-group">
+																<button onclick="location.href = '/base-lines/edit/'+{{id}}" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+															</div>
+														</td>
+													</tr>
+													{{else}}
+													
+													{{/each}}
+												</tbody>
+											</table>
+										</div>
 									</div>
-								
+								</div>
+							</div>
+							
 					</div>
 
 						
 						
-						<div class="row">
+						<div class="row justify-content-center">
 								
-								<div class="col-md-3">
-									<div class="panel panel-info panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-file-zip icon-3x"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">{{userRol}}</p>
-											<p class="mar-no">Usuarios por Roles</p>
-										</div>
-									</div>
-								</div>
-								
-
-								<div class="col-md-3">
-										<div class="panel panel-info panel-colorful media middle pad-all">
-											<div class="media-left">
-												<div class="pad-hor">
-													<i class="demo-pli-file-zip icon-3x"></i>
-												</div>
-											</div>
-											<div class="media-body">
-												<p class="text-2x mar-no text-semibold">{{cantUsers}}</p>
-												<p class="mar-no">Cantidad de Usuarios</p>
-											</div>
-										</div>
-								</div>
 
 								<div class="col-md-3">
 									<div class="panel panel-warning panel-colorful media middle pad-all">
@@ -281,7 +286,7 @@
 										<div class="media-body">
 											<p class="text-2x mar-no text-semibold">
 													<tr>
-														<td class="min-w-td">{{cantProyecto}}</td>
+														<td class="min-w-td">{{proyectosUsuario}}</td>
 													</tr>
 													
 												</p>
@@ -290,51 +295,9 @@
 									</div>
 								</div>
 
-							</div>
-							<div class="row">
-
-								
-								<div class="col-md-3">
-									<div class="panel panel-warning panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-file-word icon-3x"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">
-													<tr>
-														<td class="min-w-td">{{projectData.length}}</td>
-													</tr>
-													
-												</p>
-											<p class="mar-no">Proyectos</p>
-										</div>
-									</div>
-								</div>
-								
-								
-								
-								
 							
-
-								
-								<div class="col-md-3">
-									<div class="panel panel-mint panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-camera-2 icon-3x"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">{{permissions.length}}</p>
-											<p class="mar-no">Permisos</p>
-										</div>
-									</div>
-								</div>
-								
-
-								
+							
+		
 								<div class="col-md-3">
 									<div class="panel panel-danger panel-colorful media middle pad-all">
 										<div class="media-left">
@@ -350,13 +313,45 @@
 								</div>
 								
 						
-							</div>
+							
+						</div>
 						
 					{{!-- </div> --}}
 								
 
 			{{!-- </div> --}}
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Developer-->
+
 							<div id="content-container">
 	<!---->
 					<!--Page content-->
@@ -371,70 +366,69 @@
 												<div class="pad-all">
 													<p class="text-lg text-semibold">Progreso de Tareas</p>
 													<p class="mar-no">
-														<span class="pull-right text-bold">{{tasksComplete.length}}</span> Completadas
+														<span class="pull-right text-bold">{{tasksPendiente}}</span> Pendientes
 													</p>
 													<p class="mar-no">
-														<span class="pull-right text-bold">{{tasksIncomplete.length}}</span> Incompletas
+														<span class="pull-right text-bold">{{tasksIncomplete.length}}</span> Iniciadas
 													</p>
-													<p class="mar-no">
-														<span class="pull-right text-bold">{{tasks.length}}</span> Total
-													</p>
+													
 												</div>
 												<div class="pad-all">
-													<div class="pad-btm">
-														<div class="progress progress-sm bg" style="height:5px">
-															<div style='width: {{porcFinalizado}}%;' class="progress-bar bg-white">
+													<div class="progress">
+															<div class="progress-bar" role="progressbar" style="width: {{porcPendiente}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{porcPendiente}}%</div>
+						
+															</div>
+
+														<div class="progress">
+															<div class="progress-bar" role="progressbar" style="width: {{porcentajeIncompleto}}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{porcentajeIncompleto}}%</div>
 																
 															</div>
 														</div>
-													</div>
-													<div class="pad-btm">
-														<div class="progress progress-sm bg" style="height:5px">
-															<div style="width: {{porcentajeIncompleto}}%;" class="progress-bar bg-white">
-																
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>	
-									</div>
-								
-					</div>
-
-						
-						
-						<div class="row">
-								
-								<div class="col-md-3">
-									<div class="panel panel-info panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-file-zip icon-3x"></i>
 											</div>
 										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">{{userRol}}</p>
-											<p class="mar-no">Usuarios por Roles</p>
+									</div>	
+									
+								
+							<div class="col-lg-34">
+								<div class="panel">
+									<h3>Mis Tareas</h3>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<table class="table table-vcenter mar-top">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Descripción</th>
+														<th>Estado</th>
+														<th>Prioridad</th>
+														<th>Nombre del proyecto</th>
+														<th>Observación</th>
+													</tr>
+												</thead>
+												<tbody>
+													{{#each tasksprogramador}}
+													<tr>
+														<td>{{id}}</td>
+														<td>{{description}}</td>
+														<td>{{status}}</td>
+														<td>{{prioridad}}</td>
+														<td>{{name}}</td>
+														<td>{{observation}}</td>
+													</tr>
+													{{else}}
+													
+													{{/each}}
+												</tbody>
+											</table>
 										</div>
 									</div>
 								</div>
-								
+							</div>
 
-								<div class="col-md-3">
-										<div class="panel panel-info panel-colorful media middle pad-all">
-											<div class="media-left">
-												<div class="pad-hor">
-													<i class="demo-pli-file-zip icon-3x"></i>
-												</div>
-											</div>
-											<div class="media-body">
-												<p class="text-2x mar-no text-semibold">{{cantUsers}}</p>
-												<p class="mar-no">Cantidad de Usuarios</p>
-											</div>
-										</div>
-								</div>
-
+						
+						
+						<div class="row mr">
+		
 								<div class="col-md-3">
 									<div class="panel panel-warning panel-colorful media middle pad-all">
 										<div class="media-left">
@@ -445,7 +439,7 @@
 										<div class="media-body">
 											<p class="text-2x mar-no text-semibold">
 													<tr>
-														<td class="min-w-td">{{cantProyecto}}</td>
+														<td class="min-w-td">{{proyectosUsuario}}</td>
 													</tr>
 													
 												</p>
@@ -454,51 +448,8 @@
 									</div>
 								</div>
 
-							</div>
-							<div class="row">
+						
 
-								
-								<div class="col-md-3">
-									<div class="panel panel-warning panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-file-word icon-3x"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">
-													<tr>
-														<td class="min-w-td">{{projectData.length}}</td>
-													</tr>
-													
-												</p>
-											<p class="mar-no">Proyectos</p>
-										</div>
-									</div>
-								</div>
-								
-								
-								
-								
-							
-
-								
-								<div class="col-md-3">
-									<div class="panel panel-mint panel-colorful media middle pad-all">
-										<div class="media-left">
-											<div class="pad-hor">
-												<i class="demo-pli-camera-2 icon-3x"></i>
-											</div>
-										</div>
-										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">{{permissions.length}}</p>
-											<p class="mar-no">Permisos</p>
-										</div>
-									</div>
-								</div>
-								
-
-								
 								<div class="col-md-3">
 									<div class="panel panel-danger panel-colorful media middle pad-all">
 										<div class="media-left">
@@ -507,13 +458,12 @@
 											</div>
 										</div>
 										<div class="media-body">
-											<p class="text-2x mar-no text-semibold">{{baseLines.length}}</p>
-											<p class="mar-no">Lineas Base</p>
+											<p class="text-2x mar-no text-semibold">{{tasksDevelop}}</p>
+											<p class="mar-no">Cantidad de Tareas</p>
 										</div>
 									</div>
 								</div>
-								
-						
-							</div>
+						</div>
+
 					</div>	
 </div>
