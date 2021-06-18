@@ -1,0 +1,36 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="w-100 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <button onclick="location.href='/base-lines/add'" class="btn btn-success">
+                            Nueva Linea Base
+                        </button>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                        </thead>
+                        <tbody>
+                        {{#each bases}}
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{name}}</td>
+                                <td>
+                                    <button onclick="location.href = '/base-lines/edit/'+{{id}}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        {{else}}
+                            
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

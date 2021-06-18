@@ -1,45 +1,186 @@
-<div class="container-fluid">
-    <div class="row">
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark navbar-dark sidebar">
-            <div class="position-sticky pt-2">
-                <ul class="navbar-nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"  fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13.85 22.25h-3.7c-.74 0-1.36-.54-1.45-1.27l-.27-1.89c-.27-.14-.53-.29-.79-.46l-1.8.72c-.7.26-1.47-.03-1.81-.65L2.2 15.53c-.35-.66-.2-1.44.36-1.88l1.53-1.19c-.01-.15-.02-.3-.02-.46 0-.15.01-.31.02-.46l-1.52-1.19c-.59-.45-.74-1.26-.37-1.88l1.85-3.19c.34-.62 1.11-.9 1.79-.63l1.81.73c.26-.17.52-.32.78-.46l.27-1.91c.09-.7.71-1.25 1.44-1.25h3.7c.74 0 1.36.54 1.45 1.27l.27 1.89c.27.14.53.29.79.46l1.8-.72c.71-.26 1.48.03 1.82.65l1.84 3.18c.36.66.2 1.44-.36 1.88l-1.52 1.19c.01.15.02.3.02.46s-.01.31-.02.46l1.52 1.19c.56.45.72 1.23.37 1.86l-1.86 3.22c-.34.62-1.11.9-1.8.63l-1.8-.72c-.26.17-.52.32-.78.46l-.27 1.91c-.1.68-.72 1.22-1.46 1.22zm-3.23-2h2.76l.37-2.55.53-.22c.44-.18.88-.44 1.34-.78l.45-.34 2.38.96 1.38-2.4-2.03-1.58.07-.56c.03-.26.06-.51.06-.78s-.03-.53-.06-.78l-.07-.56 2.03-1.58-1.39-2.4-2.39.96-.45-.35c-.42-.32-.87-.58-1.33-.77l-.52-.22-.37-2.55h-2.76l-.37 2.55-.53.21c-.44.19-.88.44-1.34.79l-.45.33-2.38-.95-1.39 2.39 2.03 1.58-.07.56a7 7 0 0 0-.06.79c0 .26.02.53.06.78l.07.56-2.03 1.58 1.38 2.4 2.39-.96.45.35c.43.33.86.58 1.33.77l.53.22.38 2.55z"></path><circle cx="12" cy="12" r="3.5"></circle></svg>
-                        Administración
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
-                        Gestión de configuración
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>                           
-                        Desarrollo
-                    </a>
-                </li>
-            </ul>
+<div class="row flex-fill flex-column flex-sm-row">
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5>Bienvenido {{user.fullname}}</h5>
             </div>
-        </nav>
-        <div class="card col-8">
-            <div class="h-100">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5>Bienvenido {{user.fullname}}</h5>
-                        <h6>{{user.username}}</h6>
-                    </div>
-                </div>
-                <img src="/img/dashboard.png">
-            </div>
+		</div>
 
-        </div>
+
+    <!--Pace - Page Load Progress Par [OPTIONAL]-->
+    <link href="plugins\pace\pace.min.css" rel="stylesheet">
+    <script src="plugins\pace\pace.min.js"></script>
+
+
+
+    <div id="container">
         
-    </div>
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <!--===================================================-->
+            <div id="content-container">
+                
+
+                
+                <!--Page content-->
+                <!--===================================================-->
+                <div id="page-content">
+                    
+					    		<div class="row">
+					                <div class="col">
+					
+					                    <!--Sparkline pie chart -->
+					                    <div class="panel panel-warning panel-colorful">
+					                        <div class="pad-all">
+					                            <p class="text-lg text-semibold">Progreso de Tareas</p>
+					                            <p class="mar-no">
+					                                <span class="pull-right text-bold">{{tasksComplete.length}}</span> Completadas
+					                            </p>
+					                            <p class="mar-no">
+					                                <span class="pull-right text-bold">{{tasksIncomplete.length}}</span> Incompletas
+					                            </p>
+												<p class="mar-no">
+					                                <span class="pull-right text-bold">{{tasks.length}}</span> Total
+					                            </p>
+					                        </div>
+					                        <div class="pad-all">
+					                            <div class="pad-btm">
+					                                <div class="progress progress-sm bg" style="height:5px">
+					                                    <div style='width: {{porcentaje}}%;' class="progress-bar bg-white">
+					                                        
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <div class="pad-btm">
+					                                <div class="progress progress-sm bg" style="height:5px">
+					                                    <div style="width: {{porcentajeIncompleto}}%;" class="progress-bar bg-white">
+					                                        
+					                                    </div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                    </div>
+					                </div>	
+					    		</div>
+						
+						<div class="col-lg-34">
+					        <div class="panel">
+					            <div class="panel-body">
+					                <div class="table-responsive">
+					                    <table class="table table-vcenter mar-top">
+					                        <thead>
+					                            <tr>
+					                                <th class="min-w-td">#</th>
+					                                <th class="min-w-td">User</th>
+					                                <th>Nombre Completo</th>
+					                                <th>Usuario</th>
+					                                <th>Rol</th>
+													<th>Creado el</th>
+					                                <th class="text-center">Actions</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+												{{#each users}}
+					                            <tr>
+					                                <td class="min-w-td">{{id}}</td>
+					                                <td><img src="img\profile-photos\1.png" alt="Profile Picture" class="img-circle img-sm"></td>
+					                                <td><a class="btn-link" href="#">{{fullname}}</a></td>
+					                                <td>{{username}}</td>
+					                                <td>{{rol}}</td>
+													<td>{{timeago created_at}}</td>
+					                                <td class="text-center">
+					                                    <div class="btn-group">
+					                                        <button onclick="location.href = '/admin/users/edit/'+{{id}}" class="btn btn-warning"><i class="fas fa-edit"></i></button>
+					                                    </div>
+					                                </td>
+					                            </tr>
+												{{else}}
+												
+												{{/each}}
+					                        </tbody>
+					                    </table>
+					                
+				
+					
+					    <div class="row">
+					        <div class="col-md-3">
+					            <div class="panel panel-warning panel-colorful media middle pad-all">
+					                <div class="media-left">
+					                    <div class="pad-hor">
+					                        <i class="demo-pli-file-word icon-3x"></i>
+					                    </div>
+					                </div>
+					                <div class="media-body">
+					                    <p class="text-2x mar-no text-semibold">
+					                            <tr>
+					                                <td class="min-w-td">{{projectData.length}}</td>
+												</tr>
+												
+											</p>
+					                    <p class="mar-no">Proyectos</p>
+					                </div>
+					            </div>
+					        </div>
+					        <div class="col-md-3">
+					            <div class="panel panel-info panel-colorful media middle pad-all">
+					                <div class="media-left">
+					                    <div class="pad-hor">
+					                        <i class="demo-pli-file-zip icon-3x"></i>
+					                    </div>
+					                </div>
+					                <div class="media-body">
+					                    <p class="text-2x mar-no text-semibold">{{roles.length}}</p>
+					                    <p class="mar-no">Roles</p>
+					                </div>
+					            </div>
+					        </div>
+					        <div class="col-md-3">
+					            <div class="panel panel-mint panel-colorful media middle pad-all">
+					                <div class="media-left">
+					                    <div class="pad-hor">
+					                        <i class="demo-pli-camera-2 icon-3x"></i>
+					                    </div>
+					                </div>
+					                <div class="media-body">
+					                    <p class="text-2x mar-no text-semibold">{{permissions.length}}</p>
+					                    <p class="mar-no">Permisos</p>
+					                </div>
+					            </div>
+					        </div>
+					        <div class="col-md-3">
+					            <div class="panel panel-danger panel-colorful media middle pad-all">
+					                <div class="media-left">
+					                    <div class="pad-hor">
+					                        <i class="demo-pli-video icon-3x"></i>
+					                    </div>
+					                </div>
+					                <div class="media-body">
+					                    <p class="text-2x mar-no text-semibold">{{baseLines.length}}</p>
+					                    <p class="mar-no">Lineas Base</p>
+					                </div>
+					            </div>
+					        </div>
+					
+					    </div>
+					
+					    
+					
+					</div>
+					
+					
+					    
+                </div>
+
+            </div>
+
+        									</div>
+    									</div>
+     							</div>
+
+    					</div>
+        
+					</div>
+			</div>
+	</div>
 </div>
-
-
-
-

@@ -1,0 +1,81 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="w-100 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>
+                        {{#unless taskData}}
+                            Nueva Tarea
+                        {{ else }}
+                            Editando Tarea
+                        {{/unless }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form action="/tasks/{{project}}/{{taskData.id}}" method="POST">
+                        <div class="row">
+                            <div class="col-md-4" style="text-align: left">
+                                <dl>
+                                    <dt><label for="description">Descripción:</label></dt>
+                                    <dd><input type="text" name="description" placeholder="Descripción" class="form-control" value="{{taskData.description}}" autofocus></dd>
+                                </dl>
+
+                                <dl>
+                                    <dt><label for="status">Estado:</label></dt>
+                                    <dd>
+                                        <select name="status" class="custom-select">
+                                            {{#each statusValues}}
+                                                <option value="{{value}}" {{ selectedOption value ../taskData.status }}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><label for="priority">Prioridad:</label></dt>
+                                    <dd>
+                                        <select name="priority" class="custom-select">
+                                            {{#each priorityValues}}
+                                                <option value="{{value}}" {{ selectedOption value ../taskData.priority }}>{{label}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="col" style="text-align: left">
+                                <dl>
+                                    <dt><label for="assignedTo">Asignado a:</label></dt>
+                                    <dd>
+                                        <select name="assignedTo" class="custom-select">
+                                            {{#each assignableTo}}
+                                                <option value="{{id}}" {{ selectedOption id ../taskData.assignedTo }}>{{fullname}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+
+                                <dl>
+                                    <dt><label for="fullname">Versión:</label></dt>
+                                    <dd><input type="text" name="version" placeholder="x.x.x" class="form-control" value="{{taskData.version}}" autofocus></dd>
+                                </dl>
+
+                                <dl>
+                                    <dt>Observación:</dt>
+                                    <dd>
+                                        <textarea name="observation"  class="form-control">{{taskData.observation}}</textarea>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <button class="btn btn-success btn-block">
+                                    Guardar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

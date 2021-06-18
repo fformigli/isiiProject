@@ -1,16 +1,20 @@
 <div class="container p-4">
     <div class="row">
-        <div class="mx-auto">
+        <div class="w-100 mx-auto">
             <div class="card">
                 <div class="card-body">
                     <div class="form-group">
-                        <button onclick="location.href='/tasks/add'" class="btn btn-success">
-                            Nueva Tarea
-                        </button>
+
+<!--                        comentado, no se debe poder añadir tareas directamente, debe agregarse desde un proyecto-->
+<!--                        <button onclick="location.href='/tasks/add'" class="btn btn-success">-->
+<!--                            Nueva Tarea-->
+<!--                        </button>-->
                     </div>
+                    <h2>Tareas</h2>
                     <table class="table">
                         <thead>
                             <th>ID</th>
+                            <th>Asignado a</th>
                             <th>Descripción</th>
                             <th>Estado</th>
                             <th>Prioridad</th>
@@ -21,19 +25,20 @@
                         {{#each tasks}}
                             <tr>
                                 <td>{{id}}</td>
+                                <td>{{assigned_to}}</td>
                                 <td>{{description}}</td>
                                 <td>{{status}}</td>
-                                <td>{{priority}}</td>
+                                <td>{{constantLabel 'TASK_PRIORITY_VALUES' priority}}</td>
                                 <td>{{version}}</td>
                                 <td>{{timeago created_at}}</td>
                                 <td>
-                                    <button onclick="location.href = '/tasks/edit/'+{{id}}" class="btn btn-warning">
+                                    <button onclick="location.href = '/tasks/edit/{{project_id}}/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
                         {{else}}
-                            
+                            <tr><td colspan="8">No hay tareas asignadas<td></td></tr>
                         {{/each}}
                         </tbody>
                     </table>

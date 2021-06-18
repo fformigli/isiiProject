@@ -4,13 +4,15 @@ const router = Router();
 const uploads = require('../lib/multer');
 
 // controllers
-const admin = require('../controllers/admin.controller');
-const authentication = require('../controllers/authentication.controller');
-const rest = require('../controllers/rest.controller');
-const workOrders = require('../controllers/work_orders.controller');
-const dashboard = require('../controllers/dashboard.controller');
-const task = require('../controllers/task.controller')
-const project = require('../controllers/project.controller')
+const admin = require('../models/admin');
+const authentication = require('../models/authentication');
+const rest = require('../models/rest');
+const workOrders = require('../models/work_orders');
+const dashboard = require('../models/dashboard');
+const task = require('../models/task');
+const project = require('../models/project');
+const base = require('../models/base');
+
 
 // authentication
 router.post('/admin/users', isLoggedIn, isAdmin, authentication.signUpPost);
@@ -30,16 +32,22 @@ router.get('/work-orders/delete/file/:wo/:id', isLoggedIn,  workOrders.deleteFil
 router.post('/work-orders/add/comment/:wo', isLoggedIn,  workOrders.addComment);
 
 // admin
-router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet);
+router.get('/signup', isLoggedIn, isAdmin, admin.signUpGet); 
 router.get('/admin/users/edit/:id', isLoggedIn, isAdmin, admin.editUser)
 router.post('/admin/users/:id', isLoggedIn, isAdmin, admin.updateUser)
 router.get('/admin', isLoggedIn, isAdmin, admin.admin);
 router.get('/admin/users', isLoggedIn, isAdmin, admin.users);
 router.get('/admin/users/delete/:id', isLoggedIn, isAdmin, admin.usersDelete);
-router.get('/admin/roles', isLoggedIn, admin.roleList);
-router.get('/admin/rolesForm', isLoggedIn, admin.roleAdd);
-router.post('/admin', isLoggedIn, admin.roleSave);
+router.get('/admin/roles', isLoggedIn, isAdmin, admin.roleList);
+router.get('/admin/rolesForm', isLoggedIn, isAdmin, admin.roleAdd);
+router.post('/admin/roles', isLoggedIn, isAdmin, admin.roleSave);
+router.get('/admin/roles/edit/:id', isLoggedIn, isAdmin, admin.roleAdd);
+router.post('/admin/roles:id', isLoggedIn, isAdmin, admin.roleSave);
 router.get('/admin/permissions', isLoggedIn, isAdmin, admin.permissions);
+router.get('/admin/permissionForm', isLoggedIn, isAdmin, admin.permissionsAdd);
+router.get('/admin/permissions/edit/:id', isLoggedIn, isAdmin, admin.permissionsAdd);
+router.post('/admin/permissions:id', isLoggedIn, isAdmin, admin.permissionsSave);
+router.post('/admin/permissions', isLoggedIn, isAdmin, admin.permissionsSave);
 
 // rest users
 router.get('/rest/users', rest.get_users); //listar todo
@@ -50,18 +58,32 @@ router.put('/rest/users/:id', rest.update_user); // actualizar
 
 // dashboard
 router.get('/', isLoggedIn, dashboard.view);
-router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+//router.get('/dashboard', isLoggedIn, dashboard.view); // todo
+router.get('/dashboard', isLoggedIn, dashboard.form); // listar usuarios en el dashboard
+
 
 // tareas
 router.get('/tasks', isLoggedIn, task.list)
-router.get('/tasks/add', isLoggedIn, task.add)
-router.post('/tasks', isLoggedIn, task.save)
-router.get('/tasks/edit/:id', isLoggedIn, task.add)
-router.post('/tasks/:id', isLoggedIn, task.save)
+router.get('/tasks/add/:project', isLoggedIn, task.form)
+router.post('/tasks/:project', isLoggedIn, task.save)
+router.get('/tasks/edit/:project/:id', isLoggedIn, task.form)
+router.post('/tasks/:project/:id', isLoggedIn, task.save)
 
-//proyectos
+// proyectos
 router.get('/projects', isLoggedIn, project.list)
-router.get('/projects/new', isLoggedIn, project.add)
+router.get('/projects/new', isLoggedIn, project.form)
 router.post('/projects', isLoggedIn, project.save)
+router.get('/projects/edit/:id', isLoggedIn, project.form)
+router.post('/projects/:id', isLoggedIn, project.save)
+router.get('/projects/participants/:id', isLoggedIn, project.participants)
+router.get('/projects/participants/add/:projectid/:userid/:rolid', isLoggedIn, project.addParticipant)
+router.get('/projects/participants/remove/:projectid/:userid', isLoggedIn, project.removeParticipant)
+
+// lineas base
+router.get('/base-lines', isLoggedIn, base.list)
+router.get('/base-lines/add/:project', isLoggedIn, base.form)
+router.post('/base-lines/:project', isLoggedIn, base.save)
+router.get('/base-lines/edit/:id', isLoggedIn, base.form)
+router.post('/base-lines/:project/:id', isLoggedIn, base.save)
 
 module.exports = router;

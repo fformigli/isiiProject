@@ -1,0 +1,74 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="w-100 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                    </div>
+                    <h2>Participantes:</h2>
+                    <table class="table">
+                        <thead>
+                        <th class="w-50">Nombre</th>
+                        <th class="w-25">Rol</th>
+                        <th>Acción</th>
+                        </thead>
+                        <tbody>
+
+                        {{#each participants}}
+                            <tr>
+                                <td>{{fullname}}</td>
+                                <td>{{name}}</td>
+                                <td>
+                                    <button onclick="location.href = `/projects/participants/remove/{{../project}}/{{userid}}`" class="btn btn-danger">
+                                        Quitar
+                                    </button>
+                                </td>
+                            </tr>
+
+                        {{/each}}
+                        </tbody>
+                    </table>
+                    <h2>No Participantes:</h2>
+                    <table class="table">
+                        <thead>
+                        <th class="w-50">Nombre</th>
+                        <th class="w-25">Rol</th>
+                        <th>Acción</th>
+                        </thead>
+                        <tbody>
+                        {{#each nonParticipants}}
+                            <tr>
+                                <td>{{fullname}}</td>
+                                <td>
+                                    <select id="rol{{userid}}">
+                                        {{#each ../rolesCombo}}
+                                            <option value="{{id}}">{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </td>
+                                <td>
+                                    <button onclick="addParticipant({{userid}})" class="btn btn-success">
+                                        Añadir
+                                    </button>
+                                </td>
+                            </tr>
+
+                        {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<button onclick="location.href = '/projects/edit/'+{{project}}" class="btn btn-warning">
+    Volver
+</button>
+</div>
+
+<script>
+    function addParticipant(id) {
+        const rol = document.getElementById(`rol${id}`).value
+        location.href = `/projects/participants/add/{{project}}/${id}/${rol}`
+    }
+</script>
