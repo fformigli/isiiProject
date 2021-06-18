@@ -49,7 +49,7 @@
                                         <th>Estado</th>
                                         <th>Prioridad</th>
                                         {{#each tasks}}
-                                            <tr>
+                                            <tr data-href="/tasks/edit/{{project_id}}/{{id}}">
                                                 <td>{{description}}</td>
                                                 <td>{{status}}</td>
                                                 <td>{{constantLabel 'TASK_PRIORITY_VALUES' priority}}</td>

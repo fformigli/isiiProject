@@ -174,8 +174,8 @@ alter table users drop column id_rol;
 delete from roles;
 insert into roles (name, context)
 values ( 'Administrador', 'sistema'),
-       ( 'Project Manager', 'projecto'),
-       ( 'Desarrollador', 'projecto');
+       ( 'Project Manager', 'proyecto'),
+       ( 'Desarrollador', 'proyecto');
 
 -- Table: public.user_roles
 
@@ -205,3 +205,6 @@ CREATE TABLE IF NOT EXISTS public.project_participants
 
 ALTER TABLE public.project_participants
     OWNER to postgres;
+
+ALTER TABLE public.tasks
+    ADD COLUMN assigned_to integer;

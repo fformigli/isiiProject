@@ -47,7 +47,7 @@ passport.use('local.signup', new LocalStrategy({
                         if(err) return done(err);
                     });
             }
-            return done(null, req.user);
+            return done(null, req.user, req.flash('success', 'Usuario agregado'));
         });
     
     }); 
