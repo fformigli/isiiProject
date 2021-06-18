@@ -66,7 +66,7 @@ router.get('/dashboard', isLoggedIn, dashboard.form); // listar usuarios en el d
 router.get('/tasks', isLoggedIn, task.list)
 router.get('/tasks/add/:project', isLoggedIn, task.form)
 router.post('/tasks/:project', isLoggedIn, task.save)
-router.get('/tasks/edit/:id', isLoggedIn, task.form)
+router.get('/tasks/edit/:project/:id', isLoggedIn, task.form)
 router.post('/tasks/:project/:id', isLoggedIn, task.save)
 
 // proyectos

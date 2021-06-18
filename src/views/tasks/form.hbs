@@ -31,7 +31,7 @@
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt><label for="status">Prioridad:</label></dt>
+                                    <dt><label for="priority">Prioridad:</label></dt>
                                     <dd>
                                         <select name="priority" class="custom-select">
                                             {{#each priorityValues}}
@@ -42,6 +42,17 @@
                                 </dl>
                             </div>
                             <div class="col" style="text-align: left">
+                                <dl>
+                                    <dt><label for="assignedTo">Asignado a:</label></dt>
+                                    <dd>
+                                        <select name="assignedTo" class="custom-select">
+                                            {{#each assignableTo}}
+                                                <option value="{{id}}" {{ selectedOption id ../taskData.assignedTo }}>{{fullname}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </dd>
+                                </dl>
+
                                 <dl>
                                     <dt><label for="fullname">Versión:</label></dt>
                                     <dd><input type="text" name="version" placeholder="x.x.x" class="form-control" value="{{taskData.version}}" autofocus></dd>
