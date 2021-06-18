@@ -206,5 +206,12 @@ CREATE TABLE IF NOT EXISTS public.project_participants
 ALTER TABLE public.project_participants
     OWNER to postgres;
 
+<<<<<<< HEAD
+
+--Modificacion para la tabla base_lines
+alter table base_lines add column status character varying default 'abierto';
+alter table base_lines add constraint ck_status check (status in ('abierto', 'cerrado'));
+=======
 ALTER TABLE public.tasks
     ADD COLUMN assigned_to integer;
+>>>>>>> 93a662e9750a92056d5ad3d403a74206c508916f

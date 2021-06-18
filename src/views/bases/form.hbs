@@ -24,6 +24,69 @@
                                     <textarea name="description"  class="form-control">{{lineData.description}}</textarea>
                                 </dd>
                             </dl>
+
+                            <dl>
+                                <dt>Estado:</dt>
+                                <dd>
+                                    <textarea name="description"  class="form-control">{{lineData.description}}</textarea>
+                                </dd>
+                            </dl>
+
+                            
+                            {{#if baseId}}
+                            <dl>
+                                    <dd>
+                                         <h2>Tareas de la linea base:</h2>
+                                        <table class="table">
+                                            <thead>
+                                            <th class="w-50">Descripcion</th>
+                                            <th class="w-25">Estado</th>
+                                            <th>Acción</th>
+                                            </thead>
+                                            <tbody>
+
+                                            {{#each lineBaseTasks}}
+                                                <tr>
+                                                    <td>{{description}}</td>
+                                                    <td>{{status}}</td>
+                                                    <td>
+                                                        <button type="button" onclick="location.href = `/base/task/remove/{{../baseId}}/{{task_id}}`" class="btn btn-danger">
+                                                            Quitar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+
+                                        <h2>Tareas del Proyecto:</h2>
+                                        <table class="table">
+                                            <thead>
+                                            <th class="w-50">Descripcion</th>
+                                            <th class="w-25">Estado</th>
+                                            <th>Acción</th>
+                                            </thead>
+                                            <tbody>
+                                            {{#each projectTasks}}
+                                                <tr>
+                                                    <td>{{description}}</td>
+                                                    <td>{{status}}</td>
+                                                    <td>
+                                                        <button type="button" onclick="location.href = `/base/task/add/{{../baseId}}/{{task_id}}`" class="btn btn-success">
+                                                            Agregar
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+
+        
+                                    </dd>
+                                </dl>
+                            {{/if}}
                             <div class="form-group">
                                 <button class="btn btn-success btn-block">
                                     Guardar

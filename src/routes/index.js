@@ -85,5 +85,8 @@ router.get('/base-lines/add/:project', isLoggedIn, base.form)
 router.post('/base-lines/:project', isLoggedIn, base.save)
 router.get('/base-lines/edit/:id', isLoggedIn, base.form)
 router.post('/base-lines/:project/:id', isLoggedIn, base.save)
+router.get('/base/task/add/:baseId/:task', isLoggedIn, base.addTask)
+router.get('/base/task/remove/:baseId/:task', isLoggedIn, base.removeTask)
+
 
 module.exports = router;
