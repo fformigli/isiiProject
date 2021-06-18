@@ -51,13 +51,13 @@ controller.form = async (req, res) => {
                 ' join users u on u.id = pp.userid' +
                 ' join user_roles ur on ur.userid = u.id and contextid = pp.projectid' +
                 ' join roles r on r.id = ur.rolid' +
-                ' where projectid = $1'
+                ' where projectid = $1 order by r.name desc'
             data = await pool.query(query, [req.params.id])
             dataForm.participants = data.rows
         }
 
 
-        return res.render('projects/new', dataForm);
+        return res.render('projects/form', dataForm);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
@@ -84,7 +84,6 @@ controller.save = async (req, res) => {
             req.flash('success', 'Se agregó el proyecto');
         }
 
-        req.flash('success', 'Se agrego el proyecto')
         res.redirect('/projects');
     } catch (err){
         console.error(err);

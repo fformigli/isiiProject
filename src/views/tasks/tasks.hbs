@@ -14,6 +14,7 @@
                     <table class="table">
                         <thead>
                             <th>ID</th>
+                            <th>Asignado a</th>
                             <th>Descripción</th>
                             <th>Estado</th>
                             <th>Prioridad</th>
@@ -24,19 +25,20 @@
                         {{#each tasks}}
                             <tr>
                                 <td>{{id}}</td>
+                                <td>{{assigned_to}}</td>
                                 <td>{{description}}</td>
                                 <td>{{status}}</td>
                                 <td>{{constantLabel 'TASK_PRIORITY_VALUES' priority}}</td>
                                 <td>{{version}}</td>
                                 <td>{{timeago created_at}}</td>
                                 <td>
-                                    <button onclick="location.href = '/tasks/edit/'+{{id}}" class="btn btn-warning">
+                                    <button onclick="location.href = '/tasks/edit/{{project_id}}/'+{{id}}" class="btn btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
                             </tr>
                         {{else}}
-                            
+                            <tr><td colspan="8">No hay tareas asignadas<td></td></tr>
                         {{/each}}
                         </tbody>
                     </table>
