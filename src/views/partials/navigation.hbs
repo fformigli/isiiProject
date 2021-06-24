@@ -1,6 +1,10 @@
 {{#if user}}
     <div class="col-sm-3 col-md-2 sidebar flex-shrink-1 bg-dark pt-3" id="Navbar">
         <ul class="nav flex-sm-column position-fixed">
+
+  {{#each users1}}
+       {{#if (equals rol "admin")}}
+ 
             <li class="nav-item active">
                 <a class="nav-link" href="/admin">Administración</a>
             </li>
@@ -10,9 +14,34 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/tasks">Desarrollo </a>
             </li>
+       {{/if}}
+
+        {{#if (equals rol "gestor")}}
+ 
+             
+            <li class="nav-item active">
+                <a class="nav-link" href="/projects">Gestión de configuración</a>
+            </li>
+             
+       {{/if}}
+
+       {{#if (equals rol "desarrollo")}}
+            
+            <li class="nav-item active">
+                <a class="nav-link" href="/tasks">Desarrollo </a>
+            </li>
+ 
+       {{/if}}
+  {{/each}}
+
+   
+
+           
+            
             <li class="nav-item">
                 <a class="nav-link btn-outline-danger" href="/logout">Cerrar Sesión</a>
             </li>
         </ul>
     </div>
+  
 {{/if}}

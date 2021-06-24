@@ -35,6 +35,9 @@ helpers.constantLabel = (name, value) => {
         return ''
 }
 
+helpers.equals = (a, b) => {
+    return a == b;
+}
 
 
 
