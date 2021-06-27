@@ -215,3 +215,12 @@ alter table base_lines add constraint ck_status check (status in ('abierto', 'ce
 ALTER TABLE public.tasks
     ADD COLUMN assigned_to integer;
 >>>>>>> 93a662e9750a92056d5ad3d403a74206c508916f
+
+----------------------------------------------------
+--------------roles-para-control-de-menú------------
+INSERT INTO public.roles(
+            name, created_by, created_at, context)
+    VALUES 
+    ('admin', null, now(), null),
+    ('gestor', null, now(), null),
+    ('desarrollo', null, now(), null);

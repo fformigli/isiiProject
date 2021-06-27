@@ -19,12 +19,25 @@ controller.form = async (req, res) => {
         query += ' left join roles r on r.id = ur.rolid order by u.id asc limit 3';
         let data = await pool.query(query)
         dataForm.users = data.rows
+ 
+
+        query = "select coalesce(r.name, 'Hola-') rol "
+        query += ' from users u left join user_roles ur on ur.userid = u.id '
+        query += ' left join roles r on r.id = ur.rolid where u.id = $1';
+        let data1 = await pool.query(query, [req.user.id])
+        dataForm.users1 = data1.rows
+
+
+        
+        console.log("HOLA",dataForm.users1)
 
         dataForm.userId = req.user.id
 
         query = "select * from tasks where status = 'finalizado'"
         data = await pool.query(query)
         dataForm.tasksComplete = data.rows
+
+        console.log("xxx",dataForm.tasksComplete)
 
         query = ' select Count(*) as cantidad '
         query += ' from users u left join user_roles r on r.userid = u.id '
