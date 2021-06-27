@@ -41,7 +41,9 @@ controller.form = async (req, res) => {
             dataForm.tasks = data.rows
 
             // vemos si tiene lineas base definidas
-            query = 'select * from base_lines where project_id = $1 order by created_at desc'
+            query = 'select *, ( select count(*) from base_line_tasks where base_line_id = bl.id ) as tasks ' +
+                ' from base_lines bl' +
+                ' where project_id = $1 order by created_at desc'
             data = await pool.query(query, [req.params.id])
             dataForm.baseLines = data.rows
 
