@@ -73,6 +73,13 @@ controller.save = async (req, res) => {
         }
 
         if( req.params.id ) { // si este parametro existe, quiere decir que estamos actualizando
+
+            // validamos que la tarea no este en una LB
+            const sqlValidator = 'select * from base_line_tasks where task_id = $1'
+            const validator = await pool.query(sqlValidator, [req.params.id])
+            if(validator.rows.length > 0)
+                throw new Error('No se puede modificar. La tarea está en una Linea Base')
+
             const query = 'update tasks set description = $1, status = $2, ' +
                 'observation = $3, priority = $4, version = $5, ' +
                 ' assigned_to = $7 where id = $6 ';
@@ -86,15 +93,18 @@ controller.save = async (req, res) => {
                 'values ( $1, $2, $3, $4, $5, $6, $7, $8 ) ';
 
             await pool.query(query, [ description, status, observation, priority, version, req.user.id, project, assignedTo])
-            req.flash('success', 'Se agregó la Tarea');
         }
-        req.flash('success', 'Se agrego la tarea')
+        req.flash('success', 'Se guardó la tarea')
 
         res.redirect(`/projects/edit/${project}`);
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);
-        return res.redirect(`/tasks/add/${project}`);
+        let red = `/tasks/edit/${project}`
+        if(req.params.id)
+            red = `/tasks/edit/${project}/${req.params.id}`
+
+        return res.redirect(red);
     }
 }
 

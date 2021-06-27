@@ -82,11 +82,11 @@ router.get('/projects/participants/remove/:projectid/:userid', isLoggedIn, proje
 // lineas base
 router.get('/base-lines', isLoggedIn, base.list)
 router.get('/base-lines/add/:project', isLoggedIn, base.form)
-router.post('/base-lines/:project', isLoggedIn, base.save)
-router.get('/base-lines/edit/:id', isLoggedIn, base.form)
-router.post('/base-lines/:project/:id', isLoggedIn, base.save)
-router.get('/base/task/add/:baseId/:task', isLoggedIn, base.addTask)
-router.get('/base/task/remove/:baseId/:task', isLoggedIn, base.removeTask)
+router.post('/base-lines/:project/b', isLoggedIn, base.save)
+router.get('/base-lines/edit/:project/b/:id', isLoggedIn, base.form)
+router.post('/base-lines/:project/b/:id', isLoggedIn, base.save)
+router.get('/base/task/add/:project/:baseId/:task', isLoggedIn, base.addTask)
+router.get('/base/task/remove/:project/:baseId/:task', isLoggedIn, base.removeTask)
 
 
 module.exports = router;

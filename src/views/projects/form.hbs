@@ -69,18 +69,20 @@
                                     <h4>Líneas Base</h4>
                                     <table class="table table-hover">
                                         <th>Nombre</th>
+                                        <th>Tareas</th>
                                         <th>Editar</th>
                                         {{#each baseLines}}
-                                            <tr><td>{{name}}</td>
-                                            <td>
+                                            <tr>
+                                                <td>{{name}}</td>
+                                                <td>{{tasks}}</td>
                                                 <td>
-                                                    <button type="button" onclick="location.href = '/base-lines/edit/'+{{id}}" class="btn btn-warning">
+                                                    <button type="button" onclick="location.href = '/base-lines/edit/{{project_id}}/b/{{id}}'" class="btn btn-warning">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
                                                 </td>
-                                            </td></tr>
+                                            </tr>
                                         {{else}}
-                                            <tr><td> No hay tareas asignadas</td></tr>
+                                            <tr><td> No hay Lineas Base asignadas</td></tr>
                                         {{/each}}
                                     </table>
 

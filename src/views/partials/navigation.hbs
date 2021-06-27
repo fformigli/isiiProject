@@ -2,10 +2,10 @@
     <div class="col-sm-3 col-md-2 sidebar flex-shrink-1 bg-dark pt-3" id="Navbar">
         <ul class="nav flex-sm-column position-fixed">
 
-  {{#each users1}}
-       {{#if (equals rol "admin")}}
- 
-            <li class="nav-item active">
+            <!--
+    {{#each users1}}
+       {{#if (equals rol "Administrador")}}
+             <li class="nav-item active">
                 <a class="nav-link" href="/admin">Administración</a>
             </li>
             <li class="nav-item active">
@@ -16,7 +16,7 @@
             </li>
        {{/if}}
 
-        {{#if (equals rol "gestor")}}
+        {{#if (equals rol "Project Manager")}}
  
              
             <li class="nav-item active">
@@ -25,14 +25,24 @@
              
        {{/if}}
 
-       {{#if (equals rol "desarrollo")}}
+       {{#if (equals rol "Desarrollador")}}
             
             <li class="nav-item active">
                 <a class="nav-link" href="/tasks">Desarrollo </a>
             </li>
  
        {{/if}}
-  {{/each}}
+  {{/each}}-->
+
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin">Administración</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/projects">Gestión de configuración</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/tasks">Desarrollo </a>
+            </li>
 
    
 

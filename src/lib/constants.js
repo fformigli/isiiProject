@@ -24,9 +24,15 @@ const ROLE_CONTEXT = [
     { value: "proyecto", label: 'Proyecto'}
 ]
 
+const LB_STATUS = [
+    { value: "abierto", label: "Abierto"},
+    { value: "cerrado", label: "Cerrado"}
+]
+
 module.exports = {
     PERMISSION_OPERATIONS,
     TASK_STATUS_VALUES,
     TASK_PRIORITY_VALUES,
-    ROLE_CONTEXT
+    ROLE_CONTEXT,
+    LB_STATUS
 }
