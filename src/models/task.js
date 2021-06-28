@@ -96,7 +96,10 @@ controller.save = async (req, res) => {
         }
         req.flash('success', 'Se guardó la tarea')
 
-        res.redirect(`/projects/edit/${project}`);
+        if(res.locals.userPermissions.some( i => i.contextid === project && i.resources === 'GestionProyecto' && i.operation === 'READ' || i.contextid === 0))
+            res.redirect(`/projects/edit/${project}`);
+        else
+            res.redirect('/tasks')
     } catch (err){
         console.error(err);
         req.flash('message', 'Error: ' + err.message);

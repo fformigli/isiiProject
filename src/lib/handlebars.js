@@ -4,25 +4,17 @@ const constants = require('./constants')
 
 const helpers = {};
 
-helpers.timeago = (timestamp) => {
-    return format(timestamp);
-}
+helpers.timeago = (timestamp) => format(timestamp)
 
-helpers.formatter = (timestamp, format) => {
-    return dateFormat(timestamp, format);
-}
+helpers.formatter = (timestamp, format) => dateFormat(timestamp, format)
 
-helpers.selectedOption = (a, b) => {
-    return a == b? "selected":"";
-}
+helpers.selectedOption = (a, b) => a == b? "selected" : ""
 
-helpers.checkedOption = (a, b) => {
-    return a == b? "checked":"";
-}
+helpers.verifyPermission = (resources, operation, permissions) => permissions.some( i => i.resources === resources && i.operation === operation)
 
-helpers.filetypeValidator = (a, b) => {
-    return a == b;
-}
+helpers.checkedOption = (a, b) => a == b? "checked" : ""
+
+helpers.filetypeValidator = (a, b) => a == b
 
 helpers.constantLabel = (name, value) => {
     const values = constants[name].filter((item) => {
@@ -35,9 +27,7 @@ helpers.constantLabel = (name, value) => {
         return ''
 }
 
-helpers.equals = (a, b) => {
-    return a == b;
-}
+helpers.equals = (a, b) => a == b
 
 
 

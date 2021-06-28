@@ -45,9 +45,14 @@
                                 <dl>
                                     <dt><label for="assignedTo">Asignado a:</label></dt>
                                     <dd>
-                                        <select name="assignedTo" class="custom-select">
+                                        <select name="assignedTo" class="custom-select"
+
+                                            {{#unless (verifyPermission 'AsignarTareas' 'UPDATE' userPermissions)}}
+                                                disabled="disabled"
+                                            {{/unless}}
+                                        >
                                             {{#each assignableTo}}
-                                                <option value="{{id}}" {{ selectedOption id ../taskData.assignedTo }}>{{fullname}}</option>
+                                                <option value="{{id}}" {{ selectedOption id ../taskData.assigned_to }}>{{fullname}}</option>
                                             {{/each}}
                                         </select>
                                     </dd>

@@ -14,15 +14,30 @@ const chargeCombos = async () => {
 
 controller.list = async (req, res) => {
     try {
-        const query = `select * from projects order by created_at desc`
+        let query;
+        let projects;
 
-        const projects = await pool.query(query)
+        console.log(res.locals)
+
+        if(res.locals.userPermissions.some( i => i.contextid === 0)) {
+            query = 'select * from projects order by created_at desc'
+            projects = await pool.query(query);
+        } else {
+            query = 'select *' +
+                ' from projects p' +
+                ' join project_participants pp on p.id = pp.projectid' +
+                ' where pp.userid = $1' +
+                ' order by p.created_at desc';
+
+            projects = await pool.query(query, [req.user.id])
+        }
+
         return res.render('projects/projects.hbs', {projects: projects.rows})
 
     } catch (e) {
         console.error(e);
         req.flash('message', 'Error: ' + e.message);
-        return res.redirect('/projects');
+        return res.redirect('/');
     }
 }
 
