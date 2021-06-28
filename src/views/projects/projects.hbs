@@ -5,17 +5,21 @@
                 <div class="card-body">
                     <h2>Proyectos</h2>
 
-                    <div class="form-group">
-                        <button onclick="location.href='/projects/new'" class="btn btn-success">
-                            Nuevo Proyecto
-                        </button>
-                    </div>
+                    {{#if (verifyPermission 'Project' 'CREATE' userPermissions)}}
+
+                        <div class="form-group">
+                            <button onclick="location.href='/projects/new'" class="btn btn-success">
+                                Nuevo Proyecto
+                            </button>
+                        </div>
+                    {{/if}}
+
                     <table class="table">
                         <thead>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Creado el</th>
-                            <th>Editar</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Creado el</th>
+                        <th>Editar</th>
                         </thead>
                         <tbody>
                         {{#each projects}}
@@ -30,7 +34,7 @@
                                 </td>
                             </tr>
                         {{else}}
-                            
+
                         {{/each}}
                         </tbody>
                     </table>

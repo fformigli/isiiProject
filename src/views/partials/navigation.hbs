@@ -1,53 +1,21 @@
 {{#if user}}
     <div class="col-sm-3 col-md-2 sidebar flex-shrink-1 bg-dark pt-3" id="Navbar">
         <ul class="nav flex-sm-column position-fixed">
-
-            <!--
-    {{#each users1}}
-       {{#if (equals rol "Administrador")}}
-             <li class="nav-item active">
-                <a class="nav-link" href="/admin">Administración</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/projects">Gestión de configuración</a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="/tasks">Desarrollo </a>
-            </li>
-       {{/if}}
-
-        {{#if (equals rol "Project Manager")}}
- 
-             
-            <li class="nav-item active">
-                <a class="nav-link" href="/projects">Gestión de configuración</a>
-            </li>
-             
-       {{/if}}
-
-       {{#if (equals rol "Desarrollador")}}
-            
-            <li class="nav-item active">
-                <a class="nav-link" href="/tasks">Desarrollo </a>
-            </li>
- 
-       {{/if}}
-  {{/each}}-->
-
+    {{#if (verifyPermission 'MenuAdministracion' 'READ' userPermissions)}}
             <li class="nav-item active">
                 <a class="nav-link" href="/admin">Administración</a>
             </li>
+    {{/if}}
+    {{#if (verifyPermission 'MenuGestion' 'READ' userPermissions)}}
             <li class="nav-item active">
                 <a class="nav-link" href="/projects">Gestión de configuración</a>
             </li>
+    {{/if}}
+    {{#if (verifyPermission 'MenuDesarrollo' 'READ' userPermissions)}}
             <li class="nav-item active">
                 <a class="nav-link" href="/tasks">Desarrollo </a>
             </li>
-
-   
-
-           
-            
+    {{/if}}
             <li class="nav-item">
                 <a class="nav-link btn-outline-danger" href="/logout">Cerrar Sesión</a>
             </li>

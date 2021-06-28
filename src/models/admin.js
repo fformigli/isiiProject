@@ -87,7 +87,6 @@ controller.updateUser = async (req, res) => {
         console.log(rolActualid, role)
 
         if(rolActualid != role){
-            console.log(`dice que son diferentes`)
             if(role) {
                 await pool.query('insert into user_roles values($1, $2, 0)', [id, role])
             } else {
