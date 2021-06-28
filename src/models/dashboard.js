@@ -36,11 +36,11 @@ controller.form = async (req, res) => {
         data = await pool.query(query)
         dataForm.cantProyecto = data.rows[0].cantidad
 
-        query = ' select (count(*) * 100 ) / ( select count(*) from tasks p) as porcentaje '
-        query += ' from tasks t ' 
-        query += " where status = 'finalizado' " 
-        data = await pool.query(query)
-        dataForm.porcFinalizado = data.rows[0].porcentaje 
+        query = "select * from tasks t where status = 'finalizado'"
+        const porcFinalizado = await pool.query(query)
+        query = 'select * from tasks t'
+        const todasTareas = await pool.query(query)
+        dataForm.porcFinalizado = porcFinalizado.rows.length * 100 / (todasTareas.rows.length == 0? 1 : todasTareas.rows.length)
 
         query = ' select count(*) as cantidad '
         query += ' from users u '
